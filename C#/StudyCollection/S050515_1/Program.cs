@@ -41,8 +41,8 @@ namespace S050515_1
             Console.WriteLine(sum); // 입력값 1 2 3 일경우 6*/
 
             // String.Format, DateTime.Now, TimeSpan
-            /*string max = String.Format("{0:X} {0:E} {0:N}", Int64.MaxValue);
-            Console.WriteLine(max);
+            /*//string max = String.Format("{0:X} {0:E} {0:N}", Int64.MaxValue);
+            //Console.WriteLine(max);
 
             Decimal exchangeRate = 1129.20m;
             Console.WriteLine("현재 원달러 환율은 {0}이다", exchangeRate);
@@ -51,7 +51,9 @@ namespace S050515_1
             Console.WriteLine("오늘 날짜는 {0:d}, 시간은 {0:t}입니다", DateTime.Now);
 
             TimeSpan duration = new TimeSpan(1, 12, 23, 62);    //1d 12h 23m 62s
-            Console.WriteLine("시간 {0:c}", duration);*/
+            Console.WriteLine("시간 {0:c}", duration);
+            Console.WriteLine("시간 {0:g}", duration);
+            Console.WriteLine("시간 {0:G}", duration);*/
 
             //StringBuilder클래스 clear, append, insert, remove, replace
             /*//string name = "서호준";
@@ -174,7 +176,7 @@ namespace S050515_1
             else { Console.WriteLine("정수가 아닙니다."); }*/
 
             // 2. 반복문(정해진 로직을 반복 수행)
-            // while, do while, for, foreach
+            /*// while, do while, for, foreach
             int BMI = 0;
             while (BMI >= 0) 
             {
@@ -187,7 +189,7 @@ namespace S050515_1
                 else if (25 <= BMI && BMI < 30) { Console.WriteLine("경도비만"); }
                 else if (30 <= BMI && BMI < 40) { Console.WriteLine("비만"); }
                 else { Console.WriteLine("고도비만"); }
-            }
+            }*/
 
         }
     }
