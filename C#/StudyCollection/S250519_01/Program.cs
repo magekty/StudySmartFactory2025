@@ -179,7 +179,8 @@ namespace S250519_01
 
             // LINQ - Language INtegrated Query(통합 데이터 질의 기능) SQL문 처럼 C#에서 사용할수있는 문법
 
-            // 질문 [9, 9]크기 1행당 각 단 곱셈 결과, 단이 넘어갈때마다 1씩 증가
+            // 문제 1-9단 각 행에 단별 결과값 출력
+            // [9, 9]크기 1행당 각 단 곱셈 결과, 단이 넘어갈때마다 1씩 증가
             Console.WriteLine("For문");
             for (int i = 1; i <= 9; i++)
             {
