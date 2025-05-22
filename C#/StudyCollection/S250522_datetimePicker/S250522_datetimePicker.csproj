@@ -4,10 +4,10 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{253CF7C8-1B03-41F7-A8A2-EC84341C87CC}</ProjectGuid>
-    <OutputType>Exe</OutputType>
-    <RootNamespace>S250521_HomeStudy</RootNamespace>
-    <AssemblyName>S250521_HomeStudy</AssemblyName>
+    <ProjectGuid>{C45EFF22-4921-48DF-800B-605756881C9D}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <RootNamespace>S250522_datetimePicker</RootNamespace>
+    <AssemblyName>S250522_datetimePicker</AssemblyName>
     <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -31,9 +31,6 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-  </PropertyGroup>
-  <PropertyGroup>
-    <StartupObject />
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
