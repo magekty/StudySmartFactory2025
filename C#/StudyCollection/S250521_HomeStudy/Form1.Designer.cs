@@ -48,7 +48,10 @@
             this.textBox14 = new System.Windows.Forms.TextBox();
             this.label14 = new System.Windows.Forms.Label();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
-            this.BtnAddRow_Click = new System.Windows.Forms.Button();
+            this.BtnAddRow = new System.Windows.Forms.Button();
+            this.BtnDelRow = new System.Windows.Forms.Button();
+            this.Btn_delIdxRow = new System.Windows.Forms.Button();
+            this.textBox_delIdxRow = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // label1
@@ -234,22 +237,53 @@
             this.tableLayoutPanel1.Size = new System.Drawing.Size(779, 368);
             this.tableLayoutPanel1.TabIndex = 28;
             // 
-            // BtnAddRow_Click
+            // BtnAddRow
             // 
-            this.BtnAddRow_Click.Location = new System.Drawing.Point(3, -4);
-            this.BtnAddRow_Click.Name = "BtnAddRow_Click";
-            this.BtnAddRow_Click.Size = new System.Drawing.Size(75, 23);
-            this.BtnAddRow_Click.TabIndex = 0;
-            this.BtnAddRow_Click.Text = "추가";
-            this.BtnAddRow_Click.UseVisualStyleBackColor = true;
-            this.BtnAddRow_Click.Click += new System.EventHandler(this.BtnAddRow_Click_Click);
+            this.BtnAddRow.Location = new System.Drawing.Point(3, -4);
+            this.BtnAddRow.Name = "BtnAddRow";
+            this.BtnAddRow.Size = new System.Drawing.Size(75, 23);
+            this.BtnAddRow.TabIndex = 0;
+            this.BtnAddRow.Text = "추가";
+            this.BtnAddRow.UseVisualStyleBackColor = true;
+            this.BtnAddRow.Click += new System.EventHandler(this.BtnAddRow_Click);
+            // 
+            // BtnDelRow
+            // 
+            this.BtnDelRow.Location = new System.Drawing.Point(107, -5);
+            this.BtnDelRow.Name = "BtnDelRow";
+            this.BtnDelRow.Size = new System.Drawing.Size(75, 23);
+            this.BtnDelRow.TabIndex = 29;
+            this.BtnDelRow.Text = "삭제";
+            this.BtnDelRow.UseVisualStyleBackColor = true;
+            this.BtnDelRow.Click += new System.EventHandler(this.BtnDelRow_Click);
+            // 
+            // Btn_delIdxRow
+            // 
+            this.Btn_delIdxRow.Location = new System.Drawing.Point(276, -5);
+            this.Btn_delIdxRow.Name = "Btn_delIdxRow";
+            this.Btn_delIdxRow.Size = new System.Drawing.Size(75, 23);
+            this.Btn_delIdxRow.TabIndex = 30;
+            this.Btn_delIdxRow.Text = "행삭제";
+            this.Btn_delIdxRow.UseVisualStyleBackColor = true;
+            this.Btn_delIdxRow.Click += new System.EventHandler(this.Btn_delIdxRow_Click);
+            // 
+            // textBox_delIdxRow
+            // 
+            this.textBox_delIdxRow.Location = new System.Drawing.Point(240, -4);
+            this.textBox_delIdxRow.Name = "textBox_delIdxRow";
+            this.textBox_delIdxRow.Size = new System.Drawing.Size(30, 21);
+            this.textBox_delIdxRow.TabIndex = 31;
+            this.textBox_delIdxRow.TextChanged += new System.EventHandler(this.textBox_delIdxRow_TextChanged);
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Controls.Add(this.BtnAddRow_Click);
+            this.Controls.Add(this.textBox_delIdxRow);
+            this.Controls.Add(this.Btn_delIdxRow);
+            this.Controls.Add(this.BtnDelRow);
+            this.Controls.Add(this.BtnAddRow);
             this.Controls.Add(this.tableLayoutPanel1);
             this.Controls.Add(this.textBox14);
             this.Controls.Add(this.label14);
@@ -300,7 +334,10 @@
         private System.Windows.Forms.TextBox textBox14;
         private System.Windows.Forms.Label label14;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
-        private System.Windows.Forms.Button BtnAddRow_Click;
+        private System.Windows.Forms.Button BtnAddRow;
+        private System.Windows.Forms.Button BtnDelRow;
+        private System.Windows.Forms.Button Btn_delIdxRow;
+        private System.Windows.Forms.TextBox textBox_delIdxRow;
     }
 }
 
