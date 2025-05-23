@@ -14,10 +14,11 @@ namespace S250522_GDI
     public partial class Form1 : Form
     {
         private DrawMode drawMode;
-        private Graphics g;
+        private Graphics g, bg;
         private Pen pen = new Pen(Color.Black, 2);
         private Pen eraser;
         Point startP, endP, currP, prevP;
+        private Image backgroundImage;
 
         private void 사각형ToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -97,11 +98,21 @@ namespace S250522_GDI
             }
         }
 
+        private void Form1_Paint(object sender, PaintEventArgs e)
+        {
+            /*bg = CreateGraphics();
+            string filePath = "../../Image/다이본더.jpg";
+            bg.DrawImage(Image.FromFile(filePath), 0, 0, 600, 300);*/
+            Graphics g = e.Graphics;
+            g.DrawImage(backgroundImage, 0, 0, 600, 300);
+            Console.WriteLine("3");
+
+        }
+
         private void 선ToolStripMenuItem_Click(object sender, EventArgs e)
         {
             drawMode = DrawMode.LINE;
             label1.Text = "LINE Mode";
-
         }
 
         public Form1()
@@ -109,13 +120,19 @@ namespace S250522_GDI
             InitializeComponent();
 
             g = CreateGraphics();
-
+            string filePath = "../../Image/다이본더.jpg";
+            backgroundImage = Image.FromFile(filePath);
+            //g.DrawImage(Image.FromFile(filePath), 0, 0, 600, 300);
+            this.Paint += Form1_Paint;
+            Console.WriteLine("1");
             this.BackColor = Color.White;
             this.eraser = new Pen(this.BackColor, 2);
         }
 
         private void Form1_Load(object sender, EventArgs e)
         {
+            Console.WriteLine("2");
+
 
         }
     }

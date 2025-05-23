@@ -17,6 +17,7 @@ namespace S250521_TransactionStatement
     {
         private int rowIndex = 0; // 현재 행 인덱스
         private string prevStrAr, prevN4, prevN5;
+        private int incNum = 0;
         public Form1()
         {
             InitializeComponent();
@@ -83,9 +84,8 @@ namespace S250521_TransactionStatement
         {
             if (tableLayoutPanel1.RowCount > 10) return;
             tableLayoutPanel1.RowCount += 1;
-            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Absolute, 30)); 
-
-            string[] defaultValues = { "05", $"{rowIndex + 1:00}", $"AAAAA-{rowIndex + 1:000}", "A4", "5", $"{10000:N0}", "", "", "" };
+            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Absolute, 30));
+            string[] defaultValues = { "05", $"{incNum + 1:00}", $"AAAAA-{incNum + 1:000}", "A4", "5", $"{10000:N0}", "", "", "" };
 
             for (int i = 0; i < tableLayoutPanel1.ColumnCount; i++)
             {
@@ -102,7 +102,9 @@ namespace S250521_TransactionStatement
                 textBox.Tag = new Point(i, rowIndex);
                 tableLayoutPanel1.Controls.Add(textBox, i, rowIndex);
             }
+
             AutoResultCalc();
+            incNum++;
             rowIndex++;
         }
 

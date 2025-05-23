@@ -4,10 +4,10 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{FB9C9466-F40F-419E-A72F-7DF72484DC90}</ProjectGuid>
+    <ProjectGuid>{6DE9CD7E-22C1-43ED-AD67-18A969888054}</ProjectGuid>
     <OutputType>WinExe</OutputType>
-    <RootNamespace>S250522_GDI</RootNamespace>
-    <AssemblyName>S250522_GDI</AssemblyName>
+    <RootNamespace>S250523_Chart</RootNamespace>
+    <AssemblyName>S250523_Chart</AssemblyName>
     <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -35,6 +35,7 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Windows.Forms.DataVisualization" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
