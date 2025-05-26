@@ -30,7 +30,7 @@ namespace Project_AEMS
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea3 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea5 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
             this.btnLoadCsv = new System.Windows.Forms.Button();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.chart1 = new System.Windows.Forms.DataVisualization.Charting.Chart();
@@ -40,6 +40,7 @@ namespace Project_AEMS
             this.label4 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
+            this.progressBar1 = new System.Windows.Forms.ProgressBar();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.chart1)).BeginInit();
             this.SuspendLayout();
@@ -63,8 +64,8 @@ namespace Project_AEMS
             // 
             // chart1
             // 
-            chartArea3.Name = "ChartArea1";
-            this.chart1.ChartAreas.Add(chartArea3);
+            chartArea5.Name = "ChartArea1";
+            this.chart1.ChartAreas.Add(chartArea5);
             this.chart1.Location = new System.Drawing.Point(12, 200);
             this.chart1.Name = "chart1";
             this.chart1.Size = new System.Drawing.Size(1443, 685);
@@ -74,7 +75,7 @@ namespace Project_AEMS
             // lblStatus
             // 
             this.lblStatus.Font = new System.Drawing.Font("맑은 고딕", 10F);
-            this.lblStatus.Location = new System.Drawing.Point(167, 12);
+            this.lblStatus.Location = new System.Drawing.Point(151, -2);
             this.lblStatus.Name = "lblStatus";
             this.lblStatus.Size = new System.Drawing.Size(140, 30);
             this.lblStatus.TabIndex = 3;
@@ -83,7 +84,7 @@ namespace Project_AEMS
             // label1
             // 
             this.label1.Font = new System.Drawing.Font("맑은 고딕", 10F);
-            this.label1.Location = new System.Drawing.Point(313, 12);
+            this.label1.Location = new System.Drawing.Point(297, -2);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(132, 30);
             this.label1.TabIndex = 4;
@@ -92,7 +93,7 @@ namespace Project_AEMS
             // label2
             // 
             this.label2.Font = new System.Drawing.Font("맑은 고딕", 10F);
-            this.label2.Location = new System.Drawing.Point(494, 12);
+            this.label2.Location = new System.Drawing.Point(478, -2);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(123, 30);
             this.label2.TabIndex = 5;
@@ -101,7 +102,7 @@ namespace Project_AEMS
             // label4
             // 
             this.label4.Font = new System.Drawing.Font("맑은 고딕", 10F);
-            this.label4.Location = new System.Drawing.Point(675, 12);
+            this.label4.Location = new System.Drawing.Point(659, -2);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(156, 30);
             this.label4.TabIndex = 7;
@@ -110,7 +111,7 @@ namespace Project_AEMS
             // label5
             // 
             this.label5.Font = new System.Drawing.Font("맑은 고딕", 10F);
-            this.label5.Location = new System.Drawing.Point(827, 12);
+            this.label5.Location = new System.Drawing.Point(811, -2);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(146, 30);
             this.label5.TabIndex = 8;
@@ -119,15 +120,23 @@ namespace Project_AEMS
             // label6
             // 
             this.label6.Font = new System.Drawing.Font("맑은 고딕", 10F);
-            this.label6.Location = new System.Drawing.Point(979, 12);
+            this.label6.Location = new System.Drawing.Point(963, -2);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(147, 30);
             this.label6.TabIndex = 9;
             this.label6.Text = "근권토양Ph: 대기 중";
             // 
+            // progressBar1
+            // 
+            this.progressBar1.Location = new System.Drawing.Point(138, 31);
+            this.progressBar1.Name = "progressBar1";
+            this.progressBar1.Size = new System.Drawing.Size(1317, 23);
+            this.progressBar1.TabIndex = 10;
+            // 
             // Form1
             // 
             this.ClientSize = new System.Drawing.Size(1471, 894);
+            this.Controls.Add(this.progressBar1);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.label4);
@@ -153,6 +162,7 @@ namespace Project_AEMS
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.ProgressBar progressBar1;
     }
 }
 
