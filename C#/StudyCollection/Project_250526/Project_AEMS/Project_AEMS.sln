@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.14.36119.2 d17.14
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Project_AEMS", "Project_AEMS.csproj", "{BA21F922-787C-41D6-A0AD-8FAEE59BBF7D}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{BA21F922-787C-41D6-A0AD-8FAEE59BBF7D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BA21F922-787C-41D6-A0AD-8FAEE59BBF7D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BA21F922-787C-41D6-A0AD-8FAEE59BBF7D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BA21F922-787C-41D6-A0AD-8FAEE59BBF7D}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {CADBBEAC-497D-4C8F-BB1E-4B2EF08D97AB}
+	EndGlobalSection
+EndGlobal

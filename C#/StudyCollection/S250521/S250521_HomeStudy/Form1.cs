@@ -236,7 +236,11 @@ namespace S250521_TransactionStatement
             string filtered = new string(textBox_delIdxRow.Text.Where(c => char.IsDigit(c)).ToArray());
             textBox_delIdxRow.Text = filtered;
         }
-
+        protected override void OnPaintBackground(PaintEventArgs e)
+        {
+            var sb = new SolidBrush(Color.FromArgb(80, 80, 80, 80));
+            e.Graphics.FillRectangle(sb, this.DisplayRectangle);
+        }
         private void AutoResultCalc()
         {
             int quantity = 0;

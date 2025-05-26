@@ -22,6 +22,7 @@ namespace S250523_WinformInWPF
             InitializeComponent();
         }
 
+
         private void Btn_Click(object sender, RoutedEventArgs e)
         {
             OpenFileDialog ofd = new OpenFileDialog();
