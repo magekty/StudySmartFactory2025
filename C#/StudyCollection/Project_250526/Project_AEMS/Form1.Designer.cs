@@ -30,7 +30,7 @@ namespace Project_AEMS
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea4 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea5 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
             this.btnLoadCsv = new System.Windows.Forms.Button();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.chart1 = new System.Windows.Forms.DataVisualization.Charting.Chart();
@@ -42,6 +42,7 @@ namespace Project_AEMS
             this.label6 = new System.Windows.Forms.Label();
             this.progressBar1 = new System.Windows.Forms.ProgressBar();
             this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.label3 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.chart1)).BeginInit();
             this.SuspendLayout();
@@ -65,8 +66,8 @@ namespace Project_AEMS
             // 
             // chart1
             // 
-            chartArea4.Name = "ChartArea1";
-            this.chart1.ChartAreas.Add(chartArea4);
+            chartArea5.Name = "ChartArea1";
+            this.chart1.ChartAreas.Add(chartArea5);
             this.chart1.Location = new System.Drawing.Point(12, 200);
             this.chart1.Name = "chart1";
             this.chart1.Size = new System.Drawing.Size(1443, 685);
@@ -147,9 +148,20 @@ namespace Project_AEMS
             this.comboBox1.Size = new System.Drawing.Size(121, 20);
             this.comboBox1.TabIndex = 11;
             // 
+            // label3
+            // 
+            this.label3.Font = new System.Drawing.Font("맑은 고딕", 10F);
+            this.label3.Location = new System.Drawing.Point(265, -2);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(27, 30);
+            this.label3.TabIndex = 12;
+            this.label3.Text = "ms";
+            this.label3.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
+            // 
             // Form1
             // 
             this.ClientSize = new System.Drawing.Size(1471, 894);
+            this.Controls.Add(this.label3);
             this.Controls.Add(this.comboBox1);
             this.Controls.Add(this.progressBar1);
             this.Controls.Add(this.label6);
@@ -179,6 +191,7 @@ namespace Project_AEMS
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.ProgressBar progressBar1;
         private System.Windows.Forms.ComboBox comboBox1;
+        private System.Windows.Forms.Label label3;
     }
 }
 
