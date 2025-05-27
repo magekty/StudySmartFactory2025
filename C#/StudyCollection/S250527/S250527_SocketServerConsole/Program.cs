@@ -27,7 +27,7 @@ namespace S250527_SocketServerConsole
                     Console.WriteLine("클라이언트를 기다리고 있습니다.");
                     TcpClient client = await server.AcceptTcpClientAsync(); // 비동기 연결 수행
                     connectedClients.Add(client);   // connectedClients에 client추가
-                    Console.WriteLine($"크라이언트 연결 되었어요 {client.Client.RemoteEndPoint}");
+                    Console.WriteLine($"클라이언트에 연결 되었어요 {client.Client.RemoteEndPoint}");
                     HandleClientAsync(client);  // 변수client를 포함한 HandleClientAsync실행
                 }
             }
@@ -74,7 +74,8 @@ namespace S250527_SocketServerConsole
             {
                 stream?.Close();    // ?조건 연산자는 null이면 함수 호출 그렇지않으면 null값 반환
                 client?.Close();
-                Console.WriteLine($"클라이언트 {client.Client.RemoteEndPoint}");
+                if(client.Client?.RemoteEndPoint == null) Console.WriteLine($"클라이언트 null 반환");
+                else Console.WriteLine($"클라이언트 {client.Client.RemoteEndPoint}");
             }
 
         }

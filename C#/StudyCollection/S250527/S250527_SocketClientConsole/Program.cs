@@ -1,4 +1,5 @@
 ﻿using System.Net.Sockets;
+using System.Text;
 
 namespace S250527_SocketClientConsole
 {
@@ -17,39 +18,50 @@ namespace S250527_SocketClientConsole
                 Console.WriteLine("서버에 연결 됨");
                 stream = client.GetStream();
                 Console.WriteLine("스트림 열림");
-                RecieveMessageAsync(stream);
-
+                ReceiveMessageAsync(stream);
+                Console.Write("입력: ");
                 while (true)
                 {
                     // 사용자 입력 처리 루프 : 내일 오전에 계속
-
+                    string message = Console.ReadLine();
+                    //if (string.IsNullOrWhiteSpace(message)) continue;
+                    byte[] data = Encoding.UTF8.GetBytes(message);
+                    await stream.WriteAsync(data, 0, data.Length);
                 }
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"{ex.Message}");
+                Console.WriteLine($"오류: {ex.Message}");
             }
             finally
             {
                 stream?.Close();
                 client?.Close();
-                Console.WriteLine($"클라이언트 종료");
+                Console.WriteLine("클라이언트 종료");
             }
         }
 
-        static async Task RecieveMessageAsync(NetworkStream stream)
+        static async Task ReceiveMessageAsync(NetworkStream stream)
         {
             byte[] buffer = new byte[1024];
+            int bytesRead = 0;
             try
             {
-                // 내일 채울 것
+                while (true)
+                {
+                    // 내일 채울 것
+                    if((bytesRead = await stream.ReadAsync(buffer, 0, buffer.Length)) == 17) Console.Write("입력: ");
+                    //if(bytesRead == 17) Console.Write("입력: ");
+                    if (bytesRead == 17) continue;
+                    string received = Encoding.UTF8.GetString(buffer);
+                    Console.WriteLine($"[서버] {received}");
+                    /*Console.WriteLine($"byte:{bytesRead}");
+                    Console.WriteLine($"buffer:{buffer.Length}");*/
+                }
             }
-            catch (ObjectDisposedException ex) { Console.WriteLine("메세지 수신 스트림이 닫혔다."); }
-            catch (IOException ex) { Console.WriteLine($"서버 연결 끊김 {ex.Message}"); }
-            catch (Exception ex) { Console.WriteLine($"메세지 수신 중 오류 발생 : {ex.Message}"); }
-            finally
+            catch (IOException ex)
             {
-
+                Console.WriteLine($"서버 연결 끊김: {ex.Message}");
             }
         }
     }
