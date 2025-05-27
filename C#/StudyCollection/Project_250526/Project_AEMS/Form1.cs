@@ -8,14 +8,14 @@ namespace Project_AEMS
 {
     public partial class Form1 : Form
     {
-        private Button btnLoadCsv;  //csv불러오기 버튼
+        private Button btnLoadCsv;          //csv불러오기 버튼
         private DataGridView dataGridView1; //데이터그리드뷰
-        private Chart chart1;   //차트
-        private Label lblStatus;    //내부CO2 라벨
-        private Timer monitorTimer; //실시간 구동 타이머
+        private Chart chart1;               //차트
+        private Label lblStatus;            //내부CO2 라벨
+        private Timer monitorTimer;         //실시간 구동 타이머
         private List<string[]> csvDataRows; //csv데이터셋보관
         private int currentRowIndex = 0;    //데이터 행 시작값 초기화
-        private int dataTypeCnt = 7;    //데이터종류 개수
+        private int dataTypeCnt = 7;        //데이터종류 개수
 
         /*
             주제: 스마트팜 환경 모니터링 프로그램
@@ -45,6 +45,8 @@ namespace Project_AEMS
             아쉬웠던점 : 함께 팀원과 협업을 못한것과
             디자인을 신경못쓴것때문에 가시성이 안좋다
 
+            좋았던점 : 농업과 스마트팩토리에 대해서 조금더 알게된것
+
             시현 장면 :
 
             QnA : 
@@ -69,8 +71,8 @@ namespace Project_AEMS
 
         private void btnLoadCsv_Click(object sender, EventArgs e)   //csv불러오기버튼 메소드
         {
-            OpenFileDialog ofd = new OpenFileDialog();
-            ofd.Filter = "CSV 파일 (*.csv)|*.csv";
+            OpenFileDialog ofd = new OpenFileDialog();  //새 OpenFileDialog 생성
+            ofd.Filter = "CSV 파일 (*.csv)|*.csv";      //파일 필터 설정
             if (ofd.ShowDialog() == DialogResult.OK)    //파일열기화면 성공시 실행
             {
                 LoadCsvRows(ofd.FileName);  //Csv읽기(파일경로) 실행
