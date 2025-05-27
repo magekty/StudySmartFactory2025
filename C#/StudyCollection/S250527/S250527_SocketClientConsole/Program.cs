@@ -14,12 +14,14 @@ namespace S250527_SocketClientConsole
                 client = new TcpClient();
                 Console.WriteLine("서버에 연결 중");
                 await client.ConnectAsync("127.0.0.1", 9000);
+                Console.WriteLine("서버에 연결 됨");
+                stream = client.GetStream();
+                Console.WriteLine("스트림 열림");
+                RecieveMessageAsync(stream);
+
                 while (true)
                 {
-                    Console.WriteLine("서버에 연결 됨");
-                    stream = client.GetStream();
-                    Console.WriteLine("스트림 열림");
-                    RecieveMessageAsync(stream);
+                    // 사용자 입력 처리 루프 : 내일 오전에 계속
 
                 }
             }
