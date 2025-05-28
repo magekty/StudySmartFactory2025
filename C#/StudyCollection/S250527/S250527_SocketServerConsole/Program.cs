@@ -74,8 +74,8 @@ namespace S250527_SocketServerConsole
             {
                 stream?.Close();    // ?조건 연산자는 null이면 함수 호출 그렇지않으면 null값 반환
                 client?.Close();
-                if(client.Client?.RemoteEndPoint == null) Console.WriteLine($"클라이언트 null 반환");
-                else Console.WriteLine($"클라이언트 {client.Client.RemoteEndPoint}");
+                /*if(client.Client?.RemoteEndPoint == null) Console.WriteLine($"클라이언트 null 반환");
+                else Console.WriteLine($"클라이언트 {client.Client.RemoteEndPoint}"); */
             }
 
         }
