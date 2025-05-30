@@ -38,6 +38,8 @@ dept_id int,
 dept_name varchar(10)
 ); 
 
+use smartfactory;
+
 insert into employees (emp_id, name, dept_id) values
 (1,	'Alice'	, 10),
 (2,	'Bob'	, 20),
