@@ -11,6 +11,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Net;
 using System.IO;
+using MySqlConnector;
 
 namespace S250528_SocketServerWinform
 {
