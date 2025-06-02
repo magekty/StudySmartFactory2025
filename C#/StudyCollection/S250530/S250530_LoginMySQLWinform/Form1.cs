@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using DotNetEnv;
 using MySql.Data.MySqlClient;
 using Mysqlx.Crud;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
@@ -17,24 +18,61 @@ namespace S250530_LoginMySQLWinform
     {
         private MySqlConnection conn;
         private string currentUser = null;
+        string env = "";
 
         public Form1()
         {
             InitializeComponent();
-            conn = new MySqlConnection(
-                $"server=localhost;user=root;password=1121;database=user_db");
+
+
+            /*conn = new MySqlConnection(
+                $"server=localhost;user=root;password=1234;database=user_db");*/
+
             lbl_who.Text = $"로그인 하세요";
+        }
+        private void envCheck(string role)
+        {
+            // 1. 환경을 먼저 결정 (기본은 dev)
+            env = Environment.GetEnvironmentVariable("APP_ENV") ?? role;
+
+            // 2. 환경에 따라 적절한 .env 파일 로드
+            string envFile = "";
+            switch (env)
+            {
+                case "staff":
+                    envFile = ".env.staff"; break;
+                case "admin":
+                    envFile = ".env.admin"; break;
+                default:
+                    MessageBox.Show("잘못된접근!");
+                    break;
+            }
+
+            // 3. 로드
+            Env.Load("../../" + envFile);
+
+            // 4. 환경변수 읽기
+            string server = Environment.GetEnvironmentVariable("DB_SERVER");
+            string database = Environment.GetEnvironmentVariable("DB_NAME");
+            string user = Environment.GetEnvironmentVariable("DB_USER");
+            string password = Environment.GetEnvironmentVariable("DB_PASSWORD");
+
+            string connStr = $"Server={server};Database={database};Uid={user};Pwd={password};";
+            ///MessageBox.Show($"{connStr}");
+            conn = new MySqlConnection(connStr);
+
         }
 
         private void btnLogin_Click(object sender, EventArgs e)
         {
+            envCheck("staff");
             string username = txtLoginUsername.Text;
             string password = txtLoginPassword.Text;
             try
             {
                 conn.Open();
-                string query = $"select * from users where " +
-                    $"username=@username and password=@password";
+                // string query = $"select * from users where username=@username and password=@password";
+                string query = $"call sp_loginSelect_test(@username, @password);";
                 MySqlCommand cmd = new MySqlCommand(query, conn);
                 cmd.Parameters.AddWithValue("@username", username);
                 cmd.Parameters.AddWithValue("@password", password);
@@ -42,9 +80,9 @@ namespace S250530_LoginMySQLWinform
                 if (reader.Read())
                 {
                     currentUser = username;
-                    lbl_who.Text = $"{currentUser}님 안녕하세요";
+                    lbl_who.Text = $"{currentUser}님 안녕하세요.({env})권한";
                     MessageBox.Show($"로그인 성공");
-                    
+
                 }
                 else
                 {
@@ -52,8 +90,9 @@ namespace S250530_LoginMySQLWinform
                 }
                 reader.Close();
             }
-            catch (Exception ex){ MessageBox.Show($"오류:{ex.Message}"); }
-            finally{ 
+            catch (Exception ex) { MessageBox.Show($"오류:{ex.Message}"); }
+            finally
+            {
                 conn.Close();
                 txtLoginUsername.Text = "";
                 txtLoginPassword.Text = "";
@@ -73,6 +112,7 @@ namespace S250530_LoginMySQLWinform
 
         private void btnRegister_Click(object sender, EventArgs e)
         {
+            envCheck("admin");
             string regUsername = txtRegUsername.Text;
             string regPassword = txtRegPassword.Text;
             string regName = txtRegName.Text;
@@ -81,16 +121,18 @@ namespace S250530_LoginMySQLWinform
             try
             {
                 conn.Open();
-                string query = $"insert into users (username, password," +
-                    $" name, email) values(@username," +
-                    $" @password, @name, @email); ";
-                MySqlCommand cmd = new MySqlCommand(query, conn);
-                cmd.Parameters.AddWithValue("@username", regUsername);
-                cmd.Parameters.AddWithValue("@password", regPassword);
-                cmd.Parameters.AddWithValue("@name", regName);
-                cmd.Parameters.AddWithValue("@email", regEmail);
+
+                //string query = $"sp_loginInsert_test(@_username, @_password, @_name, @_email, @RESULT); ";
+                MySqlCommand cmd = new MySqlCommand("sp_loginInsert_test", conn);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("@_username", regUsername);
+                cmd.Parameters.AddWithValue("@_password", regPassword);
+                cmd.Parameters.AddWithValue("@_name", regName);
+                cmd.Parameters.AddWithValue("@_email", regEmail);
+                //cmd.Parameters.AddWithValue("@RESULT", result);
                 //int affectedRows = cmd.ExecuteNonQuery();
-                if (cmd.ExecuteNonQuery() > 0)
+
+                if (cmd.ExecuteNonQuery() != 0)
                 {
                     txtLoginUsername.Text = regUsername;
                     MessageBox.Show($"{regUsername}님 회원가입이 완료되었습니다.");
@@ -136,7 +178,7 @@ namespace S250530_LoginMySQLWinform
                     txtLoginUsername.Text = currentUser;
                     MessageBox.Show($"{currentUser}님 수정 되었습니다.");
                 }
-                else{ MessageBox.Show($"수정이 실패했습니다."); }
+                else { MessageBox.Show($"수정이 실패했습니다."); }
             }
             catch (Exception ex) { MessageBox.Show($"오류:{ex.Message}"); }
             finally
@@ -152,7 +194,7 @@ namespace S250530_LoginMySQLWinform
         {
             if (currentUser is null) { MessageBox.Show($"먼저 로그인 하세요."); return; }
             DialogResult confirm = MessageBox.Show("정말?", "확인", MessageBoxButtons.YesNo);
-            if (confirm == DialogResult.Yes) return; 
+            if (confirm == DialogResult.Yes) return;
             try
             {
                 conn.Open();
@@ -173,7 +215,7 @@ namespace S250530_LoginMySQLWinform
                 }
 
             }
-            catch (Exception ex){ MessageBox.Show($"오류:{ex.Message}"); }
+            catch (Exception ex) { MessageBox.Show($"오류:{ex.Message}"); }
             finally
             {
                 conn.Close();
