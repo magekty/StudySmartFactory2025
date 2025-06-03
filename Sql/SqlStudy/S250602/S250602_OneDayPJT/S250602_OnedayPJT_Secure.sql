@@ -81,3 +81,6 @@ alter table users auto_increment=5;
 
 UPDATE users SET id=3 where id =6;
 UPDATE users SET id=4 where id =7;
+
+
+SELECT order_id FROM orders WHERE table_id = 1 AND is_paid = false;
