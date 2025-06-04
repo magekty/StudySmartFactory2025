@@ -48,7 +48,6 @@ namespace MY_LOGIN_ERP.DataAccess
         {
             List<Employee> employees = new List<Employee>();
             string query = "SELECT * FROM tbl_employees WHERE 1=1";
-
             if (employeeId.HasValue)
             {
                 query += " AND EmployeeID = @EmployeeID";
@@ -63,15 +62,15 @@ namespace MY_LOGIN_ERP.DataAccess
             }
             if (!string.IsNullOrEmpty(addressType) && addressType != "선택안함")
             {
-                query += " AND AddressType = @AddressType";
+                query += $" AND AddressType = @AddressType";
             }
             if (!string.IsNullOrEmpty(employeeType) && employeeType != "선택안함")
             {
-                query += " AND EmployeeType = @EmployeeType";
+                query += $" AND EmployeeType = @EmployeeType";
             }
             if (!string.IsNullOrEmpty(status) && status != "선택안함")
             {
-                query += " AND Status = @Status";
+                query += $" AND Status = @Status";
             }
 
             try

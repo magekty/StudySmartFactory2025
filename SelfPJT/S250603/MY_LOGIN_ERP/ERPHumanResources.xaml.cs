@@ -3,37 +3,79 @@ using MY_LOGIN_ERP.DataAccess;
 using MY_LOGIN_ERP.Models;
 using System;
 using System.Collections.ObjectModel; // ObservableCollection 사용
+using System.ComponentModel;
+using System.Linq; // To use .FirstOrDefault()
+using System.Runtime.CompilerServices;
 using System.Windows;
 using System.Windows.Controls;
-using System.Linq; // To use .FirstOrDefault()
 
 namespace MY_LOGIN_ERP
 {
     public partial class ERPHumanResources : Window
     {
         private MySqlDataAccess _dataAccess;
-
         // ObservableCollection은 UI에 데이터 변경 사항을 자동으로 반영합니다.
         public ObservableCollection<Employee> Employees { get; set; } = new ObservableCollection<Employee>();
-
         // 조회 조건 바인딩을 위한 속성 (MVVM 패턴의 ViewModel 역할)
         public DateTime CurrentDate { get; set; } = DateTime.Today; // 기준년월일 초기값
         public string SelectedDepartmentName { get; set; } // 부서 검색 결과를 저장
         public string SelectedEmployeeName { get; set; } // 사원 검색 결과를 저장
-        public string SelectedAddressType { get; set; } // 주소지 종류 콤보박스 선택값
-        public string SelectedEmployeeType { get; set; } // 사원구분 콤보박스 선택값
-        public string SelectedStatus { get; set; } // 재직/퇴직자 콤보박스 선택값
+        // INotifyPropertyChanged 구현
+        public event PropertyChangedEventHandler PropertyChanged;
+        // 2. ComboBox에서 선택된 항목을 저장할 속성 (SelectedItem에 바인딩)
+        // 이 속성이 ComboBox의 초기 선택값을 결정합니다.
+        private ComboBoxItem _selectedAddress;
+        public ComboBoxItem SelectedAddressType
+        {
+            get => _selectedAddress;
+            set
+            {
+                if (_selectedAddress != value)
+                {
+                    _selectedAddress = value;
+                    OnPropertyChanged(); // UI에 속성 변경을 알림
+                }
+            }
+        }
+        private ComboBoxItem _selectedEmployee;
+        public ComboBoxItem SelectedEmployeeType
+        {
+            get => _selectedEmployee;
+            set
+            {
+                if (_selectedEmployee != value)
+                {
+                    _selectedEmployee = value;
+                    OnPropertyChanged(); // UI에 속성 변경을 알림
+                }
+            }
+        }
+        private ComboBoxItem _selectedStatus;
+        public ComboBoxItem SelectedStatus
+        {
+            get => _selectedStatus;
+            set
+            {
+                if (_selectedStatus != value)
+                {
+                    _selectedStatus = value;
+                    OnPropertyChanged(); // UI에 속성 변경을 알림
+                    // 선택된 값이 변경될 때 추가적인 로직을 여기에 구현
+                    // 예를 들어, 데이터 저장 버튼 활성화/비활성화 등
+                }
+            }
+        }
+
+
+
+
 
         public ERPHumanResources()
         {
             InitializeComponent();
             _dataAccess = new MySqlDataAccess();
+            //ComboViewModel = new ComboViewModel();
             this.DataContext = this; // DataContext를 자기 자신으로 설정하여 속성 바인딩 가능하게 함
-
-            // 콤보박스 초기값 설정 (XAML에서 Content="선택안함"으로 설정되어 있으므로 필요 없을 수 있지만, 명시적으로 초기화)
-            cbAddressType.SelectedIndex = 0;
-            cbEmployeeType.SelectedIndex = 0;
-            cbStatus.SelectedIndex = 0;
 
             LoadEmployees(); // 초기 사원 목록 로드
         }
@@ -44,10 +86,9 @@ namespace MY_LOGIN_ERP
             // 현재 선택된 필터 조건들을 가져옴
             string department = string.IsNullOrEmpty(SelectedDepartmentName) ? null : SelectedDepartmentName;
             string employeeName = string.IsNullOrEmpty(SelectedEmployeeName) ? null : SelectedEmployeeName;
-            string addressType = cbAddressType.SelectedItem != null ? ((ComboBoxItem)cbAddressType.SelectedItem).Content.ToString() : null;
-            string employeeType = cbEmployeeType.SelectedItem != null ? ((ComboBoxItem)cbEmployeeType.SelectedItem).Content.ToString() : null;
-            string status = cbStatus.SelectedItem != null ? ((ComboBoxItem)cbStatus.SelectedItem).Content.ToString() : null;
-            //MessageBox.Show($"status:{status}");
+            string addressType = SelectedAddressType?.Content.ToString();
+            string employeeType = SelectedEmployeeType?.Content.ToString();
+            string status = SelectedStatus?.Content.ToString();
             // "선택안함"이 선택된 경우 필터에서 제외
             if (addressType == "선택안함") addressType = null;
             if (employeeType == "선택안함") employeeType = null;
@@ -60,7 +101,6 @@ namespace MY_LOGIN_ERP
                 employeeType: employeeType,
                 status: status
             );
-
             // 기존 목록을 비우고 새 데이터를 추가하여 DataGrid를 업데이트
             Employees.Clear();
             foreach (var emp in employees)
@@ -68,6 +108,8 @@ namespace MY_LOGIN_ERP
                 Employees.Add(emp);
             }
         }
+
+
 
         // '조회' 버튼 클릭 이벤트 핸들러
         private void SearchButton_Click(object sender, RoutedEventArgs e)
@@ -119,5 +161,9 @@ namespace MY_LOGIN_ERP
             }
         }
 
+        protected void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
     }
 }
