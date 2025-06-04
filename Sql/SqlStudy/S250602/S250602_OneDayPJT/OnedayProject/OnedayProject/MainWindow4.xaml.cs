@@ -25,11 +25,13 @@ namespace OnedayProject
         private int selectedTableId;
         private int total;
         private MainWindow mainWindow;
+        private MainWindow3 mainWindow3;
 
-        public MainWindow4(int tableId, int totalAmount, MainWindow mainWindow)
+        public MainWindow4(int tableId, int totalAmount, MainWindow mainWindow , MainWindow3 mainWindow3)
         {
             InitializeComponent();
             this.mainWindow = mainWindow;
+            this.mainWindow3 = mainWindow3;
             selectedTableId = tableId;
             total = totalAmount;
 
@@ -85,8 +87,9 @@ namespace OnedayProject
                     MessageBox.Show("결제가 완료되었습니다.");
 
                     // 결제 완료 후 테이블 선택 화면으로 돌아가기
-                    MainWindow main = new MainWindow();
-                    main.Show();
+                    //MainWindow main = new MainWindow();
+                    //mainWindow.Show();
+                    mainWindow3.Close();
                     this.Close();
                 }
             }

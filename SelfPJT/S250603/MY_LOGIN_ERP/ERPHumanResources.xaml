@@ -87,8 +87,8 @@
                     </Grid>
 
                     <TextBlock Grid.Row="2" Grid.Column="0" Text="주소지 종류" VerticalAlignment="Center" Margin="0,0,5,0"/>
-                    <ComboBox Grid.Row="2" Grid.Column="1" x:Name="cbAddressType" SelectedItem="{Binding SelectedAddressType}">
-                        <ComboBoxItem Content="선택안함"/>
+                    <ComboBox Grid.Row="2" Grid.Column="1" x:Name="cbAddressType" SelectedItem="{Binding SelectedAddressType}" SelectedIndex="1" >
+                        <ComboBoxItem Content="선택안함" IsSelected="True"/>
                         <ComboBoxItem Content="본적"/>
                         <ComboBoxItem Content="주민등록상거주지"/>
                         <ComboBoxItem Content="실거주지"/>
@@ -96,8 +96,8 @@
                     </ComboBox>
 
                     <TextBlock Grid.Row="2" Grid.Column="3" Text="사원구분" VerticalAlignment="Center" Margin="0,0,5,0"/>
-                    <ComboBox Grid.Row="2" Grid.Column="4" x:Name="cbEmployeeType" SelectedItem="{Binding SelectedEmployeeType}">
-                        <ComboBoxItem Content="선택안함"/>
+                    <ComboBox Grid.Row="2" Grid.Column="4" x:Name="cbEmployeeType" SelectedItem="{Binding SelectedEmployeeType}" SelectedIndex="1" >
+                        <ComboBoxItem Content="선택안함" IsSelected="True"/>
                         <ComboBoxItem Content="상임"/>
                         <ComboBoxItem Content="비상임"/>
                         <ComboBoxItem Content="계약직상임"/>
@@ -105,8 +105,8 @@
                     </ComboBox>
 
                     <TextBlock Grid.Row="2" Grid.Column="6" Text="재직/퇴직자" VerticalAlignment="Center" Margin="0,0,5,0"/>
-                    <ComboBox Grid.Row="2" Grid.Column="7" x:Name="cbStatus" SelectedItem="{Binding SelectedStatus}">
-                        <ComboBoxItem Content="선택안함"/>
+                    <ComboBox Grid.Row="2" Grid.Column="7" x:Name="cbStatus" SelectedItem="{Binding SelectedStatus}" SelectedIndex="1" >
+                        <ComboBoxItem Content="선택안함" IsSelected="True"/>
                         <ComboBoxItem Content="재직자"/>
                         <ComboBoxItem Content="퇴직자"/>
                     </ComboBox>

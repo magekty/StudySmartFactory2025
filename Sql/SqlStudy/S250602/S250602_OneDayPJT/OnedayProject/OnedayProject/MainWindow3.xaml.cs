@@ -25,6 +25,7 @@ namespace OnedayProject
         private int total = 0;
         private Dictionary<string, (int Price, int Quantity, TextBlock Block)> items = new();
         MainWindow mainWindow;
+        public bool isPayed = false;
         public MainWindow3(int tabelID, MainWindow mainWindow)
         {
             InitializeComponent();
@@ -140,7 +141,10 @@ namespace OnedayProject
 
                     MessageBox.Show("주문이 DB에 저장되었습니다.");
 
-                    MainWindow4 window = new MainWindow4(selectedTableId, total, mainWindow);
+                    
+
+                    MainWindow4 window = new MainWindow4(selectedTableId, total, mainWindow, this);
+
                     window.Show();
 
                 }
