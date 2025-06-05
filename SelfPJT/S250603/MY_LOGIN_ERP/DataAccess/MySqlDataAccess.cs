@@ -113,18 +113,18 @@ namespace MY_LOGIN_ERP.DataAccess
                             {
                                 EmployeeID = reader.GetInt32("EmployeeID"),
                                 EmployeeName = reader.GetString("EmployeeName"),
-                                Department = reader.GetString("Department"),
-                                WorkDepartment = reader.GetString("WorkDepartment"),
-                                Position = reader.GetString("Position"),
+                                Department = reader.IsDBNull(2) ? null : reader.GetString("Department"),
+                                WorkDepartment = reader.IsDBNull(3) ? null : reader.GetString("WorkDepartment"),
+                                Position = reader.IsDBNull(4) ? null : reader.GetString("Position"),
                                 JobRank = reader.IsDBNull(5) ? null : reader.GetString("JobRank"),
                                 AppointmentDate = reader.IsDBNull(6) ? (DateTime?)null : reader.GetDateTime("AppointmentDate"),
-                                Status = reader.GetString("Status"),
-                                EmployeeType = reader.GetString("EmployeeType"),
-                                AddressType = reader.GetString("AddressType"),
-                                PhoneNumber = reader.GetString("PhoneNumber"),
-                                RoadAddress = reader.GetString("RoadAddress"),
-                                JibunAddress = reader.GetString("JibunAddress"),
-                                Email = reader.GetString("Email"),
+                                Status = reader.IsDBNull(7) ? null : reader.GetString("Status"),
+                                EmployeeType = reader.IsDBNull(8) ? null : reader.GetString("EmployeeType"),
+                                AddressType = reader.IsDBNull(9) ? null : reader.GetString("AddressType"),
+                                PhoneNumber = reader.IsDBNull(10) ? null : reader.GetString("PhoneNumber"),
+                                RoadAddress = reader.IsDBNull(11) ? null : reader.GetString("RoadAddress"),
+                                JibunAddress = reader.IsDBNull(12) ? null : reader.GetString("JibunAddress"),
+                                Email = reader.IsDBNull(13) ? null : reader.GetString("Email"),
                                 // 추가된 컬럼들 (데이터베이스에 컬럼이 없으면 에러 발생, 주석 해제 시 DB 스키마 업데이트 필수)
                                 Gender = reader.IsDBNull(14) ? null : reader.GetString("Gender"),
                                 BirthDate = reader.IsDBNull(15) ? (DateTime?)null : reader.GetDateTime("BirthDate"),
@@ -233,18 +233,18 @@ namespace MY_LOGIN_ERP.DataAccess
         {
             command.Parameters.AddWithValue("@EmployeeID", employee.EmployeeID);
             command.Parameters.AddWithValue("@EmployeeName", employee.EmployeeName);
-            command.Parameters.AddWithValue("@Department", employee.Department);
-            command.Parameters.AddWithValue("@WorkDepartment", employee.WorkDepartment);
-            command.Parameters.AddWithValue("@Position", employee.Position);
+            command.Parameters.AddWithValue("@Department", employee.Department ?? (object)DBNull.Value);
+            command.Parameters.AddWithValue("@WorkDepartment", employee.WorkDepartment ?? (object)DBNull.Value);
+            command.Parameters.AddWithValue("@Position", employee.Position ?? (object)DBNull.Value);
             command.Parameters.AddWithValue("@JobRank", employee.JobRank ?? (object)DBNull.Value); // Nullable
             command.Parameters.AddWithValue("@AppointmentDate", employee.AppointmentDate ?? (object)DBNull.Value);
-            command.Parameters.AddWithValue("@Status", employee.Status);
-            command.Parameters.AddWithValue("@EmployeeType", employee.EmployeeType);
-            command.Parameters.AddWithValue("@AddressType", employee.AddressType);
-            command.Parameters.AddWithValue("@PhoneNumber", employee.PhoneNumber);
-            command.Parameters.AddWithValue("@RoadAddress", employee.RoadAddress);
-            command.Parameters.AddWithValue("@JibunAddress", employee.JibunAddress);
-            command.Parameters.AddWithValue("@Email", employee.Email);
+            command.Parameters.AddWithValue("@Status", employee.Status ?? (object)DBNull.Value);
+            command.Parameters.AddWithValue("@EmployeeType", employee.EmployeeType ?? (object)DBNull.Value);
+            command.Parameters.AddWithValue("@AddressType", employee.AddressType ?? (object)DBNull.Value);
+            command.Parameters.AddWithValue("@PhoneNumber", employee.PhoneNumber ?? (object)DBNull.Value);
+            command.Parameters.AddWithValue("@RoadAddress", employee.RoadAddress ?? (object)DBNull.Value);
+            command.Parameters.AddWithValue("@JibunAddress", employee.JibunAddress ?? (object)DBNull.Value);
+            command.Parameters.AddWithValue("@Email", employee.Email ?? (object)DBNull.Value);
             // 추가된 컬럼들
             command.Parameters.AddWithValue("@Gender", employee.Gender ?? (object)DBNull.Value);
             command.Parameters.AddWithValue("@BirthDate", employee.BirthDate ?? (object)DBNull.Value);

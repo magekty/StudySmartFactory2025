@@ -22,101 +22,23 @@ namespace MY_LOGIN_ERP
         private bool _isEditMode = false; // 수정 모드 여부 플래그
         List<Employee> employees = null;
         private bool _isFirstEditMode = false;
-        // INotifyPropertyChanged 구현
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        private ComboBoxItem _selectedAddress;
-        public ComboBoxItem SelectedAddressType
-        {
-            get => _selectedAddress;
-            set
-            {
-                if (_selectedAddress != value)
-                {
-                    _selectedAddress = value;
-                    OnPropertyChanged(); // UI에 속성 변경을 알림
-                }
-            }
-        }
-        private ComboBoxItem _selectedEmployee;
-        public ComboBoxItem SelectedEmployeeType
-        {
-            get => _selectedEmployee;
-            set
-            {
-                if (_selectedEmployee != value)
-                {
-                    _selectedEmployee = value;
-                    OnPropertyChanged(); // UI에 속성 변경을 알림
-                }
-            }
-        }
-        private ComboBoxItem _selectedStatus;
-        public ComboBoxItem SelectedStatus
-        {
-            get => _selectedStatus;
-            set
-            {
-                if (_selectedStatus != value)
-                {
-                    _selectedStatus = value;
-                    OnPropertyChanged(); // UI에 속성 변경을 알림
-                    // 선택된 값이 변경될 때 추가적인 로직을 여기에 구현
-                    // 예를 들어, 데이터 저장 버튼 활성화/비활성화 등
-                }
-            }
-        }
-        private ComboBoxItem _maritalStatus;
-        public ComboBoxItem MaritalStatus
-        {
-            get => _maritalStatus;
-            set
-            {
-                if (_maritalStatus != value)
-                {
-                    _maritalStatus = value;
-                    OnPropertyChanged(); // UI에 속성 변경을 알림
-                    // 선택된 값이 변경될 때 추가적인 로직을 여기에 구현
-                    // 예를 들어, 데이터 저장 버튼 활성화/비활성화 등
-                }
-            }
-        }
-        private ComboBoxItem _gender;
-        public ComboBoxItem Gender
-        {
-            get => _gender;
-            set
-            {
-                if (_gender != value)
-                {
-                    _gender = value;
-                    OnPropertyChanged(); // UI에 속성 변경을 알림
-                    // 선택된 값이 변경될 때 추가적인 로직을 여기에 구현
-                    // 예를 들어, 데이터 저장 버튼 활성화/비활성화 등
-                }
-            }
-        }
-
-
-        
-            
 
         public EmployeeCrudWindow(Employee employee)
         {
             InitializeComponent();
             _dataAccess = new MySqlDataAccess();
-            this.Owner = Application.Current.MainWindow;
-            this.DataContext = this; // DataContext 설정
-            CurrentEmployee = new Employee(); // 새 사원 객체 초기화
             if (employee is null)
             {
+                CurrentEmployee = new Employee(); // 새 사원 객체 초기화
+                this.DataContext = CurrentEmployee;
                 SetMode(false); // 초기에는 등록 모드
             }
             else
             {
+                CurrentEmployee = employee;
+                this.DataContext = CurrentEmployee; // DataContext 설정
                 _isFirstEditMode = true;
                 employees = _dataAccess.GetEmployees(employeeId: employee.EmployeeID, employeeName: employee.EmployeeName);
-                //MessageBox.Show(employees.First().ToString());
                 SetMode(true); // 데이터 넘어오면 수정 모드
             }
         }
@@ -125,13 +47,15 @@ namespace MY_LOGIN_ERP
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             if(_isFirstEditMode) LoadEmployeeData(employees.First());
-
-            // 콤보박스 초기값 "선택안함"으로 설정
-            cbStatus.SelectedIndex = 0;
-            cbEmployeeType.SelectedIndex = 0;
-            cbAddressType.SelectedIndex = 0;
-            cbGender.SelectedIndex = 0;
-            cbMaritalStatus.SelectedIndex = 0;
+            else
+            {
+                // 콤보박스 초기값 "선택안함"으로 설정
+                cbStatus.SelectedIndex = 0;
+                cbEmployeeType.SelectedIndex = 0;
+                cbAddressType.SelectedIndex = 0;
+                cbGender.SelectedIndex = 0;
+                cbMaritalStatus.SelectedIndex = 0;
+            }
         }
 
         // 등록/수정 모드 설정 및 UI 제어
@@ -161,7 +85,7 @@ namespace MY_LOGIN_ERP
         {
             CurrentEmployee = new Employee(); // 새 Employee 객체로 초기화
             this.DataContext = null; // DataContext를 null로 설정하여 바인딩을 끊고
-            this.DataContext = this; // 다시 설정하여 모든 필드를 초기화 (가장 간단한 방법)
+            this.DataContext = CurrentEmployee; // 다시 설정하여 모든 필드를 초기화 (가장 간단한 방법)
 
             // 콤보박스 초기값 "선택안함"으로 설정
             cbStatus.SelectedIndex = 0;
@@ -227,33 +151,7 @@ namespace MY_LOGIN_ERP
         public void LoadEmployeeData(Employee employee)
         {
             CurrentEmployee = employee;
-            this.DataContext = null; // DataContext를 null로 설정하여 바인딩을 끊고
-            this.DataContext = this; // 다시 설정하여 새 데이터로 바인딩
-
-            txtEmployeeID.Text = CurrentEmployee.EmployeeID.ToString();
-            txtEmployeeName.Text = CurrentEmployee.EmployeeName;
-            txtDepartment.Text = CurrentEmployee.Department;
-            txtWorkDepartment.Text = CurrentEmployee.WorkDepartment;
-            txtPosition.Text = CurrentEmployee.Position;
-            txtJobRank.Text = CurrentEmployee.JobRank;
-            dpAppointmentDate.SelectedDate = CurrentEmployee.AppointmentDate;
-            txtPhoneNumber.Text = CurrentEmployee.PhoneNumber;
-            txtRoadAddress.Text = CurrentEmployee.RoadAddress;
-            txtJibunAddress.Text = CurrentEmployee.JibunAddress;
-            txtEmail.Text = CurrentEmployee.Email;
-            dpBirthDate.SelectedDate = CurrentEmployee.BirthDate;
-            txtNationality.Text = CurrentEmployee.Nationality;
-            dpHireDate.SelectedDate = CurrentEmployee.HireDate;
-
-
-
-            // 콤보박스 선택 항목 강제 업데이트 (바인딩만으로는 초기 설정이 안될 수 있음)
-/*            cbStatus.SelectedItem = cbStatus.Items.OfType<ComboBoxItem>().FirstOrDefault(item => item.Content.ToString() == employee.Status);
-            cbEmployeeType.SelectedItem = cbEmployeeType.Items.OfType<ComboBoxItem>().FirstOrDefault(item => item.Content.ToString() == employee.EmployeeType);
-            cbAddressType.SelectedItem = cbAddressType.Items.OfType<ComboBoxItem>().FirstOrDefault(item => item.Content.ToString() == employee.AddressType);
-            cbGender.SelectedItem = cbGender.Items.OfType<ComboBoxItem>().FirstOrDefault(item => item.Content.ToString() == employee.Gender);
-            cbMaritalStatus.SelectedItem = cbMaritalStatus.Items.OfType<ComboBoxItem>().FirstOrDefault(item => item.Content.ToString() == employee.MaritalStatus);*/
-
+            this.DataContext = employee;
             SetMode(true); // 수정 모드로 전환
         }
 
@@ -268,14 +166,14 @@ namespace MY_LOGIN_ERP
                 MessageBox.Show("이미 존재하는 사번입니다. 다른 사번을 입력해주세요.", "등록 오류", MessageBoxButton.OK, MessageBoxImage.Warning);
                 return;
             }
-            SetCurrentEmployeeByFieldData();
+            //SetCurrentEmployeeByFieldData();
 
             // 콤보박스 선택 값 반영
-            CurrentEmployee.Status = ((ComboBoxItem)cbStatus.SelectedItem).Content.ToString();
+/*            CurrentEmployee.Status = ((ComboBoxItem)cbStatus.SelectedItem).Content.ToString();
             CurrentEmployee.EmployeeType = ((ComboBoxItem)cbEmployeeType.SelectedItem).Content.ToString();
             CurrentEmployee.AddressType = ((ComboBoxItem)cbAddressType.SelectedItem).Content.ToString();
             CurrentEmployee.Gender = ((ComboBoxItem)cbGender.SelectedItem).Content.ToString();
-            CurrentEmployee.MaritalStatus = ((ComboBoxItem)cbMaritalStatus.SelectedItem).Content.ToString();
+            CurrentEmployee.MaritalStatus = ((ComboBoxItem)cbMaritalStatus.SelectedItem).Content.ToString();*/
 
             if (_dataAccess.AddEmployee(CurrentEmployee))
             {
@@ -293,7 +191,7 @@ namespace MY_LOGIN_ERP
         private void Update_Click(object sender, RoutedEventArgs e)
         {
             if (!ValidateInput()) return;
-            SetCurrentEmployeeByFieldData();
+            //SetCurrentEmployeeByFieldData();
 
 
 
@@ -357,7 +255,7 @@ namespace MY_LOGIN_ERP
         {
             int checkN = 0;
             
-            if (!(int.TryParse(txtEmployeeID.Text, out checkN)) && checkN == 0)
+            if (!(int.TryParse(txtEmployeeID.Text, out checkN)) || checkN == 0)
             {
                 MessageBox.Show("사번을 입력해주세요.", "입력 오류", MessageBoxButton.OK, MessageBoxImage.Warning);
                 txtEmployeeID.Focus();
@@ -374,7 +272,7 @@ namespace MY_LOGIN_ERP
             // 예: Department, Status 등 필수 필드 검사
 
             // 콤보박스 "선택안함" 검사 (필수 항목인 경우)
-            if (((ComboBoxItem)cbStatus.SelectedItem).Content.ToString() == "선택안함")
+            if (CurrentEmployee.Status == "선택안함")
             {
                 MessageBox.Show("재직/퇴직구분을 선택해주세요.", "입력 오류", MessageBoxButton.OK, MessageBoxImage.Warning);
                 cbStatus.Focus();
@@ -385,33 +283,6 @@ namespace MY_LOGIN_ERP
             return true;
         }
 
-        private void SetCurrentEmployeeByFieldData()
-        {
-            CurrentEmployee.EmployeeID = int.Parse(txtEmployeeID.Text);
-            CurrentEmployee.EmployeeName = txtEmployeeName.Text;
-            CurrentEmployee.Department = txtDepartment.Text;
-            CurrentEmployee.WorkDepartment = txtWorkDepartment.Text;
-            CurrentEmployee.Position = txtPosition.Text;
-            CurrentEmployee.JobRank = txtJobRank.Text;
-            CurrentEmployee.AppointmentDate = dpAppointmentDate.SelectedDate;
-            CurrentEmployee.PhoneNumber = txtPhoneNumber.Text;
-            CurrentEmployee.RoadAddress = txtRoadAddress.Text;
-            CurrentEmployee.JibunAddress = txtJibunAddress.Text;
-            CurrentEmployee.Email = txtEmail.Text;
-            CurrentEmployee.BirthDate = dpBirthDate.SelectedDate;
-            CurrentEmployee.Nationality = txtNationality.Text;
-            CurrentEmployee.HireDate = dpHireDate.SelectedDate;
 
-            // 콤보박스 선택 값 반영
-            CurrentEmployee.Status = ((ComboBoxItem)cbStatus.SelectedItem).Content.ToString();
-            CurrentEmployee.EmployeeType = ((ComboBoxItem)cbEmployeeType.SelectedItem).Content.ToString();
-            CurrentEmployee.AddressType = ((ComboBoxItem)cbAddressType.SelectedItem).Content.ToString();
-            CurrentEmployee.Gender = ((ComboBoxItem)cbGender.SelectedItem).Content.ToString();
-            CurrentEmployee.MaritalStatus = ((ComboBoxItem)cbMaritalStatus.SelectedItem).Content.ToString();
-        }
-        protected void OnPropertyChanged([CallerMemberName] string propertyName = null)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
     }
 }

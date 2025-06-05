@@ -6,9 +6,7 @@
         xmlns:local="clr-namespace:MY_LOGIN_ERP"
         mc:Ignorable="d"
         Title="사원조회및연락처조회" Height="700" Width="1000"
-        WindowStartupLocation="CenterScreen"
-        Loaded="Window_Loaded"
-        >
+        WindowStartupLocation="CenterScreen">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
@@ -90,8 +88,8 @@
                     </Grid>
                     <Button Grid.Column="9" Content="초기화" Width="80" Height="25" Click="ClearButton_Click"/>
                     <TextBlock Grid.Row="2" Grid.Column="0" Text="주소지 종류" VerticalAlignment="Center" Margin="0,0,5,0"/>
-                    <ComboBox Grid.Row="2" Grid.Column="1" x:Name="cbAddressType" SelectedItem="{Binding SelectedAddressType}">
-                        <ComboBoxItem Content="선택안함" />
+                    <ComboBox Grid.Row="2" Grid.Column="1" x:Name="cbAddressType">
+                        <ComboBoxItem Content="선택안함" IsSelected="true"/>
                         <ComboBoxItem Content="본적"/>
                         <ComboBoxItem Content="주민등록상거주지"/>
                         <ComboBoxItem Content="실거주지"/>
@@ -99,8 +97,8 @@
                     </ComboBox>
 
                     <TextBlock Grid.Row="2" Grid.Column="3" Text="사원구분" VerticalAlignment="Center" Margin="0,0,5,0"/>
-                    <ComboBox Grid.Row="2" Grid.Column="4" x:Name="cbEmployeeType" SelectedItem="{Binding SelectedEmployeeType}">
-                        <ComboBoxItem Content="선택안함" />
+                    <ComboBox Grid.Row="2" Grid.Column="4" x:Name="cbEmployeeType" >
+                        <ComboBoxItem Content="선택안함" IsSelected="true"/>
                         <ComboBoxItem Content="상임"/>
                         <ComboBoxItem Content="비상임"/>
                         <ComboBoxItem Content="계약직상임"/>
@@ -108,8 +106,8 @@
                     </ComboBox>
 
                     <TextBlock Grid.Row="2" Grid.Column="6" Text="재직/퇴직자" VerticalAlignment="Center" Margin="0,0,5,0"/>
-                    <ComboBox Grid.Row="2" Grid.Column="7" x:Name="cbStatus" SelectedItem="{Binding SelectedStatus, Mode=TwoWay}">
-                        <ComboBoxItem Content="선택안함" />
+                    <ComboBox Grid.Row="2" Grid.Column="7" x:Name="cbStatus" >
+                        <ComboBoxItem Content="선택안함" IsSelected="true" />
                         <ComboBoxItem Content="재직자"/>
                         <ComboBoxItem Content="퇴직자"/>
                     </ComboBox>

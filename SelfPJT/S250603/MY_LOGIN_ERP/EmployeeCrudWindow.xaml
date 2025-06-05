@@ -80,28 +80,34 @@
                     <DatePicker Grid.Row="6" Grid.Column="1" x:Name="dpAppointmentDate" SelectedDate="{Binding AppointmentDate, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource DatePickerStyle}"/>
 
                     <TextBlock Grid.Row="6" Grid.Column="3" Text="재직/퇴직구분" Style="{StaticResource InputFieldLabelStyle}"/>
-                    <ComboBox Grid.Row="6" Grid.Column="4" x:Name="cbStatus" SelectedItem="{Binding Status, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource ComboBoxStyle}">
+                    <ComboBox Grid.Row="6" Grid.Column="4" x:Name="cbStatus" ItemsSource="{Binding Statuss}" SelectedItem="{Binding Status, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource ComboBoxStyle}">
+                        <!--
                         <ComboBoxItem Content="선택안함"/>
                         <ComboBoxItem Content="재직자"/>
                         <ComboBoxItem Content="퇴직자"/>
+                        -->
                     </ComboBox>
 
                     <TextBlock Grid.Row="8" Grid.Column="0" Text="사원구분" Style="{StaticResource InputFieldLabelStyle}"/>
-                    <ComboBox Grid.Row="8" Grid.Column="1" x:Name="cbEmployeeType" SelectedItem="{Binding EmployeeType, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource ComboBoxStyle}">
+                    <ComboBox Grid.Row="8" Grid.Column="1" x:Name="cbEmployeeType" ItemsSource="{Binding EmployeeTypes}" SelectedItem="{Binding EmployeeType, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource ComboBoxStyle}">
+                        <!--
                         <ComboBoxItem Content="선택안함"/>
                         <ComboBoxItem Content="상임"/>
                         <ComboBoxItem Content="비상임"/>
                         <ComboBoxItem Content="계약직상임"/>
                         <ComboBoxItem Content="계약직비상임"/>
+                        -->
                     </ComboBox>
 
                     <TextBlock Grid.Row="8" Grid.Column="3" Text="주소지 종류" Style="{StaticResource InputFieldLabelStyle}"/>
-                    <ComboBox Grid.Row="8" Grid.Column="4" x:Name="cbAddressType" SelectedItem="{Binding AddressType, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource ComboBoxStyle}">
+                    <ComboBox Grid.Row="8" Grid.Column="4" x:Name="cbAddressType" ItemsSource="{Binding AddressTypes}" SelectedItem="{Binding AddressType, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource ComboBoxStyle}">
+                        <!--
                         <ComboBoxItem Content="선택안함"/>
                         <ComboBoxItem Content="본적"/>
                         <ComboBoxItem Content="주민등록상거주지"/>
                         <ComboBoxItem Content="실거주지"/>
                         <ComboBoxItem Content="근무지 주소"/>
+                        -->
                     </ComboBox>
 
                     <TextBlock Grid.Row="10" Grid.Column="0" Text="전화번호" Style="{StaticResource InputFieldLabelStyle}"/>
@@ -129,21 +135,25 @@
                     </Grid.RowDefinitions>
 
                     <TextBlock Grid.Row="0" Grid.Column="0" Text="성별" Style="{StaticResource InputFieldLabelStyle}"/>
-                    <ComboBox Grid.Row="0" Grid.Column="1" x:Name="cbGender" SelectedItem="{Binding Gender, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource ComboBoxStyle}">
+                    <ComboBox Grid.Row="0" Grid.Column="1" x:Name="cbGender" ItemsSource="{Binding Genders}" SelectedItem="{Binding Gender, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource ComboBoxStyle}">
+                        <!--
                         <ComboBoxItem Content="선택안함"/>
                         <ComboBoxItem Content="남"/>
                         <ComboBoxItem Content="여"/>
+                        -->
                     </ComboBox>
 
                     <TextBlock Grid.Row="0" Grid.Column="3" Text="생년월일" Style="{StaticResource InputFieldLabelStyle}"/>
                     <DatePicker Grid.Row="0" Grid.Column="4" x:Name="dpBirthDate" SelectedDate="{Binding BirthDate, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource DatePickerStyle}"/>
 
                     <TextBlock Grid.Row="2" Grid.Column="0" Text="혼인여부" Style="{StaticResource InputFieldLabelStyle}"/>
-                    <ComboBox Grid.Row="2" Grid.Column="1" x:Name="cbMaritalStatus" SelectedItem="{Binding MaritalStatus, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource ComboBoxStyle}">
+                    <ComboBox Grid.Row="2" Grid.Column="1" x:Name="cbMaritalStatus" ItemsSource="{Binding Maritals}" SelectedItem="{Binding MaritalStatus, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource ComboBoxStyle}">
+                        <!--
                         <ComboBoxItem Content="선택안함"/>
                         <ComboBoxItem Content="미혼"/>
                         <ComboBoxItem Content="기혼"/>
                         <ComboBoxItem Content="이혼"/>
+                        -->
                     </ComboBox>
 
                     <TextBlock Grid.Row="2" Grid.Column="3" Text="국적" Style="{StaticResource InputFieldLabelStyle}"/>

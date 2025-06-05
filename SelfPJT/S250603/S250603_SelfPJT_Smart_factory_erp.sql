@@ -51,6 +51,3 @@ ADD COLUMN HireDate DATE;                -- 입사일 (AppointmentDate와 다르
 -- 인덱스 추가 (조회 성능 향상용)
 CREATE INDEX idx_employee_name ON tbl_employees (EmployeeName);
 CREATE INDEX idx_department ON tbl_employees (Department);
-
-select * from tbl_employees where 1=1 ;
--- and AddressType = '주민등록상거주지';

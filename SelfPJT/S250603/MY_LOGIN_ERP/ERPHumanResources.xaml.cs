@@ -1,5 +1,4 @@
 ﻿// MainWindow.xaml.cs
-using Google.Protobuf.WellKnownTypes;
 using MY_LOGIN_ERP.DataAccess;
 using MY_LOGIN_ERP.Models;
 using System;
@@ -26,51 +25,6 @@ namespace MY_LOGIN_ERP
         public string SelectedDepartmentName { get; set; } // 부서 검색 결과를 저장
         public string SelectedEmployeeName { get; set; } // 사원 검색 결과를 저장
         public Employee SelectedEmployee { get; private set; }
-        // INotifyPropertyChanged 구현
-        public event PropertyChangedEventHandler PropertyChanged;
-        // 2. ComboBox에서 선택된 항목을 저장할 속성 (SelectedItem에 바인딩)
-        // 이 속성이 ComboBox의 초기 선택값을 결정합니다.
-        private ComboBoxItem _selectedAddress;
-        public ComboBoxItem SelectedAddressType
-        {
-            get => _selectedAddress;
-            set
-            {
-                if (_selectedAddress != value)
-                {
-                    _selectedAddress = value;
-                    OnPropertyChanged(); // UI에 속성 변경을 알림
-                }
-            }
-        }
-        private ComboBoxItem _selectedEmployee;
-        public ComboBoxItem SelectedEmployeeType
-        {
-            get => _selectedEmployee;
-            set
-            {
-                if (_selectedEmployee != value)
-                {
-                    _selectedEmployee = value;
-                    OnPropertyChanged(); // UI에 속성 변경을 알림
-                }
-            }
-        }
-        private ComboBoxItem _selectedStatus;
-        public ComboBoxItem SelectedStatus
-        {
-            get => _selectedStatus;
-            set
-            {
-                if (_selectedStatus != value)
-                {
-                    _selectedStatus = value;
-                    OnPropertyChanged(); // UI에 속성 변경을 알림
-                    // 선택된 값이 변경될 때 추가적인 로직을 여기에 구현
-                    // 예를 들어, 데이터 저장 버튼 활성화/비활성화 등
-                }
-            }
-        }
 
         public ERPHumanResources()
         {
@@ -79,11 +33,6 @@ namespace MY_LOGIN_ERP
             this.DataContext = this; // DataContext를 자기 자신으로 설정하여 속성 바인딩 가능하게 함
             LoadEmployees(); // 초기 사원 목록 로드
         }
-        private void Window_Loaded(object sender, RoutedEventArgs e)
-        {
-            MessageBox.Show("in"); 
-            //SelectedStatus.SetValue(ComboBox.SelectedIndexProperty, 0);
-        }
 
         // 사원 목록을 로드하는 메서드
         private void LoadEmployees()
@@ -91,9 +40,9 @@ namespace MY_LOGIN_ERP
             // 현재 선택된 필터 조건들을 가져옴
             string department = string.IsNullOrEmpty(SelectedDepartmentName) ? null : SelectedDepartmentName;
             string employeeName = string.IsNullOrEmpty(SelectedEmployeeName) ? null : SelectedEmployeeName;
-            string addressType = SelectedAddressType?.Content.ToString();
-            string employeeType = SelectedEmployeeType?.Content.ToString();
-            string status = SelectedStatus?.Content.ToString();
+            string addressType = ((ComboBoxItem)cbAddressType.SelectedItem).Content.ToString();
+            string employeeType = ((ComboBoxItem)cbEmployeeType.SelectedItem).Content.ToString();
+            string status = ((ComboBoxItem)cbStatus.SelectedItem).Content.ToString();
             // "선택안함"이 선택된 경우 필터에서 제외
             if (addressType == "선택안함") addressType = null;
             if (employeeType == "선택안함") employeeType = null;
@@ -182,11 +131,5 @@ namespace MY_LOGIN_ERP
             }
         }
 
-
-
-        protected void OnPropertyChanged([CallerMemberName] string propertyName = null)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
     }
 }
