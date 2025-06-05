@@ -2,7 +2,10 @@
 using MY_LOGIN_ERP.DataAccess;
 using MY_LOGIN_ERP.Models;
 using System;
+using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input; // KeyUp 이벤트를 위해
@@ -17,20 +20,112 @@ namespace MY_LOGIN_ERP
         private MySqlDataAccess _dataAccess;
         public Employee CurrentEmployee { get; set; } // 현재 등록/수정 대상 사원
         private bool _isEditMode = false; // 수정 모드 여부 플래그
+        List<Employee> employees = null;
+        private bool _isFirstEditMode = false;
+        // INotifyPropertyChanged 구현
+        public event PropertyChangedEventHandler PropertyChanged;
 
-        public EmployeeCrudWindow()
+        private ComboBoxItem _selectedAddress;
+        public ComboBoxItem SelectedAddressType
+        {
+            get => _selectedAddress;
+            set
+            {
+                if (_selectedAddress != value)
+                {
+                    _selectedAddress = value;
+                    OnPropertyChanged(); // UI에 속성 변경을 알림
+                }
+            }
+        }
+        private ComboBoxItem _selectedEmployee;
+        public ComboBoxItem SelectedEmployeeType
+        {
+            get => _selectedEmployee;
+            set
+            {
+                if (_selectedEmployee != value)
+                {
+                    _selectedEmployee = value;
+                    OnPropertyChanged(); // UI에 속성 변경을 알림
+                }
+            }
+        }
+        private ComboBoxItem _selectedStatus;
+        public ComboBoxItem SelectedStatus
+        {
+            get => _selectedStatus;
+            set
+            {
+                if (_selectedStatus != value)
+                {
+                    _selectedStatus = value;
+                    OnPropertyChanged(); // UI에 속성 변경을 알림
+                    // 선택된 값이 변경될 때 추가적인 로직을 여기에 구현
+                    // 예를 들어, 데이터 저장 버튼 활성화/비활성화 등
+                }
+            }
+        }
+        private ComboBoxItem _maritalStatus;
+        public ComboBoxItem MaritalStatus
+        {
+            get => _maritalStatus;
+            set
+            {
+                if (_maritalStatus != value)
+                {
+                    _maritalStatus = value;
+                    OnPropertyChanged(); // UI에 속성 변경을 알림
+                    // 선택된 값이 변경될 때 추가적인 로직을 여기에 구현
+                    // 예를 들어, 데이터 저장 버튼 활성화/비활성화 등
+                }
+            }
+        }
+        private ComboBoxItem _gender;
+        public ComboBoxItem Gender
+        {
+            get => _gender;
+            set
+            {
+                if (_gender != value)
+                {
+                    _gender = value;
+                    OnPropertyChanged(); // UI에 속성 변경을 알림
+                    // 선택된 값이 변경될 때 추가적인 로직을 여기에 구현
+                    // 예를 들어, 데이터 저장 버튼 활성화/비활성화 등
+                }
+            }
+        }
+
+
+        
+            
+
+        public EmployeeCrudWindow(Employee employee)
         {
             InitializeComponent();
             _dataAccess = new MySqlDataAccess();
+            this.Owner = Application.Current.MainWindow;
             this.DataContext = this; // DataContext 설정
             CurrentEmployee = new Employee(); // 새 사원 객체 초기화
-
-            SetMode(false); // 초기에는 등록 모드
+            if (employee is null)
+            {
+                SetMode(false); // 초기에는 등록 모드
+            }
+            else
+            {
+                _isFirstEditMode = true;
+                employees = _dataAccess.GetEmployees(employeeId: employee.EmployeeID, employeeName: employee.EmployeeName);
+                //MessageBox.Show(employees.First().ToString());
+                SetMode(true); // 데이터 넘어오면 수정 모드
+            }
         }
 
         // 팝업 로드 시 초기 상태 설정
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
+            if(_isFirstEditMode) LoadEmployeeData(employees.First());
+
             // 콤보박스 초기값 "선택안함"으로 설정
             cbStatus.SelectedIndex = 0;
             cbEmployeeType.SelectedIndex = 0;
@@ -129,7 +224,7 @@ namespace MY_LOGIN_ERP
         }
 
         // 검색된 사원 정보를 폼에 로드
-        private void LoadEmployeeData(Employee employee)
+        public void LoadEmployeeData(Employee employee)
         {
             CurrentEmployee = employee;
             this.DataContext = null; // DataContext를 null로 설정하여 바인딩을 끊고
@@ -150,12 +245,14 @@ namespace MY_LOGIN_ERP
             txtNationality.Text = CurrentEmployee.Nationality;
             dpHireDate.SelectedDate = CurrentEmployee.HireDate;
 
+
+
             // 콤보박스 선택 항목 강제 업데이트 (바인딩만으로는 초기 설정이 안될 수 있음)
-            cbStatus.SelectedItem = cbStatus.Items.OfType<ComboBoxItem>().FirstOrDefault(item => item.Content.ToString() == employee.Status);
+/*            cbStatus.SelectedItem = cbStatus.Items.OfType<ComboBoxItem>().FirstOrDefault(item => item.Content.ToString() == employee.Status);
             cbEmployeeType.SelectedItem = cbEmployeeType.Items.OfType<ComboBoxItem>().FirstOrDefault(item => item.Content.ToString() == employee.EmployeeType);
             cbAddressType.SelectedItem = cbAddressType.Items.OfType<ComboBoxItem>().FirstOrDefault(item => item.Content.ToString() == employee.AddressType);
             cbGender.SelectedItem = cbGender.Items.OfType<ComboBoxItem>().FirstOrDefault(item => item.Content.ToString() == employee.Gender);
-            cbMaritalStatus.SelectedItem = cbMaritalStatus.Items.OfType<ComboBoxItem>().FirstOrDefault(item => item.Content.ToString() == employee.MaritalStatus);
+            cbMaritalStatus.SelectedItem = cbMaritalStatus.Items.OfType<ComboBoxItem>().FirstOrDefault(item => item.Content.ToString() == employee.MaritalStatus);*/
 
             SetMode(true); // 수정 모드로 전환
         }
@@ -311,6 +408,10 @@ namespace MY_LOGIN_ERP
             CurrentEmployee.AddressType = ((ComboBoxItem)cbAddressType.SelectedItem).Content.ToString();
             CurrentEmployee.Gender = ((ComboBoxItem)cbGender.SelectedItem).Content.ToString();
             CurrentEmployee.MaritalStatus = ((ComboBoxItem)cbMaritalStatus.SelectedItem).Content.ToString();
+        }
+        protected void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }
 }

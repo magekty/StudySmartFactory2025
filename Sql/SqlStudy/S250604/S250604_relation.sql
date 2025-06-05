@@ -190,3 +190,186 @@ where wr.station_id = 1;
 -- 하나의 자동차 모델에 대해서 여러 개의 생산 지시서가 존재
 select * from product_model as pm
 join product_order as po on pm.model_id = po.model_id;
+
+-- 자동차 제조 공장
+create database car_factory;
+use car_factory;
+-- <생산품 product_model>
+create table product_model(
+model_id int primary key auto_increment,
+model_name varchar(100) not null,
+description text
+);
+
+insert into product_model(model_name,description) values ('Model X','전기 SUV'),('Model S','고성능 세단'),('Model C','소형차');
+
+-- <주문 production_order>
+create table production_order(
+order_id int primary key auto_increment,
+model_id int not null,
+order_date date not null,
+handover_date date,
+status enum('planned','in_progress','completed') default 'planned',
+foreign key (model_id) references product_model(model_id)
+);
+
+insert into production_order(model_id,order_date,handover_date,status) values
+('1','2025-06-04','2025-07-04','planned'),
+('2','2025-06-05','2025-07-05','in_progress'),
+('3','2025-06-06','2025-07-06','completed');
+
+-- 라인 work_station
+create table work_station(
+station_id int primary key auto_increment,
+name varchar(100) not null,
+station_type varchar(100),
+location varchar(100)
+);
+
+insert into work_station(name,station_type,location) values
+('용접 공정 A','Welding','1층 라인 A'),
+('도장 공정 B','Painting','2층 라인 B'),
+('조립 공정 C','Assembly','3층 라인 C');
+
+-- 작업 결과 work_result
+create table work_result(
+result_id int primary key auto_increment,
+order_id int not null,
+station_id int not null,
+complete_at datetime not null,
+quantity int default 1,
+foreign key (order_id) references production_order(order_id),
+foreign key (station_id) references work_station(station_id)
+);
+
+insert into work_result(order_id,station_id,complete_at,quantity) values
+(1,1,'2025-06-04 15:40:10',5),
+(2,2,'2025-06-05 15:40:10',3),
+(3,3,'2025-06-06 15:40:10',2);
+
+-- 부품 및 BOM(Bill Of Material, 자재 명세서)
+create table part(
+part_id int primary key auto_increment,
+part_name varchar(100) not null,
+specification text
+);
+
+insert into part(part_name, specification) values
+('배터리 모듈','72kwh 리튬 이온'),
+('모터','3상 AC 150kwh'),
+('섀시','강철 프레임'),
+('도어 패널','알루미늄 합금');
+
+create table bom(
+bom_id int primary key auto_increment,
+model_id int not null,
+part_id int not null,
+quantity_required int not null,
+foreign key (model_id) references product_model(model_id),
+foreign key (part_id) references part(part_id)
+);
+
+insert into bom(model_id,part_id,quantity_required) values
+(1,1,1), -- Model X,1,battery,1
+(1,2,2),
+(1,3,1),
+(2,1,1),
+(2,2,1),
+(2,3,1),
+(2,4,4);
+
+select pm.model_name, sum(b.quantity_required)
+from product_model as pm
+join bom as b on pm.model_id = b.model_id
+group by pm.model_id;
+-- n:m 부품이 사용된 자동차 모델 목록
+select p.part_name, pm.model_name
+from part as p
+join bom as b on p.part_id = b.part_id
+join product_model as pm on b.model_id = pm.model_id
+order by p.part_name;
+-- 작업자 및 작업 지시 배정
+create table worker(
+worker_id int primary key auto_increment,
+name varchar(100) not null,
+role varchar(50),
+hire_date date
+);
+
+insert into worker(name,role,hire_date) values
+('김민철','용접 기사', '2025-06-05'),
+('이영희','도장 기사', '2024-06-05'),
+('박철민','조립 기사', '2022-01-10');
+
+create table worker_assignment(
+work_assignment_id int primary key auto_increment,
+worker_id int not null,
+station_id int not null,
+order_id int not null,
+assignment_date date not null,
+foreign key (worker_id) references worker(worker_id),
+foreign key (order_id) references production_order(order_id),
+foreign key (station_id) references work_station(station_id)
+);
+
+insert into worker_assignment(worker_id,station_id,order_id,assignment_date) values
+(1,1,1,'2025-06-05'),
+(2,2,2,'2025-06-03'),
+(3,3,3,'2025-06-04');
+
+create table inspection_result(
+result_id int primary key auto_increment,
+passed boolean not null,
+inspected_at datetime not null,
+inspector_name varchar(100),
+notes text,
+foreign key (result_id) references work_result(result_id)
+);
+
+insert into inspection_result(result_id,passed,inspected_at,inspector_name,notes) values
+(1,true,'2025-06-05 11:19:30','카리나','양호'),
+(2,false,'2025-06-04 11:19:30','장원영','도장 미흡'),
+(3,true,'2025-06-03 11:19:30','김채원','정상');
+
+create table sensor_data(
+sensor_id int primary key auto_increment,
+station_id int not null,
+timestamp datetime not null,
+temperature decimal(5,2),
+vibration decimal(5,2),
+voltage decimal(5,2),
+foreign key (station_id) references work_station(station_id)
+);
+
+insert into sensor_data(station_id, timestamp, temperature,vibration,voltage) values
+(1,'2025-06-05 11:28:30',25.1,0.23,220.0),
+(2,'2025-06-05 11:28:30',25.4,0.34,219.0),
+(3,'2025-06-05 11:28:30',24.8,0.15,222.2);
+
+-- 창고 / 재고 흐름(transaction)
+create table ware_house(
+ware_house_id int primary key auto_increment,
+name varchar(100) not null,
+location varchar(100)
+);
+
+insert into ware_house(name,location) values
+('부품 창고 A','본관 1층'),
+('부품 창고 B','별관 지하');
+
+create table stock_transaction(
+transaction_id int primary key auto_increment,
+part_id int not null,
+ware_house_id int not null,
+transaction_type enum('IN','OUT') not null,
+quantity int not null,
+transaction_date datetime not null,
+foreign key (part_id) references part(part_id),
+foreign key (ware_house_id) references ware_house(ware_house_id)
+);
+
+insert into stock_transaction (part_id,ware_house_id,transaction_type,quantity,transaction_date) values
+(1,1,'IN',50,'2025-06-05 12:14:30'),
+(1,1,'OUT',10,'2025-06-05 13:14:30'),
+(2,2,'IN',20,'2025-06-04 12:14:30'),
+(2,2,'OUT',5,'2025-06-04 13:14:30');

@@ -84,8 +84,9 @@
                         <Button Grid.Column="1" Style="{StaticResource RoundedButtonStyle}" Click="SearchEmployee_Click">
                             <Image Source="/Resources/search_icon.png" Width="15" Height="15"/>
                         </Button>
+                        
                     </Grid>
-
+                    <Button Grid.Column="9" Content="초기화" Width="80" Height="25" Click="ClearButton_Click"/>
                     <TextBlock Grid.Row="2" Grid.Column="0" Text="주소지 종류" VerticalAlignment="Center" Margin="0,0,5,0"/>
                     <ComboBox Grid.Row="2" Grid.Column="1" x:Name="cbAddressType" SelectedItem="{Binding SelectedAddressType}">
                         <ComboBoxItem Content="선택안함" />
@@ -118,7 +119,7 @@
 
         <Border Grid.Row="2" Margin="10" BorderBrush="LightGray" BorderThickness="1">
             <DataGrid x:Name="dgEmployees" AutoGenerateColumns="False" ItemsSource="{Binding Employees}"
-                      IsReadOnly="True" CanUserAddRows="False">
+                      IsReadOnly="True" CanUserAddRows="False" MouseDoubleClick="EditEmployee_MouseDoubleClick">
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="사원명" Binding="{Binding EmployeeName}" Width="*"/>
                     <DataGridTextColumn Header="사번" Binding="{Binding EmployeeID}" Width="Auto"/>

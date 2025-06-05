@@ -4,10 +4,14 @@ using MY_LOGIN_ERP.Models;
 using System;
 using System.Collections.ObjectModel; // ObservableCollection 사용
 using System.ComponentModel;
+using System.Globalization;
 using System.Linq; // To use .FirstOrDefault()
 using System.Runtime.CompilerServices;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Controls.Primitives;
+using System.Windows.Data;
+using System.Windows.Media;
 
 namespace MY_LOGIN_ERP
 {
@@ -20,6 +24,7 @@ namespace MY_LOGIN_ERP
         public DateTime CurrentDate { get; set; } = DateTime.Today; // 기준년월일 초기값
         public string SelectedDepartmentName { get; set; } // 부서 검색 결과를 저장
         public string SelectedEmployeeName { get; set; } // 사원 검색 결과를 저장
+        public Employee SelectedEmployee { get; private set; }
         // INotifyPropertyChanged 구현
         public event PropertyChangedEventHandler PropertyChanged;
         // 2. ComboBox에서 선택된 항목을 저장할 속성 (SelectedItem에 바인딩)
@@ -66,17 +71,11 @@ namespace MY_LOGIN_ERP
             }
         }
 
-
-
-
-
         public ERPHumanResources()
         {
             InitializeComponent();
             _dataAccess = new MySqlDataAccess();
-            //ComboViewModel = new ComboViewModel();
             this.DataContext = this; // DataContext를 자기 자신으로 설정하여 속성 바인딩 가능하게 함
-
             LoadEmployees(); // 초기 사원 목록 로드
         }
 
@@ -109,7 +108,12 @@ namespace MY_LOGIN_ERP
             }
         }
 
-
+        // '초기화' 버튼 클릭 이벤트 핸들러
+        private void ClearButton_Click(object sender, RoutedEventArgs e)
+        {
+            SelectedEmployeeName = null;
+            txtEmployee.Text = null;
+        }
 
         // '조회' 버튼 클릭 이벤트 핸들러
         private void SearchButton_Click(object sender, RoutedEventArgs e)
@@ -153,13 +157,26 @@ namespace MY_LOGIN_ERP
         // '등록' 버튼 클릭 이벤트 핸들러
         private void AddEmployee_Click(object sender, RoutedEventArgs e)
         {
-            EmployeeCrudWindow crudWindow = new EmployeeCrudWindow();
+            EmployeeCrudWindow crudWindow = new EmployeeCrudWindow(null);
             if (crudWindow.ShowDialog() == true)
             {
                 // 등록/수정/삭제 작업 후 메인 화면의 목록을 새로고침
                 LoadEmployees();
             }
         }
+        // 데이터 그리드 더블클릭으로 수정 이벤트 핸들러
+        private void EditEmployee_MouseDoubleClick(object sender, RoutedEventArgs e)
+        {
+            EmployeeCrudWindow crudWindow = null;
+            var selector = dgEmployees.SelectedItem;
+            if (selector is Employee selectedEmployee)
+            {              
+                crudWindow = new EmployeeCrudWindow(selectedEmployee);
+                crudWindow.ShowDialog();
+            }
+        }
+
+
 
         protected void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
