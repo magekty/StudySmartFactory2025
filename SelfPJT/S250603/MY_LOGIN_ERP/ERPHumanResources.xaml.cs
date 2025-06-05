@@ -1,4 +1,5 @@
 ﻿// MainWindow.xaml.cs
+using Google.Protobuf.WellKnownTypes;
 using MY_LOGIN_ERP.DataAccess;
 using MY_LOGIN_ERP.Models;
 using System;
@@ -77,6 +78,11 @@ namespace MY_LOGIN_ERP
             _dataAccess = new MySqlDataAccess();
             this.DataContext = this; // DataContext를 자기 자신으로 설정하여 속성 바인딩 가능하게 함
             LoadEmployees(); // 초기 사원 목록 로드
+        }
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            MessageBox.Show("in"); 
+            //SelectedStatus.SetValue(ComboBox.SelectedIndexProperty, 0);
         }
 
         // 사원 목록을 로드하는 메서드

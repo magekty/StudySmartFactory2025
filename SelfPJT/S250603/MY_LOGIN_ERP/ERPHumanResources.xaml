@@ -6,7 +6,9 @@
         xmlns:local="clr-namespace:MY_LOGIN_ERP"
         mc:Ignorable="d"
         Title="사원조회및연락처조회" Height="700" Width="1000"
-        WindowStartupLocation="CenterScreen">
+        WindowStartupLocation="CenterScreen"
+        Loaded="Window_Loaded"
+        >
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
@@ -106,7 +108,7 @@
                     </ComboBox>
 
                     <TextBlock Grid.Row="2" Grid.Column="6" Text="재직/퇴직자" VerticalAlignment="Center" Margin="0,0,5,0"/>
-                    <ComboBox Grid.Row="2" Grid.Column="7" x:Name="cbStatus" SelectedItem="{Binding SelectedStatus}">
+                    <ComboBox Grid.Row="2" Grid.Column="7" x:Name="cbStatus" SelectedItem="{Binding SelectedStatus, Mode=TwoWay}">
                         <ComboBoxItem Content="선택안함" />
                         <ComboBoxItem Content="재직자"/>
                         <ComboBoxItem Content="퇴직자"/>

@@ -1,12 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace MY_LOGIN_ERP.Models
 {
-    public class Employee
+    public class Employee : INotifyPropertyChanged
     {
         public int EmployeeID { get; set; }
         public string EmployeeName { get; set; }
@@ -28,5 +30,21 @@ namespace MY_LOGIN_ERP.Models
         public string MaritalStatus { get; set; }
         public string Nationality { get; set; }
         public DateTime? HireDate { get; set; } // 입사일
+
+        public ObservableCollection<string> Genders { get; set; }
+        private string _selectedGender;
+        public string SelectedGender
+        {
+            get => _selectedGender;
+            set
+            {
+                _selectedGender = value;
+                OnPropertyChanged(nameof(SelectedGender));
+            }
+        }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+        protected void OnPropertyChanged(string name) =>
+    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
     }
 }
