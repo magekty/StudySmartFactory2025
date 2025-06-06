@@ -1,14 +1,9 @@
 ﻿// EmployeeCrudWindow.xaml.cs
 using MY_LOGIN_ERP.DataAccess;
 using MY_LOGIN_ERP.Models;
-using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Linq;
-using System.Runtime.CompilerServices;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Input; // KeyUp 이벤트를 위해
 
 namespace MY_LOGIN_ERP
 {
@@ -166,14 +161,6 @@ namespace MY_LOGIN_ERP
                 MessageBox.Show("이미 존재하는 사번입니다. 다른 사번을 입력해주세요.", "등록 오류", MessageBoxButton.OK, MessageBoxImage.Warning);
                 return;
             }
-            //SetCurrentEmployeeByFieldData();
-
-            // 콤보박스 선택 값 반영
-/*            CurrentEmployee.Status = ((ComboBoxItem)cbStatus.SelectedItem).Content.ToString();
-            CurrentEmployee.EmployeeType = ((ComboBoxItem)cbEmployeeType.SelectedItem).Content.ToString();
-            CurrentEmployee.AddressType = ((ComboBoxItem)cbAddressType.SelectedItem).Content.ToString();
-            CurrentEmployee.Gender = ((ComboBoxItem)cbGender.SelectedItem).Content.ToString();
-            CurrentEmployee.MaritalStatus = ((ComboBoxItem)cbMaritalStatus.SelectedItem).Content.ToString();*/
 
             if (_dataAccess.AddEmployee(CurrentEmployee))
             {
@@ -191,9 +178,6 @@ namespace MY_LOGIN_ERP
         private void Update_Click(object sender, RoutedEventArgs e)
         {
             if (!ValidateInput()) return;
-            //SetCurrentEmployeeByFieldData();
-
-
 
             if (_dataAccess.UpdateEmployee(CurrentEmployee))
             {

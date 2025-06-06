@@ -3,9 +3,7 @@ using MY_LOGIN_ERP.DataAccess;
 using MY_LOGIN_ERP.Models;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
 using System.Windows;
-using System.Windows.Controls;
 using System.Windows.Input; // MouseDoubleClick 이벤트를 위해
 
 namespace MY_LOGIN_ERP
@@ -36,9 +34,8 @@ namespace MY_LOGIN_ERP
         private void LoadPopupEmployees()
         {
             string employeeName = txtPopupEmployeeName.Text;
-
             // 데이터 액세스 메서드를 재사용 (필요하다면 팝업 전용 검색 메서드 추가 가능)
-            var employees = _dataAccess.GetEmployees(employeeName: employeeName);
+            List<Employee> employees = _dataAccess.GetEmployees(employeeName: employeeName);
             dgPopupEmployees.ItemsSource = new ObservableCollection<Employee>(employees); // ObservableCollection으로 바인딩
         }
 

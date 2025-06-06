@@ -3,15 +3,8 @@ using MY_LOGIN_ERP.DataAccess;
 using MY_LOGIN_ERP.Models;
 using System;
 using System.Collections.ObjectModel; // ObservableCollection 사용
-using System.ComponentModel;
-using System.Globalization;
-using System.Linq; // To use .FirstOrDefault()
-using System.Runtime.CompilerServices;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Controls.Primitives;
-using System.Windows.Data;
-using System.Windows.Media;
 
 namespace MY_LOGIN_ERP
 {
@@ -122,12 +115,15 @@ namespace MY_LOGIN_ERP
         // 데이터 그리드 더블클릭으로 수정 이벤트 핸들러
         private void EditEmployee_MouseDoubleClick(object sender, RoutedEventArgs e)
         {
-            EmployeeCrudWindow crudWindow = null;
             var selector = dgEmployees.SelectedItem;
             if (selector is Employee selectedEmployee)
-            {              
-                crudWindow = new EmployeeCrudWindow(selectedEmployee);
-                crudWindow.ShowDialog();
+            {
+                EmployeeCrudWindow crudWindow = new EmployeeCrudWindow(selectedEmployee);
+                if (crudWindow.ShowDialog() == true)
+                {
+                    // 등록/수정/삭제 작업 후 메인 화면의 목록을 새로고침
+                    LoadEmployees();
+                }
             }
         }
 
