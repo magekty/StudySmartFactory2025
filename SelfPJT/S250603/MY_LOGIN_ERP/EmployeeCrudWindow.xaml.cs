@@ -21,35 +21,35 @@ namespace MY_LOGIN_ERP
         public EmployeeCrudWindow(Employee employee)
         {
             InitializeComponent();
+            this.Owner = Application.Current.MainWindow; // 부모 창을 메인 윈도우로 설정하여 팝업이 메인 윈도우 위에 뜨도록 함
             _dataAccess = new MySqlDataAccess();
-            if (employee is null)
-            {
-                CurrentEmployee = new Employee(); // 새 사원 객체 초기화
-                this.DataContext = CurrentEmployee;
-                SetMode(false); // 초기에는 등록 모드
-            }
-            else
-            {
-                CurrentEmployee = employee;
-                this.DataContext = CurrentEmployee; // DataContext 설정
-                _isFirstEditMode = true;
-                employees = _dataAccess.GetEmployees(employeeId: employee.EmployeeID, employeeName: employee.EmployeeName);
-                SetMode(true); // 데이터 넘어오면 수정 모드
-            }
+            CheckSelectedEmp(employee);
         }
 
         // 팝업 로드 시 초기 상태 설정
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             if(_isFirstEditMode) LoadEmployeeData(employees.First());
+        }
+
+        private void CheckSelectedEmp(Employee employee)
+        {
+            if (employee is null)
+            {
+                CurrentEmployee = new Employee(); // 새 사원 객체 초기화
+                SetMode(false); // 초기에는 등록 모드
+                CurrentEmployee.AddressType = "선택안함";
+                CurrentEmployee.EmployeeType = "선택안함";
+                CurrentEmployee.Status = "선택안함";
+                CurrentEmployee.MaritalStatus = "선택안함";
+                CurrentEmployee.Gender = "선택안함";
+                this.DataContext = CurrentEmployee;
+            }
             else
             {
-                // 콤보박스 초기값 "선택안함"으로 설정
-                cbStatus.SelectedIndex = 0;
-                cbEmployeeType.SelectedIndex = 0;
-                cbAddressType.SelectedIndex = 0;
-                cbGender.SelectedIndex = 0;
-                cbMaritalStatus.SelectedIndex = 0;
+                CurrentEmployee = employee;
+                _isFirstEditMode = true;
+                employees = _dataAccess.GetEmployees(employeeId: employee.EmployeeID, employeeName: employee.EmployeeName);
             }
         }
 
@@ -81,13 +81,6 @@ namespace MY_LOGIN_ERP
             CurrentEmployee = new Employee(); // 새 Employee 객체로 초기화
             this.DataContext = null; // DataContext를 null로 설정하여 바인딩을 끊고
             this.DataContext = CurrentEmployee; // 다시 설정하여 모든 필드를 초기화 (가장 간단한 방법)
-
-            // 콤보박스 초기값 "선택안함"으로 설정
-            cbStatus.SelectedIndex = 0;
-            cbEmployeeType.SelectedIndex = 0;
-            cbAddressType.SelectedIndex = 0;
-            cbGender.SelectedIndex = 0;
-            cbMaritalStatus.SelectedIndex = 0;
 
             txtSearchEmployeeID.Clear();
             txtSearchEmployeeName.Clear();

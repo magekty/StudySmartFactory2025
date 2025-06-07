@@ -39,7 +39,7 @@ INSERT INTO tbl_employees (EmployeeID, EmployeeName, Department, WorkDepartment,
 (20130302, '남생산', '생산3팀', '생산3팀', '사원', '', '2013-03-05', '재직자', '상임', '주민등록상거주지', '010-1122-3344', '대구시 북구 동성로 700', '대구시 북구 침산동 700-11', 'nsaengsan@example.com');
 
 USE smart_factory_erp;
-
+select * from tbl_employees where EmployeeName = '김태영';
 -- 컬럼 추가 (필요 시 주석 해제 후 실행)
 ALTER TABLE tbl_employees
 ADD COLUMN Gender VARCHAR(10),            -- 성별 (예: 남, 여)
@@ -51,3 +51,6 @@ ADD COLUMN HireDate DATE;                -- 입사일 (AppointmentDate와 다르
 -- 인덱스 추가 (조회 성능 향상용)
 CREATE INDEX idx_employee_name ON tbl_employees (EmployeeName);
 CREATE INDEX idx_department ON tbl_employees (Department);
+Select * from smart_factory_erp.tbl_employees;
+
+-- 

@@ -49,29 +49,17 @@ namespace MY_LOGIN_ERP.DataAccess
             List<Employee> employees = new List<Employee>();
             string query = "SELECT * FROM tbl_employees WHERE 1=1";
             if (employeeId.HasValue)
-            {
                 query += " AND EmployeeID = @EmployeeID";
-            }
             if (!string.IsNullOrEmpty(department))
-            {
                 query += " AND Department LIKE @Department";
-            }
             if (!string.IsNullOrEmpty(employeeName))
-            {
                 query += " AND EmployeeName LIKE @EmployeeName";
-            }
             if (!string.IsNullOrEmpty(addressType) && addressType != "선택안함")
-            {
                 query += $" AND AddressType = @AddressType";
-            }
             if (!string.IsNullOrEmpty(employeeType) && employeeType != "선택안함")
-            {
                 query += $" AND EmployeeType = @EmployeeType";
-            }
             if (!string.IsNullOrEmpty(status) && status != "선택안함")
-            {
                 query += $" AND Status = @Status";
-            }
 
             try
             {
@@ -79,29 +67,17 @@ namespace MY_LOGIN_ERP.DataAccess
                 {
                     MySqlCommand command = new MySqlCommand(query, connection);
                     if (employeeId.HasValue)
-                    {
                         command.Parameters.AddWithValue("@EmployeeID", employeeId.Value);
-                    }
                     if (!string.IsNullOrEmpty(department))
-                    {
                         command.Parameters.AddWithValue("@Department", $"%{department}%");
-                    }
                     if (!string.IsNullOrEmpty(employeeName))
-                    {
                         command.Parameters.AddWithValue("@EmployeeName", $"%{employeeName}%");
-                    }
                     if (!string.IsNullOrEmpty(addressType) && addressType != "선택안함")
-                    {
                         command.Parameters.AddWithValue("@AddressType", addressType);
-                    }
                     if (!string.IsNullOrEmpty(employeeType) && employeeType != "선택안함")
-                    {
                         command.Parameters.AddWithValue("@EmployeeType", employeeType);
-                    }
                     if (!string.IsNullOrEmpty(status) && status != "선택안함")
-                    {
                         command.Parameters.AddWithValue("@Status", status);
-                    }
 
                     connection.Open();
 
@@ -118,17 +94,17 @@ namespace MY_LOGIN_ERP.DataAccess
                                 Position = reader.IsDBNull(4) ? null : reader.GetString("Position"),
                                 JobRank = reader.IsDBNull(5) ? null : reader.GetString("JobRank"),
                                 AppointmentDate = reader.IsDBNull(6) ? (DateTime?)null : reader.GetDateTime("AppointmentDate"),
-                                Status = reader.IsDBNull(7) ? null : reader.GetString("Status"),
-                                EmployeeType = reader.IsDBNull(8) ? null : reader.GetString("EmployeeType"),
-                                AddressType = reader.IsDBNull(9) ? null : reader.GetString("AddressType"),
+                                Status = reader.IsDBNull(7) ? "선택안함" : reader.GetString("Status"),
+                                EmployeeType = reader.IsDBNull(8) ? "선택안함" : reader.GetString("EmployeeType"),
+                                AddressType = reader.IsDBNull(9) ? "선택안함" : reader.GetString("AddressType"),
                                 PhoneNumber = reader.IsDBNull(10) ? null : reader.GetString("PhoneNumber"),
                                 RoadAddress = reader.IsDBNull(11) ? null : reader.GetString("RoadAddress"),
                                 JibunAddress = reader.IsDBNull(12) ? null : reader.GetString("JibunAddress"),
                                 Email = reader.IsDBNull(13) ? null : reader.GetString("Email"),
                                 // 추가된 컬럼들 (데이터베이스에 컬럼이 없으면 에러 발생, 주석 해제 시 DB 스키마 업데이트 필수)
-                                Gender = reader.IsDBNull(14) ? null : reader.GetString("Gender"),
+                                Gender = reader.IsDBNull(14) ? "선택안함" : reader.GetString("Gender"),
                                 BirthDate = reader.IsDBNull(15) ? (DateTime?)null : reader.GetDateTime("BirthDate"),
-                                MaritalStatus = reader.IsDBNull(16) ? null : reader.GetString("MaritalStatus"),
+                                MaritalStatus = reader.IsDBNull(16) ? "선택안함" : reader.GetString("MaritalStatus"),
                                 Nationality = reader.IsDBNull(17) ? null : reader.GetString("Nationality"),
                                 HireDate = reader.IsDBNull(18) ? (DateTime?)null : reader.GetDateTime("HireDate")
                             });

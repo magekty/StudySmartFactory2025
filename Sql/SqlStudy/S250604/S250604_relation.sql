@@ -325,7 +325,7 @@ inspector_name varchar(100),
 notes text,
 foreign key (result_id) references work_result(result_id)
 );
-
+select * from inspection_result;
 insert into inspection_result(result_id,passed,inspected_at,inspector_name,notes) values
 (1,true,'2025-06-05 11:19:30','카리나','양호'),
 (2,false,'2025-06-04 11:19:30','장원영','도장 미흡'),
