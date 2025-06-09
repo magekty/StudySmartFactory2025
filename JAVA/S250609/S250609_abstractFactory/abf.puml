@@ -1,0 +1,60 @@
+@startuml
+interface Engine {
+~ void design()
+}
+
+interface Tire {
+~ void produce()
+}
+
+class KoreanEngine {
++ void design()
+}
+
+class UsaEngine {
++ void design()
+}
+
+class KoreanTire {
++ void produce()
+}
+
+class UsaTire {
++ void produce()
+}
+
+interface CarPartsFactory {
+~ Engine createEngine()
+~ Tire createTire()
+}
+
+class KoreanPartsFactory {
++ Engine createEngine()
++ Tire createTire()
+}
+
+class UsaPartsFactory {
++ Engine createEngine()
++ Tire createTire()
+}
+
+class Car {
+- Engine engine
+- Tire tire
++ void assemble()
+}
+
+
+class Main {
++ {static} void main(String[])
+}
+
+
+
+Engine <|.. KoreanEngine
+Engine <|.. UsaEngine
+Tire <|.. KoreanTire
+Tire <|.. UsaTire
+CarPartsFactory <|.. KoreanPartsFactory
+CarPartsFactory <|.. UsaPartsFactory
+@enduml

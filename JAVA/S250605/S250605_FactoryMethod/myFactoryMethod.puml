@@ -1,0 +1,36 @@
+@startuml
+interface CarPart {
+~ void assemble()
+}
+
+class Engine {
++ void assemble()
+}
+
+class Tire {
++ void assemble()
+}
+
+abstract class PartFactory {
++ {abstract}CarPart createPart()
+}
+
+class EngineFactory {
++ CarPart createPart()
+}
+
+class TireFactory {
++ CarPart createPart()
+}
+
+class Main {
++ {static} void main(String[])
+}
+
+
+
+CarPart <|.. Engine
+CarPart <|.. Tire
+PartFactory <|-- EngineFactory
+PartFactory <|-- TireFactory
+@enduml

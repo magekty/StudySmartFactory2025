@@ -352,6 +352,60 @@ class ShoppingCart {
         }
     }
 }
+// Builder (빌더)
+// 1. Product (제품) 클래스
+class Burger {
+    private String bun;
+    private String patty;
+    private List<String> sauces;
+    private List<String> toppings;
+
+    // 생성자는 private으로 설정하여 Builder를 통해서만 생성 가능하게 함
+    private Burger(BurgerBuilder builder) {
+        this.bun = builder.bun;
+        this.patty = builder.patty;
+        this.sauces = builder.sauces;
+        this.toppings = builder.toppings;
+    }
+
+    public void display() {
+        System.out.println("--- Burger ---");
+        System.out.println("Bun: " + bun);
+        System.out.println("Patty: " + patty);
+        System.out.println("Sauces: " + sauces);
+        System.out.println("Toppings: " + toppings);
+        System.out.println("--------------");
+    }
+
+    // 2. Builder (빌더) 클래스 (내부 클래스로 구현하는 것이 일반적)
+    public static class BurgerBuilder {
+        private String bun;
+        private String patty;
+        private List<String> sauces = new ArrayList<>();
+        private List<String> toppings = new ArrayList<>();
+
+        public BurgerBuilder(String bun, String patty) {
+            this.bun = bun;
+            this.patty = patty;
+        }
+
+        public BurgerBuilder addSauce(String sauce) {
+            this.sauces.add(sauce);
+            return this; // 체이닝을 위해 자기 자신 반환
+        }
+
+        public BurgerBuilder addTopping(String topping) {
+            this.toppings.add(topping);
+            return this;
+        }
+
+        public Burger build() {
+            return new Burger(this);
+        }
+    }
+}
+
+
 public class Main {
 
     public static void main(String[] args) {
@@ -394,7 +448,7 @@ public class Main {
          weatherData.setMeasurements(78, 90, 29.2f);*/
 
         // Strategy (전략) 사용법
-        ShoppingCart cart = new ShoppingCart();
+/*        ShoppingCart cart = new ShoppingCart();
         cart.addItem(100);
         cart.addItem(250);
 
@@ -404,6 +458,20 @@ public class Main {
 
         // PayPal 결제
         cart.setPaymentStrategy(new PayPalPayment("john.doe@example.com"));
-        cart.checkout(); // 350 paid using PayPal: john.doe@example.com
+        cart.checkout(); // 350 paid using PayPal: john.doe@example.com*/
+
+        // Builder (빌더) 사용법
+         Burger cheeseburger = new Burger.BurgerBuilder("Sesame Bun", "Beef Patty")
+                                          .addSauce("Ketchup")
+                                          .addSauce("Mustard")
+                                          .addTopping("Cheese")
+                                          .addTopping("Pickles")
+                                          .build();
+         cheeseburger.display();
+
+         Burger veggieBurger = new Burger.BurgerBuilder("Whole Wheat Bun", "Veggie Patty")
+                                         .addSauce("Mayonnaise")
+                                         .build();
+         veggieBurger.display();
     }
 }

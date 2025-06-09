@@ -1,0 +1,179 @@
+@startuml
+interface Coffee {
+~ void brew()
+}
+
+class Latte {
++ void brew()
+}
+
+class Americano {
++ void brew()
+}
+
+abstract class CoffeeFactory {
++ {abstract}Coffee createCoffee()
++ void orderCoffee()
+}
+
+class LatteFactory {
++ Coffee createCoffee()
+}
+
+class AmericanoFactory {
++ Coffee createCoffee()
+}
+
+interface Chair {
+~ void sitOn()
+}
+
+class ModernChair {
++ void sitOn()
+}
+
+class VictorianChair {
++ void sitOn()
+}
+
+interface Table {
+~ void putOn()
+}
+
+class ModernTable {
++ void putOn()
+}
+
+class VictorianTable {
++ void putOn()
+}
+
+interface FurnitureFactory {
+~ Chair createChair()
+~ Table createTable()
+}
+
+class ModernFurnitureFactory {
++ Chair createChair()
++ Table createTable()
+}
+
+class VictorianFurnitureFactory {
++ Chair createChair()
++ Table createTable()
+}
+
+interface MediaPlayer {
+~ void play(String,String)
+}
+
+class AdvancedMediaPlayer {
++ void playVlc(String)
++ void playMp4(String)
+}
+
+class MediaAdapter {
+~ AdvancedMediaPlayer advancedMediaPlayer
++ void play(String,String)
+}
+
+
+class AudioPlayer {
+~ MediaAdapter mediaAdapter
++ void play(String,String)
+}
+
+
+interface Subject {
+~ void registerObserver(Observer)
+~ void removeObserver(Observer)
+~ void notifyObservers()
+}
+
+interface Observer {
+~ void update(float,float,float)
+}
+
+class WeatherData {
+- List<Observer> observers
+- float temperature
+- float humidity
+- float pressure
++ void registerObserver(Observer)
++ void removeObserver(Observer)
++ void notifyObservers()
++ void measurementsChanged()
++ void setMeasurements(float,float,float)
+}
+
+
+class CurrentConditionsDisplay {
+- float temperature
+- float humidity
+- Subject weatherData
++ void update(float,float,float)
++ void display()
+}
+
+
+class StatisticsDisplay {
+- float maxTemp
+- float minTemp
+- float tempSum
+- int numReadings
+- Subject weatherData
++ void update(float,float,float)
++ void display()
+}
+
+
+interface PaymentStrategy {
+~ void pay(int)
+}
+
+class CreditCardPayment {
+- String cardNumber
+- String name
++ void pay(int)
+}
+
+
+class PayPalPayment {
+- String emailId
++ void pay(int)
+}
+
+
+class ShoppingCart {
+- List<Integer> items
+- PaymentStrategy paymentStrategy
++ void addItem(int)
++ void setPaymentStrategy(PaymentStrategy)
++ void checkout()
+}
+
+
+class Main {
++ {static} void main(String[])
+}
+
+
+
+Coffee <|.. Latte
+Coffee <|.. Americano
+CoffeeFactory <|-- LatteFactory
+CoffeeFactory <|-- AmericanoFactory
+Chair <|.. ModernChair
+Chair <|.. VictorianChair
+Table <|.. ModernTable
+Table <|.. VictorianTable
+FurnitureFactory <|.. ModernFurnitureFactory
+FurnitureFactory <|.. VictorianFurnitureFactory
+MediaPlayer <|.. MediaAdapter
+MediaPlayer <|.. AudioPlayer
+Subject <|.. WeatherData
+Observer <|.. CurrentConditionsDisplay
+Observer <|.. StatisticsDisplay
+PaymentStrategy <|.. CreditCardPayment
+PaymentStrategy <|.. PayPalPayment
+@enduml
