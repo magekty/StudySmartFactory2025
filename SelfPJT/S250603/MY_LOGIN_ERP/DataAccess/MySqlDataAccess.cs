@@ -5,6 +5,9 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
+using System.Net.Http;
+using System.Text.Json;
+using System.Threading.Tasks;
 using System.Windows; // MessageBox를 위해 임시로 추가, 실제로는 별도 로깅 또는 예외 처리 권장
 
 
@@ -12,15 +15,22 @@ namespace MY_LOGIN_ERP.DataAccess
 {
     public class MySqlDataAccess
     {
-        private readonly string connectionString = "Server=localhost;Port=3306;Database=smart_factory_erp;Uid=root;Pwd=1121;";
         // "your_password"를 실제 MySQL root 비밀번호로 변경하세요.
+        private readonly string connectionString = "Server=localhost;Port=3306;Database=smart_factory_erp;Uid=root;Pwd=1121;";
+        // ViewModel 서비스 - Java연동
+        private readonly HttpClient _httpClient;
+        private const string BaseUrl = "http://localhost:8080/api/users"; // 백엔드 API 기본 URL
 
         public MySqlDataAccess()
         {
             TestConnection();
+            // ViewModel 서비스 - Java 연동
+            _httpClient = new HttpClient();
+            // 필요에 따라 기본 헤더 설정 (예: 인증 토큰)
+            // _httpClient.DefaultRequestHeaders.Add("Authorization", "Bearer your_jwt_token");
         }
 
-        private void TestConnection()
+        private void TestConnection()  
         {
             try
             {
@@ -34,6 +44,44 @@ namespace MY_LOGIN_ERP.DataAccess
             {
                 MessageBox.Show($"MySQL 데이터베이스 연결 실패: {ex.Message}\n\n데이터베이스 설정 및 연결 문자열을 확인해주세요.", "오류", MessageBoxButton.OK, MessageBoxImage.Error);
                 Environment.Exit(1);
+            }
+        }
+        public async Task<List<User>> GetUsersAsync()   // Java 연동
+        {
+            try
+            {
+                HttpResponseMessage response = await _httpClient.GetAsync(BaseUrl);
+                response.EnsureSuccessStatusCode(); // 200번대 응답이 아니면 예외 발생
+
+                string jsonResponse = await response.Content.ReadAsStringAsync();
+                // JSON 문자열을 User 객체 리스트로 역직렬화
+                return JsonSerializer.Deserialize<List<User>>(jsonResponse, new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
+            }
+            catch (HttpRequestException e)
+            {
+                Console.WriteLine($"Error getting users: {e.Message}");
+                // 사용자에게 오류 메시지 표시
+                return null; // 또는 예외를 다시 던지거나 적절히 처리
+            }
+        }
+
+        public async Task<User> CreateUserAsync(User newUser)  // Java 연동
+        {
+            try
+            {
+                string jsonContent = JsonSerializer.Serialize(newUser);
+                StringContent content = new StringContent(jsonContent, System.Text.Encoding.UTF8, "application/json");
+
+                HttpResponseMessage response = await _httpClient.PostAsync(BaseUrl, content);
+                response.EnsureSuccessStatusCode();
+
+                string jsonResponse = await response.Content.ReadAsStringAsync();
+                return JsonSerializer.Deserialize<User>(jsonResponse, new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
+            }
+            catch (HttpRequestException e)
+            {
+                Console.WriteLine($"Error creating user: {e.Message}");
+                return null;
             }
         }
 

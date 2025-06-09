@@ -18,6 +18,11 @@ namespace MY_LOGIN_ERP
             txtPassword.Password = "비밀번호를 입력하세요.";
             txtPassword.Foreground = Brushes.LightGray;
         }
+        private void btnReg_Click(object sender, RoutedEventArgs e)
+        {
+            RegUser regUser = new RegUser();
+            regUser.ShowDialog();
+        }
 
         private void btnLogin_Click(object sender, RoutedEventArgs e)
         {

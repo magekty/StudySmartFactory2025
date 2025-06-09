@@ -87,6 +87,7 @@
                         
                     </Grid>
                     <Button Grid.Column="9" Content="초기화" Width="80" Height="25" Click="ClearButton_Click"/>
+                    <TextBlock Grid.Row="0" Grid.Column="10" Text="{Binding StatusMessage}" Margin="10" Foreground="Blue"/>
                     <TextBlock Grid.Row="2" Grid.Column="0" Text="주소지 종류" VerticalAlignment="Center" Margin="0,0,5,0"/>
                     <ComboBox Grid.Row="2" Grid.Column="1" x:Name="cbAddressType">
                         <ComboBoxItem Content="선택안함" IsSelected="true"/>

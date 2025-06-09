@@ -53,4 +53,15 @@ CREATE INDEX idx_employee_name ON tbl_employees (EmployeeName);
 CREATE INDEX idx_department ON tbl_employees (Department);
 Select * from smart_factory_erp.tbl_employees;
 
--- 
+-- Java 연동
+create table users (
+user_id INT PRIMARY KEY auto_increment,              -- 사번 (이미지상 '사번' 컬럼이 문자열 형태일 수 있으나, 검색/관리 용이성을 위해 INT로 가정)
+username VARCHAR(100) unique NOT NULL,   
+password VARCHAR(100) not null,
+email varchar(100)
+);
+drop table users;
+insert into users (username, password, email) values(
+'abc','1234','ma@hanmail.net'
+);
+SELECT * FROM smart_factory_erp.users;
