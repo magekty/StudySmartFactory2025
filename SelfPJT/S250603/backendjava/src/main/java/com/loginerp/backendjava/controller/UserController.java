@@ -12,7 +12,7 @@ import java.util.List;
 
 @RestController // RESTful API 컨트롤러임을 나타냄
 @RequestMapping("/api/users") // 기본 URL 경로
-@CrossOrigin(origins = "*") // CORS 허용 (프론트엔드 URL에 따라 * 대신 특정 URL 지정)
+@CrossOrigin(origins = "http://localhost:8080/api/users") // CORS 허용 (프론트엔드 URL에 따라 * 대신 특정 URL 지정)
 public class UserController {
 
     @Autowired

@@ -67,7 +67,7 @@ namespace MY_LOGIN_ERP
             }
 
             StatusMessage = "사용자 추가 중...";
-            var newUser = new User { Username = NewUserName, Email = NewUserEmail };
+            var newUser = new User { username = NewUserName, email = NewUserEmail };
             var createdUser = await _userService.CreateUserAsync(newUser);
             if (createdUser != null)
             {
@@ -76,7 +76,7 @@ namespace MY_LOGIN_ERP
                 NewUserEmail = string.Empty;
                 OnPropertyChanged(nameof(NewUserName)); // UI 업데이트
                 OnPropertyChanged(nameof(NewUserEmail)); // UI 업데이트
-                StatusMessage = $"{createdUser.Username} 사용자 추가 완료!";
+                StatusMessage = $"{createdUser.username} 사용자 추가 완료!";
             }
             else
             {

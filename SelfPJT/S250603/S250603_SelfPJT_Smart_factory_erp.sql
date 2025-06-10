@@ -62,6 +62,9 @@ email varchar(100)
 );
 drop table users;
 insert into users (username, password, email) values(
-'abc','1234','ma@hanmail.net'
+'bbb','1111','sadzx@hanmail.net'
+);
+insert into users (username, password, email) values(
+'bbb','1111','sadzx@hanmail.net'
 );
 SELECT * FROM smart_factory_erp.users;

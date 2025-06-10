@@ -28,10 +28,10 @@
         <ListView Grid.Row="1" ItemsSource="{Binding Users}" Margin="10">
             <ListView.View>
                 <GridView>
-                    <GridViewColumn Header="ID" DisplayMemberBinding="{Binding UserId}"/>
-                    <GridViewColumn Header="비밀번호" DisplayMemberBinding="{Binding Password}"/>
-                    <GridViewColumn Header="이름" DisplayMemberBinding="{Binding Username}"/>
-                    <GridViewColumn Header="이메일" DisplayMemberBinding="{Binding Email}"/>
+                    <GridViewColumn Header="ID" DisplayMemberBinding="{Binding userid}"/>
+                    <GridViewColumn Header="비밀번호" DisplayMemberBinding="{Binding password}"/>
+                    <GridViewColumn Header="이름" DisplayMemberBinding="{Binding username}"/>
+                    <GridViewColumn Header="이메일" DisplayMemberBinding="{Binding email}"/>
                 </GridView>
             </ListView.View>
         </ListView>
