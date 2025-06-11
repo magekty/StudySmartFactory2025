@@ -17,8 +17,10 @@
         </Grid.RowDefinitions>
 
         <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="10">
-            <TextBlock Text="이름:"/>
+            <TextBlock Text="유저ID:"/>
             <TextBox Width="100" Text="{Binding NewUserName, UpdateSourceTrigger=PropertyChanged}"/>
+            <TextBlock Text="비밀번호:"/>
+            <TextBox Width="100" Text="{Binding NewUserPassword, UpdateSourceTrigger=PropertyChanged}"/>
             <TextBlock Text="이메일:"/>
             <TextBox Width="150" Text="{Binding NewUserEmail, UpdateSourceTrigger=PropertyChanged}"/>
             <Button Content="사용자 추가" Command="{Binding AddUserCommand}"/>
@@ -28,10 +30,10 @@
         <ListView Grid.Row="1" ItemsSource="{Binding Users}" Margin="10">
             <ListView.View>
                 <GridView>
-                    <GridViewColumn Header="ID" DisplayMemberBinding="{Binding userid}"/>
-                    <GridViewColumn Header="비밀번호" DisplayMemberBinding="{Binding password}"/>
-                    <GridViewColumn Header="이름" DisplayMemberBinding="{Binding username}"/>
-                    <GridViewColumn Header="이메일" DisplayMemberBinding="{Binding email}"/>
+                    <GridViewColumn Width="30" Header="Idx" DisplayMemberBinding="{Binding userid}"/>
+                    <GridViewColumn Width="100" Header="유저ID" DisplayMemberBinding="{Binding username}"/>
+                    <GridViewColumn Width="100" Header="비밀번호" DisplayMemberBinding="{Binding password}"/>
+                    <GridViewColumn Width="150" Header="이메일" DisplayMemberBinding="{Binding email}"/>
                 </GridView>
             </ListView.View>
         </ListView>

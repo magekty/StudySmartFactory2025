@@ -1,6 +1,7 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
+using MY_LOGIN_ERP.DataAccess;
 
 namespace MY_LOGIN_ERP
 {
@@ -9,6 +10,7 @@ namespace MY_LOGIN_ERP
     /// </summary>
     public partial class MainWindow : Window
     {
+        AuthService authService = new AuthService();
         public MainWindow()
         {
             InitializeComponent();
@@ -24,13 +26,13 @@ namespace MY_LOGIN_ERP
             regUser.ShowDialog();
         }
 
-        private void btnLogin_Click(object sender, RoutedEventArgs e)
+        private async void btnLogin_Click(object sender, RoutedEventArgs e)
         {
             string userID = txtUserID.Text;
             string password = txtPassword.Password;
 
             // 실제 로그인 로직 구현 (데이터베이스 연동 등)
-            if (userID == "1" && password == "1") // 예시
+            if (await authService.LoginAsync(userID, password)) // 예시
             {
                 MessageBox.Show("로그인 성공!");
                 // 다음 화면으로 이동하는 코드

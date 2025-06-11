@@ -5,6 +5,9 @@ import com.loginerp.backendjava.dto.UserDto;
 import com.loginerp.backendjava.model.User;
 import com.loginerp.backendjava.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.modelmapper.ModelMapper; // DTO <-> Entity 매핑 라이브러리 (선택 사항)
 
@@ -20,6 +23,24 @@ public class UserService {
     @Autowired // ModelMapper 빈을 주입받음 (설정 필요)
     private ModelMapper modelMapper;
 
+    private final PasswordEncoder passwordEncoder;
+
+    public UserService(UserRepository userRepository,
+                       PasswordEncoder passwordEncoder) {
+        this.userRepository = userRepository;
+        this.passwordEncoder = passwordEncoder;
+    }
+
+    public User authenticate(String username, String rawPassword) {
+        User user = userRepository.findByUsername(username)
+                .orElseThrow(() -> new UsernameNotFoundException("User not found"));
+
+        if (!passwordEncoder.matches(rawPassword, user.getPassword())) {
+            throw new BadCredentialsException("Invalid password");
+        }
+
+        return user;
+    }
 
     public List<UserDto> getAllUsers() {
         return userRepository.findAll().stream()

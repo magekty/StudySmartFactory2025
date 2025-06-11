@@ -17,6 +17,7 @@ namespace MY_LOGIN_ERP
         private readonly MySqlDataAccess _userService; // UserService 인스턴스
         public ObservableCollection<User> Users { get; set; }
         public string NewUserName { get; set; }
+        public string NewUserPassword { get; set; }
         public string NewUserEmail { get; set; }
         private string _statusMessage;
         public string StatusMessage
@@ -67,14 +68,16 @@ namespace MY_LOGIN_ERP
             }
 
             StatusMessage = "사용자 추가 중...";
-            var newUser = new User { username = NewUserName, email = NewUserEmail };
+            var newUser = new User { username = NewUserName, password = NewUserPassword, email = NewUserEmail };
             var createdUser = await _userService.CreateUserAsync(newUser);
             if (createdUser != null)
             {
                 Users.Add(createdUser);
                 NewUserName = string.Empty;
+                NewUserPassword = string.Empty;
                 NewUserEmail = string.Empty;
                 OnPropertyChanged(nameof(NewUserName)); // UI 업데이트
+                OnPropertyChanged(nameof(NewUserPassword)); // UI 업데이트
                 OnPropertyChanged(nameof(NewUserEmail)); // UI 업데이트
                 StatusMessage = $"{createdUser.username} 사용자 추가 완료!";
             }

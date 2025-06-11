@@ -122,6 +122,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="DataAccess\AuthService.cs" />
     <Compile Include="RegUser.xaml.cs">
       <DependentUpon>RegUser.xaml</DependentUpon>
     </Compile>
