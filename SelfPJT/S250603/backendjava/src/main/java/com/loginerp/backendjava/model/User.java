@@ -14,9 +14,9 @@ import lombok.Data; // Lombok 사용 시
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY) // MySQL의 auto_increment
-    private Integer UserId; // PK
-    private String Username;
-    private String Password;
-    private String Email;
+    private Integer userid; // PK
+    private String username;
+    private String password;
+    private String email;
     // 기타 필드
 }

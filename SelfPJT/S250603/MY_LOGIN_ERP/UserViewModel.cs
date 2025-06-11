@@ -17,7 +17,21 @@ namespace MY_LOGIN_ERP
         private readonly MySqlDataAccess _userService; // UserService 인스턴스
         public ObservableCollection<User> Users { get; set; }
         public string NewUserName { get; set; }
-        public string NewUserPassword { get; set; }
+        private string _newUserPassword;
+
+        // PasswordBoxHelper를 통해 바인딩될 비밀번호 속성
+        public string NewUserPassword
+        {
+            get => _newUserPassword;
+            set
+            {
+                if (_newUserPassword != value) // 값이 변경되었는지 확인
+                {
+                    _newUserPassword = value;
+                    OnPropertyChanged(); // 속성 변경 알림
+                }
+            }
+        }
         public string NewUserEmail { get; set; }
         private string _statusMessage;
         public string StatusMessage
@@ -61,9 +75,10 @@ namespace MY_LOGIN_ERP
 
         private async Task AddUser()
         {
-            if (string.IsNullOrWhiteSpace(NewUserName) || string.IsNullOrWhiteSpace(NewUserEmail))
+            
+            if (string.IsNullOrWhiteSpace(NewUserName) || string.IsNullOrWhiteSpace(NewUserPassword))
             {
-                StatusMessage = "이름과 이메일을 입력해주세요.";
+                StatusMessage = "이름과 비밀번호를 입력해주세요.";
                 return;
             }
 

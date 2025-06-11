@@ -5,9 +5,9 @@ import lombok.Data;
 
 @Data // Lombok
 public class UserDto {
-    private Integer UserId;
-    private String Username;
-    private String Password;
-    private String Email;
+    private Integer userid;
+    private String username;
+    private String password;
+    private String email;
 }
 

@@ -20,10 +20,12 @@
             <TextBlock Text="유저ID:"/>
             <TextBox Width="100" Text="{Binding NewUserName, UpdateSourceTrigger=PropertyChanged}"/>
             <TextBlock Text="비밀번호:"/>
-            <TextBox Width="100" Text="{Binding NewUserPassword, UpdateSourceTrigger=PropertyChanged}"/>
+            <PasswordBox Width="100" local:Util.PasswordBoxHelper.BoundPassword="{Binding NewUserPassword, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+            <!-- "{Binding NewUserPassword, UpdateSourceTrigger=PropertyChanged}" -->
             <TextBlock Text="이메일:"/>
             <TextBox Width="150" Text="{Binding NewUserEmail, UpdateSourceTrigger=PropertyChanged}"/>
-            <Button Content="사용자 추가" Command="{Binding AddUserCommand}"/>
+            <Button Content="사용자 추가" Command="{Binding AddUserCommand}"
+                    CommandParameter="{Binding ElementName=NewUserPassword, Path=Password}"/>
             <Button Content="사용자 불러오기" Command="{Binding LoadUsersCommand}"/>
         </StackPanel>
 

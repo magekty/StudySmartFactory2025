@@ -20,6 +20,7 @@ namespace MY_LOGIN_ERP.DataAccess
         // ViewModel 서비스 - Java연동
         private readonly HttpClient _httpClient;
         private const string BaseUrl = "http://localhost:8080/api/users"; // 백엔드 API 기본 URL
+        private const string RegUrl = "http://localhost:8080/api/users/register"; // 백엔드 API 기본 URL
 
         public MySqlDataAccess()
         {
@@ -72,7 +73,7 @@ namespace MY_LOGIN_ERP.DataAccess
                 string jsonContent = JsonSerializer.Serialize(newUser);
                 StringContent content = new StringContent(jsonContent, System.Text.Encoding.UTF8, "application/json");
 
-                HttpResponseMessage response = await _httpClient.PostAsync(BaseUrl, content);
+                HttpResponseMessage response = await _httpClient.PostAsync(RegUrl, content);
                 response.EnsureSuccessStatusCode();
 
                 string jsonResponse = await response.Content.ReadAsStringAsync();

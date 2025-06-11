@@ -127,6 +127,7 @@
       <DependentUpon>RegUser.xaml</DependentUpon>
     </Compile>
     <Compile Include="UserViewModel.cs" />
+    <Compile Include="Util\PasswordBoxHelper.cs" />
     <Page Include="EmployeeCrudWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

@@ -4,11 +4,13 @@ import io.jsonwebtoken.security.Keys;
 import org.springframework.stereotype.Component;
 
 import java.security.Key;
+import java.util.Base64;
 import java.util.Date;
 @Component
 public class JwtUtil {
 
-    private final String SECRET_KEY = "my-super-secret-key-which-must-be-256bit-length!";
+    private final String SECRET_KEY = Base64.getEncoder().encodeToString(
+            "my-SuperSecretKeyForJWT-2025!-it|must|be|256bit-length!".getBytes());
     private final long EXPIRATION_TIME = 1000 * 60 * 60; // 1시간
 
     private final Key key = Keys.hmacShaKeyFor(SECRET_KEY.getBytes());

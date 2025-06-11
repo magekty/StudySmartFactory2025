@@ -51,6 +51,11 @@ public class UserService {
     public UserDto createUser(UserDto userDto) {
         // DTO를 Entity로 변환
         User user = modelMapper.map(userDto, User.class);
+
+        // 비밀번호 암호화
+        String encodedPassword = passwordEncoder.encode(userDto.getPassword());
+        user.setPassword(encodedPassword);
+        
         User savedUser = userRepository.save(user);
         // 저장된 Entity를 다시 DTO로 변환하여 반환
         return modelMapper.map(savedUser, UserDto.class);

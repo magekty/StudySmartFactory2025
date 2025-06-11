@@ -21,8 +21,8 @@ namespace MY_LOGIN_ERP.DataAccess
         {
             var loginData = new
             {
-                Username = username,
-                Password = password
+                username = username,
+                password = password
             };
 
             string json = JsonSerializer.Serialize(loginData);

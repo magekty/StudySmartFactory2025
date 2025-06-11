@@ -43,32 +43,7 @@ public class BackendjavaApplication {
 
 		return modelMapper;
 	}
-	@Configuration
-	@EnableWebSecurity
-	public class SecurityConfig {
 
-		private final JwtAuthenticationFilter jwtFilter;
-
-		public SecurityConfig(JwtAuthenticationFilter jwtFilter) {
-			this.jwtFilter = jwtFilter;
-		}
-
-		@Bean
-		public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-			return http
-					.csrf(csrf -> csrf.disable())
-/*					.authorizeHttpRequests(auth -> auth
-							.anyRequest().permitAll()
-					)
-					.build();*/
-					.authorizeHttpRequests(auth -> auth
-							.requestMatchers("/api/auth/**").permitAll()
-							.anyRequest().authenticated()
-					)
-					.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class)
-					.build();
-		}
-	}
 	@Bean
 	public PasswordEncoder passwordEncoder() {
 		return new BCryptPasswordEncoder();

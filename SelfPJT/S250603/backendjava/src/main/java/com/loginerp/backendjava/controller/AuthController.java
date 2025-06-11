@@ -21,19 +21,10 @@ public class AuthController {
         this.jwtUtil = jwtUtil;
     }
 
-/*    @PostMapping("/login")
-    public ResponseEntity<?> login(@RequestBody LoginRequest request) {
-        if ("user".equals(request.getUsername()) && "pass".equals(request.getPassword())) {
-            String token = jwtUtil.generateToken(request.getUsername());
-            return ResponseEntity.ok(new JwtResponse(token));
-        }
-        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid credentials");
-    }*/
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody LoginRequest loginRequest) {
         try {
             User user = userService.authenticate(loginRequest.getUsername(), loginRequest.getPassword());
-
             String token = jwtUtil.generateToken(user.getUsername());
 
             return ResponseEntity.ok(new JwtResponse(token));
@@ -42,27 +33,6 @@ public class AuthController {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Login failed: " + e.getMessage());
         }
     }
-
-/*    public static class LoginRequest {
-        private String username;
-        private String password;
-
-        public String getUsername() {
-            return username;
-        }
-
-        public String getPassword() {
-            return password;
-        }
-
-        // getters and setters
-*//*        @GetMapping("/{id}") // GET /api/users/{id}
-        public ResponseEntity<UserDto> getUserById(@PathVariable Integer id) {
-            UserDto user = userService.getUserById(id);
-            return new ResponseEntity<>(user, HttpStatus.OK);
-        }*//*
-    }*/
-
 
     public static class JwtResponse {
         private String token;
