@@ -84,6 +84,13 @@
 			<artifactId>spring-boot-starter-security</artifactId>
 		</dependency>
 
+		<!-- @PostConstruct 및 @PreDestroy 사용을 위한 Jakarta Annotation API 의존성 -->
+		<dependency>
+			<groupId>jakarta.annotation</groupId>
+			<artifactId>jakarta.annotation-api</artifactId>
+			<version>2.1.1</version> <!-- Spring Boot 버전에 맞는 최신 stable 버전 사용 권장 -->
+		</dependency>
+
 	</dependencies>
 
 	<build>

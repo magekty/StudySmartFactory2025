@@ -1,24 +1,27 @@
 package com.loginerp.backendjava;
 
-import com.loginerp.backendjava.Jwt.JwtAuthenticationFilter;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.modelmapper.ModelMapper;
+import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.web.SecurityFilterChain;
-import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 @SpringBootApplication
 public class BackendjavaApplication {
 
-	public static void main(String[] args) {
-		SpringApplication.run(BackendjavaApplication.class, args);
-	}
+	public static void main(String[] args) {//SpringApplication.run(BackendjavaApplication.class, args);
+		ConfigurableApplicationContext context = SpringApplication.run(BackendjavaApplication.class, args);
+/*		// Spring 컨테이너로부터 JwtConfig 빈을 가져옵니다.
+		// 이 JwtConfig 객체는 이미 @Value("${jwt.secret}")에 의해 secretKey가 주입된 상태입니다.
+		JwtConfig jwtConfig = context.getBean(JwtConfig.class);
+
+		// JWT 비밀 키의 로드 상태를 확인하는 메서드를 호출합니다.
+		// 이전에 추가한 checkSecretKey() 메서드를 사용하는 것이 더 상세한 디버깅 정보를 제공합니다.
+		// 만약 printSecretKey()만 있다면 그것을 호출합니다.
+		jwtConfig.checkSecretKey(); // 또는 jwtConfig.printSecretKey();*/
+		}
 	// ModelMapper를 Spring Bean으로 등록
 	@Bean
 	public ModelMapper modelMapper() {

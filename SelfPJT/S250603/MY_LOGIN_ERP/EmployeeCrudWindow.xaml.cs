@@ -82,6 +82,11 @@ namespace MY_LOGIN_ERP
             this.DataContext = null; // DataContext를 null로 설정하여 바인딩을 끊고
             this.DataContext = CurrentEmployee; // 다시 설정하여 모든 필드를 초기화 (가장 간단한 방법)
 
+            CurrentEmployee.AddressType = "선택안함";
+            CurrentEmployee.EmployeeType = "선택안함";
+            CurrentEmployee.Status = "선택안함";
+            CurrentEmployee.MaritalStatus = "선택안함";
+            CurrentEmployee.Gender = "선택안함";
             txtSearchEmployeeID.Clear();
             txtSearchEmployeeName.Clear();
 

@@ -11,6 +11,7 @@ namespace MY_LOGIN_ERP.DataAccess
     using System.Text;
     using System.Text.Json;
     using System.Threading.Tasks;
+    using System.Windows;
 
     internal class AuthService
     {
@@ -27,20 +28,24 @@ namespace MY_LOGIN_ERP.DataAccess
 
             string json = JsonSerializer.Serialize(loginData);
             var content = new StringContent(json, Encoding.UTF8, "application/json");
-
-            HttpResponseMessage response = await _httpClient.PostAsync("http://localhost:8080/api/auth/login", content);
-
-            if (response.IsSuccessStatusCode)
+            try
             {
-                string result = await response.Content.ReadAsStringAsync();
+                HttpResponseMessage response = await _httpClient.PostAsync("http://localhost:8080/api/auth/login", content);
+                if (response.IsSuccessStatusCode)
+                {
+                    string result = await response.Content.ReadAsStringAsync();
 
-                // 예: {"token":"eyJhbGciOi..."}
-                var resultObj = JsonSerializer.Deserialize<JwtResponse>(result);
-                _jwtToken = resultObj.Token;
-                return true;
+                    // 예: {"token":"eyJhbGciOi..."}
+                    var resultObj = JsonSerializer.Deserialize<JwtResponse>(result);
+                    _jwtToken = resultObj.Token;
+                    return true;
+                }
+
             }
-
+            catch (Exception ex) { MessageBox.Show($"예외 발생: {ex}"); }
             return false;
+
+
         }
 
         private class JwtResponse

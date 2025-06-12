@@ -2,10 +2,8 @@ package com.loginerp.backendjava.controller;
 
 import com.loginerp.backendjava.Jwt.JwtUtil;
 import com.loginerp.backendjava.dto.LoginRequest;
-import com.loginerp.backendjava.dto.UserDto;
 import com.loginerp.backendjava.model.User;
 import com.loginerp.backendjava.service.UserService;
-import lombok.Data;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
