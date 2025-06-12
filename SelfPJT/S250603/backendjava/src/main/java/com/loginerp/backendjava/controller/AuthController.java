@@ -22,13 +22,15 @@ public class AuthController {
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody LoginRequest loginRequest) {
         try {
-            User user = userService.authenticate(loginRequest.getUsername(), loginRequest.getPassword());
+            User user = userService.authenticate(
+                    loginRequest.getUsername(), loginRequest.getPassword());
             String token = jwtUtil.generateToken(user.getUsername());
 
             return ResponseEntity.ok(new JwtResponse(token));
 
         } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Login failed: " + e.getMessage());
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
+                    .body("Login failed: " + e.getMessage());
         }
     }
 

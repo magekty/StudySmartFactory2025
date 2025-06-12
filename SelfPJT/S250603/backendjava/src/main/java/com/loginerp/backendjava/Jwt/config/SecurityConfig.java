@@ -16,7 +16,7 @@ public class SecurityConfig {
     private final JwtAuthenticationFilter jwtFilter;
 
     public SecurityConfig(JwtAuthenticationFilter jwtFilter) {
-        this.jwtFilter = jwtFilter;   // ✅ 주입 성공해야 함
+        this.jwtFilter = jwtFilter;
     }
 
     @Bean
@@ -24,8 +24,8 @@ public class SecurityConfig {
         return http
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/api/users/register", "/api/auth/**").permitAll()
-                        .anyRequest().authenticated()
+                        .requestMatchers("/api/users/register", "/api/auth/**")
+                        .permitAll().anyRequest().authenticated()
                 )
                 .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class)
                 .build();

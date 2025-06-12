@@ -17,7 +17,7 @@ import java.util.stream.Collectors;
 @Service
 public class UserService {
 
-    @Autowired
+
     private UserRepository userRepository;
 
     @Autowired // ModelMapper 빈을 주입받음 (설정 필요)
@@ -25,6 +25,7 @@ public class UserService {
 
     private final PasswordEncoder passwordEncoder;
 
+    @Autowired
     public UserService(UserRepository userRepository,
                        PasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
