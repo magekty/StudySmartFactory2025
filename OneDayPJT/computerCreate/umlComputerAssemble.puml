@@ -1,0 +1,65 @@
+@startuml
+class computerAssemble.computer.SDD {
+- String sddModel
++ void showDetails()
+}
+
+
+class computerAssemble.computer.CPU {
+- String cpuModel
++ void showDetails()
+}
+
+
+class computerAssemble.ComputerDirector {
+- ComputerBuilder builder
++ void Computer1()
++ void Computer2()
+}
+
+
+class computerAssemble.ComponentNode {
+- String name
+- List<Object> children
++ void addChild(Object)
++ void print(int)
+}
+
+
+class computerAssemble.computer.HDD {
+- String hddModel
++ void showDetails()
+}
+
+
+class Main {
++ {static} void main(String[])
+}
+
+class computerAssemble.ComputerBuilder {
+- List<Computer> ComputerParts
++ void addCPU(String)
++ void addRAM(String)
++ void addHDD(String)
++ void addSSD(String)
++ List<Computer> getComputer()
+}
+
+
+interface computerAssemble.computer.Computer {
+~ void showDetails()
+}
+
+class computerAssemble.computer.RAM {
+- String ramModel
++ void showDetails()
+}
+
+
+
+
+computerAssemble.computer.Computer <|.. computerAssemble.computer.SDD
+computerAssemble.computer.Computer <|.. computerAssemble.computer.CPU
+computerAssemble.computer.Computer <|.. computerAssemble.computer.HDD
+computerAssemble.computer.Computer <|.. computerAssemble.computer.RAM
+@enduml
