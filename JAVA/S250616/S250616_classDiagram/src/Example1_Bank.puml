@@ -1,0 +1,248 @@
+@startuml
+'Base Class
+class Account{
+- accountNumber : String
+- balance : double
++ deposit(amount : double) : void
++ withdraw(amount : double) : boolean
+}
+'상속 클래스
+class SavingAccount{
+- interestRate : double
++ applyInterest() : void
+}
+class CheckingAccount{
+- overdraftLimit : double
++ useIOverdraft(amount : double) : boolean
+}
+'고객 클래스
+class Customer{
+- name : String
+- id :String
++ addAccount(account : Account) : void
++ getTotalBalance() : double
+}
+'상속 관계
+SavingAccount --|> Account
+CheckingAccount --|> Account
+'연관(Association, 소유) 관계
+Customer --> "0..*" Account : owns
+@enduml
+' /////////////////////////////////////////////////////
+@startuml
+'사용 관계 : Dependency
+class Car{
++ startEngine() : void
++ stopEngine() : void
++ getStatus() : String
+}
+class Driver{
++ drive(car : Car) : void
+
+}
+class Mechanic{
++ repair(car : Car) : void
+}
+'사용 관계
+Driver ..> Car : uses
+Mechanic ..> Car : repairs
+@enduml
+' /////////////////////////////////////////////////////
+@startuml
+class Team{
+- name : String
+- players : List<Player>
++ addPlayer(p : Player) : void
+}
+class Player{
+- name : String
++ play() : void
+}
+'집합 관계(Aggregation)
+Team o-- "0..*" Player : has
+@enduml
+' /////////////////////////////////////////////////////
+@startuml
+title 로그인 시퀀스 다이어그램
+
+actor 사용자
+participant "웹 브라우저" as Browser
+participant "웹 서버" as Server
+participant "인증 서비스" as AuthService
+== 로그인 성공 시나리오 ==
+사용자 -> Browser : 로그인 정보 입력
+Browser -> Server : 로그인 요청 전송 (ID, PW)
+Server -> AuthService : 인증 요청(ID, PW)
+AuthService --> Server : 인증 결과(성공)
+Server --> Browser : 로그인 결과 응답
+Browser --> 사용자 : 로그인 성공 화면 표시
+== 로그인 실패 시나리오 ==
+사용자 -> Browser : 로그인 정보 입력
+Browser -> Server : 로그인 요청 전송 (ID, PW)
+Server -> AuthService : 인증 요청(ID, PW)
+AuthService -->Server : 인증 결과(실패)
+Server --> Browser : 오류 메시지 전송("ID 또는 PW가 틀렸습니다.")
+Browser --> 사용자 : 로그인 오류 표시
+
+
+@enduml
+' /////////////////////////////////////////////////////
+@startuml
+title 로그인 시퀀스 다이어그램
+
+actor 사용자
+participant "웹 브라우저"
+participant 서버
+participant 인증서비스
+== 로그인 요청 ==
+사용자 -> "웹 브라우저" : 로그인 정보 입력
+"웹 브라우저" -> 서버 : 로그인 요청
+서버->인증서비스 : 인증 요청
+== 인증 결과 분기 ==
+alt 인증 성공
+    인증서비스 --> 서버:인증 성공
+    서버 --> "웹 브라우저" : 로그인 완료
+    "웹 브라우저" --> 사용자 : 홈페이지로 이동
+else 인증 실패
+    인증서비스 --> 서버 : 인증 실패
+    서버 --> "웹 브라우저" : 오류 메세지 반환
+    "웹 브라우저" --> 사용자 : 로그인 페이지에서 재로그인 유도
+else 강제 종료
+    사용자 --> 사용자 : 강제 종료
+end
+@enduml
+' /////////////////////////////////////////////////////
+@startuml
+title 로그인(활성화/비활성화)
+
+actor 사용자
+participant "웹 브라우저" as Browser
+participant "웹 서버" as Server
+participant DB as Database
+
+사용자 -> Browser : 로그인 정보 입력
+'메세지 보내는 동안 활성 막대(실행 시간)를 시각적으로 표현
+activate Browser
+Browser -> Server : 로그인 요청
+activate Server
+Server -> Database : 사용자 조회
+activate Database
+Database --> Server : 사용자 정보
+deactivate Database
+Server --> Browser : 로그인 결과
+deactivate Server
+Browser --> 사용자 : 로그인 성공 메세지 보여줌
+deactivate Browser
+@enduml
+' /////////////////////////////////////////////////////
+@startuml
+title 로그인(Loop)
+
+actor 사용자
+participant 클라이언트
+participant 서버
+
+사용자 -> 클라이언트 : 데이터 요청 버튼 클릭
+loop 최대 3번 재시도
+클라이언트 -> 서버 : 데이터 요청
+alt 서버 응답 성공
+서버 --> 클라이언트 : 데이터
+else 서버 응답 실패
+서버 --> 클라이언트 : 오류 메세지 반환
+break
+end
+end
+클라이언트 --> 사용자 : 결과 출력 or 실패 알림
+@enduml
+' /////////////////////////////////////////////////////
+@startuml
+title 로그인(옵션, opt 블록 테스트- 조건적 실행)
+
+actor 사용자
+participant 브라우저
+participant 서버
+
+사용자 -> 브라우저 : 페이지 요청
+브라우저 -> 서버 : 초기 데이터 요청
+서버 --> 브라우저 : 페이지 데이터 응답
+opt 자동 로그인 쿠키 있음
+브라우저 -> 서버 : 자동 로그인 요청
+서버 --> 브라우저 : 로그인 처리 완료
+end
+브라우저 --> 사용자 : 페이지 렌더링 완료
+
+@enduml
+' /////////////////////////////////////////////////////
+@startuml
+
+title 로그인 (병렬 실행 예제, par/and)
+
+actor 사용자
+participant 모바일앱
+participant 서버
+participant 로봇시스템
+participant 알림서비스
+
+사용자 -> 모바일앱 : 데이터 전송 요청
+모바일앱 -> 서버 : 데이터 전송
+
+par 로그 저장
+서버 -> 로봇시스템 : 처리 로그 저장
+end
+par
+서버 -> 알림서비스 : 사용자에게 전송 완료 알림
+end
+서버 --> 모바일앱 : 처리 결과 응답
+모바일앱 --> 사용자 : 처리 결과 표시
+@enduml
+' /////////////////////////////////////////////////////
+@startuml
+
+title 노트 추가 예제
+
+actor 사용자
+participant 클라이언트
+participant 서버
+
+사용자 -> 클라이언트 : 요청 입력
+note right of 사용자
+사용자가 로그인 버튼 클릭!
+end note
+클라이언트 -> 서버 : 로그인 요청
+note left of 서버
+서버는 인증 토큰을 생성함
+end note
+서버 --> 클라이언트 : 로그인 성공
+note over 클라이언트,서버
+이 영역은 보안 처리가 필요함
+end note
+클라이언트 --> 사용자 : 결과 화면 표시
+
+@enduml
+' /////////////////////////////////////////////////////
+@startuml
+
+title 그룹 예제
+
+actor 사용자
+participant 브라우저
+participant 서버
+participant DB
+
+사용자 -> 브라우저 : 로그인 입력
+group 인증 단계
+브라우저 -> 서버 : 로그인 요청
+서버 -> DB : 사용자 정보 조회
+DB --> 서버 : 사용자 정보 응답
+서버 --> 브라우저 : 로그인 성공 여부
+end group
+
+group 페이지 로딩
+브라우저 -> 서버 : 대시보드 요청
+서버 --> 브라우저 : 대시보드 HTML 응답
+end group
+
+브라우저 --> 사용자 : 대시 보드 표시
+
+@enduml
+' /////////////////////////////////////////////////////
