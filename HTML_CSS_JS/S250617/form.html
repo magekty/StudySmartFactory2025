@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <form action="server.jsp">
+      <fieldset><legend>재료1</legend></fieldset>
+      <fieldset><legend>재료2</legend></fieldset>
+      <fieldset>
+        <legend>로그인</legend>
+        <label for="">ID <input type="text" /></label>
+        <label for="user-pw">PW</label>
+        <input type="text" id="user-pw" />
+        PW다시<input type="text" id="user-pw" />
+      </fieldset>
+
+      <fieldset>
+        <legend>여러 종류의 input</legend>
+        <label for="">text<input type="text" /></label><br />
+        <label for="">password<input type="password" /></label>
+
+        <label for="">text <input type="text" value="ID를 적습니다" /></label>
+        <label for=""
+          >text <input type="text" placeholder="ID를 적습니다"
+        /></label>
+        <label for="">search <input type="search" /></label>
+        <label for="">url <input type="url" /></label>
+        <label for="">email <input type="email" /></label><br />
+        <label for="">tel <input type="tel" /></label>
+        <input type="submit" /><input type="reset" />
+        <input
+          type="image"
+          src="https://us.123rf.com/450wm/sarahdesign/sarahdesign1410/sarahdesign141000828/32211018-submit-button.jpg?ver=6"
+          alt="제출"
+          width="5%"
+        />
+        <input type="button" value="제출" />
+        <input type="hidden" name="secret" value="1234" />
+        <input type="file" value="" />
+      </fieldset>
+
+      <fieldset>
+        <legend>check box</legend>
+        <p>1번 옵션 주문을 하세요</p>
+        <label for=""
+          >선택1 <input type="checkbox" name="order1" value="opt1"
+        /></label>
+        <label for=""
+          >선택2 <input type="checkbox" name="order1" value="opt2"
+        /></label>
+        <label for=""
+          >선택3 <input type="checkbox" name="order1" value="opt3"
+        /></label>
+        <p>2번 옵션 주문을 하세요</p>
+        <label for=""
+          >선택1 <input type="checkbox" name="order2" value="opt1"
+        /></label>
+        <label for=""
+          >선택2 <input type="checkbox" name="order2" value="opt2"
+        /></label>
+        <label for=""
+          >선택3 <input type="checkbox" name="order2" value="opt3"
+        /></label>
+        <input type="submit" />
+        <!-- http://127.0.0.1:5500/S250617/server.jsp?order=opt1&order=opt3 -->
+        <!-- http://127.0.0.1:5500/S250617/server.jsp?order1=opt1&order2=opt2 -->
+      </fieldset>
+
+      <fieldset>
+        <legend>Radio</legend>
+        <label for=""
+          >선택1 <input type="radio" name="order3" value="opt1" checked
+        /></label>
+        <label for=""
+          >선택2 <input type="radio" name="order3" value="opt2"
+        /></label>
+        <input type="submit" />
+        <!-- http://127.0.0.1:5500/S250617/server.jsp?order2=opt2&order2=opt3&order3=opt1 -->
+      </fieldset>
+
+      <!-- <fieldset>
+        <label for=""
+          >number <input type="number" min="0" max="10" step="2"
+        /></label>
+        <label for=""
+          >range <input type="range" min="0" max="10" step="5"
+        /></label>
+      </fieldset>
+
+      <fieldset>
+        <legend>날짜 관련</legend>
+        <label for="">date <input type="date" /></label>
+        <label for=""
+          >date <input type="date" min="2025-06-10" max="2025-06-24"
+        /></label>
+
+        <label for="">month <input type="month" /></label>
+        <label for="">week <input type="week" /></label>
+      </fieldset>
+
+      <fieldset>
+        <legend>시간 관련</legend>
+        <label for="">time <input type="time" /></label>
+        <label for="">datetime <input type="datetime" /></label><br />
+        <label for="">datetime-local <input type="datetime-local" /></label>
+      </fieldset> -->
+
+      <fieldset>
+        <legend>로그인</legend>
+        <label for="">ID <input type="text" required /></label>
+        <label for="user-pw">PW <input type="text" required /></label>
+        <input type="submit" />
+      </fieldset>
+
+      <fieldset>
+        <textarea name="longtext" id="" cols="10" rows="10"></textarea>
+        <select name="" id="">
+          <option value="val1">내용1</option>
+          <option value="val2">내용2</option>
+        </select>
+      </fieldset>
+    </form>
+  </body>
+</html>
