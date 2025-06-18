@@ -10,8 +10,8 @@ import HelloComponent from "./chapter09/HelloComponent";
 
 const container = document.getElementById("root");
 const root = ReactDOM.createRoot(container);
-root.render(<App />);
-// root.render(<MyForm />);
+// root.render(<App />);
+root.render(<MyForm />);
 // root.render(<MyList />);
 // root.render(<HelloComponent />);
 // root.render(<MyTable />);
