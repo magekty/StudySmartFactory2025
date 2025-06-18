@@ -1,0 +1,25 @@
+{
+  "compilerOptions": {
+    "target": "es5", // 결과로 나올 JavaScript 버전
+    "lib": ["dom", "dom.iterable", "esnext"], // 코드에 포함될 라이브러리 (DOM 및 최신 ES 기능)
+    "allowJs": true, // JavaScript 파일 허용 (마이그레이션 시 유용)
+    "skipLibCheck": true, // 선언 파일(*.d.ts) 타입 검사 건너뛰기 (성능 향상)
+    "esModuleInterop": true, // CommonJS와 ES 모듈 간의 호환성 향상
+    "allowSyntheticDefaultImports": true, // 기본 임포트 허용
+    "strict": true, // 모든 엄격한 타입 검사 옵션 활성화 (강력 권장!)
+    "forceConsistentCasingInFileNames": true, // 파일 이름 대소문자 일관성 강제
+    "noFallthroughCasesInSwitch": true, // switch 문에서 fallthrough 금지
+    "module": "esnext", // 모듈 시스템 (Webpack 등 번들러 사용 시 적합)
+    "moduleResolution": "node", // 모듈 해석 방식
+    "resolveJsonModule": true, // JSON 파일 임포트 허용
+    "isolatedModules": true, // 각 파일이 독립적인 모듈임을 가정
+    "noEmit": true, // TypeScript가 JavaScript 파일을 직접 생성하지 않음 (빌드 도구가 처리)
+    "jsx": "react-jsx" // JSX 변환 방식 (React 17+의 새로운 JSX 트랜스폼 사용)
+  },
+  "include": [
+    "src" // 'src' 폴더 안의 모든 파일을 포함
+  ],
+  "exclude": [
+    "node_modules" // 'node_modules' 폴더 제외
+  ]
+}

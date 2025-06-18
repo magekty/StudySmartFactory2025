@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      body {
+        background-color: rgb(143, 143, 0);
+      }
+      .container {
+        display: flex;
+        background-color: gray;
+        height: 200px;
+        border: 1px solid black;
+      }
+      #opt1 {
+        align-items: flex-start;
+      }
+
+      .box {
+        background-color: rgb(41, 41, 41);
+        width: 100px;
+        margin: 10px;
+        align-self: center;
+      }
+      .box1 {
+        background-color: rgb(41, 41, 41);
+        width: 100px;
+        margin: 10px;
+        align-self: flex-start;
+      }
+      .box3 {
+        background-color: rgb(41, 41, 41);
+        width: 100px;
+        margin: 10px;
+        align-self: stretch;
+      }
+      p {
+        color: white;
+        text-align: center;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container" id="opt1">
+      <div class="box1"><p>1</p></div>
+      <div class="box"><p>2</p></div>
+      <div class="box3"><p>3</p></div>
+      <div class="box"><p>4</p></div>
+    </div>
+  </body>
+</html>
