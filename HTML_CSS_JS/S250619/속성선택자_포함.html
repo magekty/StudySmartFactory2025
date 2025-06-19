@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      body {
+        background-color: rgb(150, 150, 0);
+      }
+      .p408 a[title|="us"] {
+        background-color: red;
+      }
+      .p408 a[title|="jap"] {
+        background-color: blue;
+      }
+      .p408 a[title|="chn"] {
+        background-color: green;
+      }
+
+      .p409 a[title^="eng"] {
+        background-color: red;
+      }
+      .p409 a[title^="jap"] {
+        background-color: blue;
+      }
+      .p409 a[title^="chin"] {
+        background-color: green;
+      }
+      .p410 [href$="xlsx"] {
+        background-color: green;
+      }
+      .p411 [href*="google"] {
+        background-color: green;
+      }
+    </style>
+  </head>
+  <body>
+    <ul class="p408">
+      <li><a>외국어</a></li>
+      <li><a href="#" title="us-english">영어</a></li>
+      <li><a href="#" title="ja">일본어</a></li>
+      <li><a href="#" title="chn">중국어</a></li>
+    </ul>
+
+    <ul class="p409">
+      <li><a>외국어</a></li>
+      <li><a href="#" title="english">영어</a></li>
+      <li><a href="#" title="japan">일본어</a></li>
+      <li><a href="#" title="chinese">중국어</a></li>
+    </ul>
+
+    <ul class="p410">
+      <li><a>메뉴</a></li>
+      <li><a href="/intro.hwp">한글 파일</a></li>
+      <li><a href="/intro.xlsx">MS 엑셀 파일</a></li>
+    </ul>
+
+    <ul class="p411">
+      <li><a>메뉴</a></li>
+      <li><a href="https://www.naver.com">네이버로</a></li>
+      <li><a href="https://google.com">구글로</a></li>
+    </ul>
+  </body>
+</html>

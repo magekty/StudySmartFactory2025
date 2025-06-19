@@ -10,7 +10,11 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "ag-grid-community": "^33.3.2",
+    "ag-grid-react": "^33.3.2",
+    "axios": "^1.10.0",
     "react": "^19.1.0",
+    "react-date-picker": "^11.0.0",
     "react-dom": "^19.1.0"
   },
   "devDependencies": {

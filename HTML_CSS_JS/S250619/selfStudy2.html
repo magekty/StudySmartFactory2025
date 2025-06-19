@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      *,
+      *::before {
+        box-sizing: border-box;
+      }
+
+      html {
+        width: 100dvw;
+        min-height: 100dvh;
+
+        display: grid;
+        place-items: center;
+      }
+
+      body {
+        width: 100%;
+        max-width: 900px;
+        margin: 0;
+      }
+
+      svg {
+        position: absolute;
+        width: 0;
+      }
+
+      .container {
+        width: 100%;
+        padding: 2rem 0.75rem;
+
+        display: grid;
+        gap: 2rem;
+        grid-template-columns: repeat(auto-fill, minmax(15rem, 1fr));
+        justify-content: center;
+      }
+
+      .square {
+        aspect-ratio: 1 / 1;
+
+        border: 0.25rem solid hsl(249, 51%, 29%);
+      }
+
+      .square:nth-of-type(1) {
+        filter: url(#distort);
+        border-width: 0.5rem;
+      }
+
+      .square:nth-of-type(2) {
+        filter: url(#ripple);
+        border-width: 0.75rem;
+        border-color: hsl(60, 80%, 60%);
+      }
+
+      .square:nth-of-type(3) {
+        filter: url(#torn);
+        border-width: 0.5rem;
+        border-color: hsl(0, 80%, 60%);
+      }
+
+      .square:nth-of-type(4) {
+        filter: url(#ink);
+        border-width: 0.4rem;
+        border-color: hsl(0, 80%, 40%);
+      }
+
+      .square:nth-of-type(5) {
+        filter: url(#gouache);
+      }
+
+      .square:nth-of-type(6) {
+        filter: url(#wax);
+        border-color: black;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="square"></div>
+      <div class="square"></div>
+      <div class="square"></div>
+      <div class="square"></div>
+      <div class="square"></div>
+      <div class="square"></div>
+    </div>
+    <svg viewBox="0 0 1000 800">
+      <defs id="defs1">
+        <filter
+          id="wax"
+          width="1.1839064"
+          height="1.1839064"
+          x="-0.091953214"
+          y="-0.091953214"
+          color-interpolation-filters="sRGB"
+        >
+          <feGaussianBlur
+            id="feGaussianBlur3"
+            result="result1"
+            in="SourceGraphic"
+            stdDeviation="2"
+          />
+          <feTurbulence
+            id="feTurbulence3"
+            result="result0"
+            numOctaves="5"
+            baseFrequency="0.05"
+            type="fractalNoise"
+          />
+          <feDisplacementMap
+            id="feDisplacementMap3"
+            result="result2"
+            scale="10"
+            yChannelSelector="G"
+            xChannelSelector="R"
+            in="result1"
+            in2="result0"
+          />
+          <feColorMatrix
+            id="feColorMatrix3"
+            values="1 0 0 0 0 0 1 0 0 0 0 0 1 0 0 0 0 0 10 0 "
+            result="result3"
+          />
+          <feBlend
+            id="feBlend3"
+            mode="multiply"
+            in="result2"
+            result="result5"
+            in2="result3"
+          />
+          <feGaussianBlur
+            id="feGaussianBlur4"
+            result="result4"
+            in="result3"
+            stdDeviation="5"
+          />
+          <feComposite
+            id="feComposite4"
+            k1="0.5"
+            k3="1.5"
+            k2="0.15"
+            in="result4"
+            in2="result5"
+            operator="arithmetic"
+            result="result6"
+            k4="0"
+          />
+          <feComposite
+            id="feComposite5"
+            operator="in"
+            in="result6"
+            in2="result4"
+          />
+        </filter>
+        <filter
+          id="ink"
+          width="1.078876"
+          height="1.1019475"
+          x="-0.039438004"
+          y="-0.050973733"
+          color-interpolation-filters="sRGB"
+        >
+          <feGaussianBlur
+            id="feGaussianBlur10"
+            in="SourceGraphic"
+            stdDeviation="0.01 0.958395"
+            result="blur1"
+          />
+          <feTurbulence
+            id="feTurbulence10"
+            type="fractalNoise"
+            baseFrequency="0.036524"
+            numOctaves="1"
+            seed="10"
+            result="turbulence"
+          />
+          <feDisplacementMap
+            id="feDisplacementMap10"
+            in="blur1"
+            in2="turbulence"
+            xChannelSelector="R"
+            yChannelSelector="G"
+            scale="4.53065"
+            result="map"
+          />
+          <feGaussianBlur
+            id="feGaussianBlur11"
+            in="map"
+            stdDeviation="2.67253"
+            result="blur2"
+          />
+          <feComposite
+            id="feComposite11"
+            in="blur2"
+            in2="map"
+            operator="over"
+            result="composite"
+          />
+        </filter>
+        <filter
+          id="gouache"
+          width="1.0865991"
+          height="1.0865991"
+          x="-0.043299526"
+          y="-0.043299526"
+          color-interpolation-filters="sRGB"
+        >
+          <feGaussianBlur
+            id="feGaussianBlur13"
+            stdDeviation="3"
+            result="result5"
+            in="SourceGraphic"
+          />
+          <feTurbulence
+            id="feTurbulence13"
+            result="result1"
+            baseFrequency="0.02"
+            type="fractalNoise"
+            seed="0"
+            numOctaves="3"
+          />
+          <feDisplacementMap
+            id="feDisplacementMap13"
+            result="result3"
+            in2="result1"
+            in="SourceGraphic"
+            xChannelSelector="R"
+            yChannelSelector="G"
+            scale="30"
+          />
+          <feComposite
+            id="feComposite13"
+            result="result4"
+            in="result3"
+            in2="result1"
+            operator="out"
+          />
+          <feComposite
+            id="feComposite14"
+            result="result6"
+            operator="arithmetic"
+            k2="1"
+            k1="0.3"
+            k3="0.3"
+            in2="result4"
+            k4="0"
+          />
+          <feComposite
+            id="feComposite15"
+            in2="result5"
+            in="result6"
+            operator="over"
+          />
+        </filter>
+        <filter
+          id="distort"
+          width="1.0494676"
+          height="1.0494676"
+          x="-0.024733791"
+          y="-0.024733793"
+          color-interpolation-filters="sRGB"
+        >
+          <feGaussianBlur
+            id="feGaussianBlur101"
+            stdDeviation="0.01 0.01"
+            result="blur"
+          />
+          <feComposite
+            id="feComposite101"
+            in="SourceGraphic"
+            in2="blur"
+            operator="atop"
+            result="composite1"
+          />
+          <feComposite
+            id="feComposite102"
+            in2="composite1"
+            operator="in"
+            result="composite2"
+          />
+          <feComposite
+            id="feComposite103"
+            in2="composite2"
+            operator="in"
+            result="composite3"
+          />
+          <feTurbulence
+            id="feTurbulence103"
+            type="fractalNoise"
+            numOctaves="1"
+            seed="1"
+            baseFrequency="0.022 0.033"
+            result="turbulence"
+          />
+          <feDisplacementMap
+            id="feDisplacementMap103"
+            in="composite3"
+            in2="turbulence"
+            xChannelSelector="R"
+            scale="5.1"
+            yChannelSelector="G"
+            result="map"
+          />
+          <feColorMatrix
+            id="feColorMatrix103"
+            values="1 0 0 0 0 0 1 0 0 0 0 0 1 0 0 0 0 0 2.2 -0 "
+            result="colormatrix"
+          />
+          <feComposite
+            id="feComposite104"
+            in="composite3"
+            in2="colormatrix"
+            operator="atop"
+            result="composite4"
+          />
+        </filter>
+        <filter
+          id="ripple"
+          width="1.0492158"
+          height="1.0492158"
+          x="-0.024607885"
+          y="-0.024607887"
+          color-interpolation-filters="sRGB"
+        >
+          <feTurbulence
+            id="feTurbulence104"
+            numOctaves="1"
+            baseFrequency="0.002 0.107"
+          />
+          <feColorMatrix
+            id="feColorMatrix104"
+            values="2 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.5 0.5"
+            result="result91"
+          />
+          <feDisplacementMap
+            id="feDisplacementMap104"
+            yChannelSelector="A"
+            xChannelSelector="R"
+            scale="14.3"
+            in="SourceGraphic"
+            in2="result91"
+          />
+        </filter>
+        <filter
+          id="torn"
+          width="1.0492158"
+          height="1.0492158"
+          x="-0.024607885"
+          y="-0.024607887"
+          color-interpolation-filters="sRGB"
+        >
+          <feTurbulence
+            id="feTurbulence105"
+            baseFrequency="0.05"
+            numOctaves="5"
+            type="fractalNoise"
+            result="result91"
+          />
+          <feDisplacementMap
+            id="feDisplacementMap105"
+            scale="25"
+            result="result5"
+            xChannelSelector="R"
+            in="SourceGraphic"
+            in2="result91"
+          />
+          <feComposite
+            id="feComposite105"
+            in="SourceGraphic"
+            operator="atop"
+            in2="result5"
+          />
+        </filter>
+      </defs>
+    </svg>
+  </body>
+</html>

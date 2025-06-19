@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      body {
+        background-color: white;
+      }
+      .selftest a:link {
+        color: red;
+      }
+      .selftest a:visited {
+        color: green;
+      }
+      .selftest a:hover {
+        background-color: brown;
+      }
+      .navi {
+        display: flex;
+        width: 700px;
+        flex-basis: auto;
+        justify-content: space-around;
+      }
+      .navi a:link,
+      a:visited {
+        text-decoration: none;
+        color: black;
+      }
+      .navi a:hover {
+        background-color: black;
+        color: white;
+      }
+      .navi a:active {
+        background-color: red;
+        color: white;
+      }
+      .document :nth-child(2n + 1) {
+        background-color: rgb(206, 206, 206);
+      }
+      .document :nth-child(2n) {
+        background-color: gray;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="selftest">
+      <a href="https://www.google.com">To google</a>
+      <a href="https://www.naver.com">To naver</a>
+      <a href="https://www.youtube.com">To youtube</a>
+    </div>
+    <div class="navi">
+      <div><a href="#">이용 안내</a></div>
+      <div><a href="#">객실 소개</a></div>
+      <div><a href="#">예약 문의</a></div>
+      <div><a href="#">예약 확인</a></div>
+    </div>
+
+    <div class="document">
+      <div>첫번째 줄</div>
+      <div>두번째 줄</div>
+      <div>세번째 줄</div>
+      <div>네번째 줄</div>
+    </div>
+  </body>
+</html>

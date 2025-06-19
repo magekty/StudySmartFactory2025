@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      body {
+        background-color: rgb(150, 150, 0);
+      }
+      a[href] {
+        background-color: rgb(224, 224, 25);
+      }
+      a[href="#"] {
+        font-size: 30px;
+      }
+      [class~="food"] {
+        font-style: italic;
+      }
+    </style>
+  </head>
+  <body>
+    <ul>
+      <li><a>메뉴</a></li>
+      <li><a href="#" class="menu food">메뉴1</a></li>
+      <li><a href="" class="menu sea food">메뉴2</a></li>
+      <li><a href="#" class="menu fruit food">메뉴3</a></li>
+      <li><a href="" class="menu desert">메뉴4</a></li>
+    </ul>
+  </body>
+</html>

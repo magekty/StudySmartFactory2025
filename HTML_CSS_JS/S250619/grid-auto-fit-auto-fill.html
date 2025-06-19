@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      body {
+        background-color: rgb(155, 155, 0);
+      }
+      .container {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+      }
+      .container2 {
+        margin-top: 20px;
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(70px, 1fr));
+      }
+      .items {
+        font-size: 15px;
+        border: 1px solid black;
+        border-radius: 5px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="items">
+        auto-fit auto-fit auto-fit auto-fit auto-fit auto-fit auto-fit
+      </div>
+      <div class="items">
+        auto-fit auto-fit auto-fit auto-fit auto-fit auto-fit auto-fit
+      </div>
+      <div class="items">
+        auto-fit auto-fit auto-fit auto-fit auto-fit auto-fit auto-fit
+      </div>
+      <div class="items">
+        auto-fit auto-fit auto-fit auto-fit auto-fit auto-fit auto-fit
+      </div>
+      <div class="items">
+        auto-fit auto-fit auto-fit auto-fit auto-fit auto-fit auto-fit
+      </div>
+      <div class="items">
+        auto-fit auto-fit auto-fit auto-fit auto-fit auto-fit auto-fit
+      </div>
+    </div>
+
+    <div class="container2">
+      <div class="items">
+        auto-fill auto-fill auto-fill auto-fill auto-fill auto-fill auto-fill
+      </div>
+      <div class="items">
+        auto-fill auto-fill auto-fill auto-fill auto-fill auto-fill auto-fill
+      </div>
+      <div class="items">
+        auto-fill auto-fill auto-fill auto-fill auto-fill auto-fill auto-fill
+      </div>
+      <div class="items">
+        auto-fill auto-fill auto-fill auto-fill auto-fill auto-fill auto-fill
+      </div>
+      <div class="items">
+        auto-fill auto-fill auto-fill auto-fill auto-fill auto-fill auto-fill
+      </div>
+      <div class="items">
+        auto-fill auto-fill auto-fill auto-fill auto-fill auto-fill auto-fill
+      </div>
+    </div>
+  </body>
+</html>

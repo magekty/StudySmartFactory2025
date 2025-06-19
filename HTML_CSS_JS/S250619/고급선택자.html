@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      body {
+        background-color: rgb(150, 150, 0);
+      }
+      section p {
+        color: red;
+      }
+      section div p {
+        background-color: blueviolet;
+        color: blue;
+      }
+      section > p {
+        font-size: 40px;
+      }
+      #third + p {
+        font-style: italic;
+      }
+      #third ~ p {
+        font-weight: 800;
+      }
+    </style>
+  </head>
+  <body>
+    <section>
+      <h1>제목</h1>
+      <p>첫 번째 p</p>
+      <div>
+        <p>두번째 p</p>
+        <p id="third">세번째 p</p>
+        <div>3.5</div>
+        <p>네번째 p</p>
+        <div>4.5</div>
+        <p>다섯번째 p</p>
+      </div>
+    </section>
+  </body>
+</html>

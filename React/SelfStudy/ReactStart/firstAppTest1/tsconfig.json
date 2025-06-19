@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "target": "es5", // 결과로 나올 JavaScript 버전
+    "target": "ESNext", // 결과로 나올 JavaScript 버전
     "lib": ["dom", "dom.iterable", "esnext"], // 코드에 포함될 라이브러리 (DOM 및 최신 ES 기능)
     "allowJs": true, // JavaScript 파일 허용 (마이그레이션 시 유용)
     "skipLibCheck": true, // 선언 파일(*.d.ts) 타입 검사 건너뛰기 (성능 향상)
