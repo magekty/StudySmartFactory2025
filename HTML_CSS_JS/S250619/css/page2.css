@@ -1,0 +1,341 @@
+.all-container {
+  padding-top: 10px;
+  width: 100%;
+  height: 100%;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  grid-template-areas:
+    "ktyCalendar-container attendance"
+    "board board";
+  gap: 1rem;
+}
+.day ul {
+  /* ul의 기본 마진/패딩 제거하여 li가 컨테이너를 잘 채우도록 */
+  margin: 0;
+  padding: 0;
+  list-style-type: none; /* 리스트 마커 제거 (선택 사항) */
+  width: 100%; /* 부모 .day의 너비를 꽉 채우도록 설정 */
+  height: 100%;
+}
+
+.day ul li {
+  text-align: center; /* li 안에 있는 텍스트를 가운데 정렬 */
+  font-size: 0.7em;
+  padding: 2px 0; /* 예시 패딩 */
+}
+
+.ktyCalendar-container {
+  height: 600px;
+  grid-area: ktyCalendar-container;
+  background-color: #34495e;
+  border-radius: 12px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+
+  box-sizing: border-box;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+
+  display: flex;
+  flex-direction: column; /* 헤더, 요일, 날짜 그리드를 세로로 정렬 */
+  overflow: hidden; /* 캘린더 자체에서 내용이 넘치는 경우 숨김 */
+}
+
+/* 캘린더 헤더 (변경 없음) */
+.calendar-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 25px;
+  flex-shrink: 0; /* 헤더는 줄어들지 않도록 설정 */
+}
+
+.current-month {
+  font-size: 1.8em;
+  font-weight: 700;
+  color: #ffffff;
+  letter-spacing: 0.5px;
+}
+
+.nav-button {
+  background-color: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: #bdc3c7;
+  font-size: 1.5em;
+  padding: 8px 15px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.nav-button:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+  color: #ffffff;
+}
+
+/* 요일 표시 (변경 없음) */
+.calendar-weekdays {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  text-align: center;
+  margin-bottom: 15px;
+  font-weight: 700;
+  font-size: 0.95em;
+  color: #bdc3c7;
+  flex-shrink: 0; /* 요일도 줄어들지 않도록 설정 */
+}
+
+.calendar-weekdays span:first-child,
+.calendar-weekdays span:last-child {
+  color: #e74c3c;
+}
+
+/* 날짜 칸 컨테이너 */
+.calendar-days {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  /* 핵심: 행의 높이를 유동적으로 조절 */
+  /* auto-fit은 사용 가능한 공간에 맞춰 행을 채우고,
+       minmax는 각 행의 최소 높이를 60px로, 최대는 1fr (남은 공간 균등 분배) */
+  grid-template-rows: repeat(
+    auto-fit,
+    minmax(50px, 1fr)
+  ); /* 높이 유연하게 조정 */
+  gap: 8px;
+  text-align: center;
+  flex-grow: 1; /* 남은 세로 공간을 모두 차지하도록 설정 */
+  overflow-y: auto; /* 내용이 넘칠 경우 세로 스크롤바 생성 */
+  padding-right: 5px; /* 스크롤바가 내용 가리지 않게 패딩 */
+
+  /* 스크롤바 스타일링 (선택 사항) */
+  scrollbar-width: thin; /* Firefox */
+  scrollbar-color: #555 #333; /* Firefox */
+}
+
+/* Webkit (Chrome, Safari) 스크롤바 스타일링 */
+.calendar-days::-webkit-scrollbar {
+  width: 6px; /* 스크롤바 너비 */
+}
+
+.calendar-days::-webkit-scrollbar-track {
+  background: #444; /* 스크롤바 트랙 배경색 */
+  border-radius: 10px;
+}
+
+.calendar-days::-webkit-scrollbar-thumb {
+  background-color: #888; /* 스크롤바 색상 */
+  border-radius: 10px;
+  border: 2px solid #444; /* 스크롤바와 트랙 사이 여백 */
+}
+
+.calendar-days::-webkit-scrollbar-thumb:hover {
+  background-color: #aaa;
+}
+
+.day {
+  background-color: rgba(235, 235, 235, 0.05);
+  /* height 대신 min-height와 padding으로 유연하게 */
+  min-height: 50px; /* 각 날짜 칸의 최소 높이 */
+  padding: 5px 0; /* 내부 패딩을 줄여 공간 확보 */
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, color 0.3s ease, transform 0.2s ease;
+  font-size: 15px;
+  font-weight: 500;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* aspect-ratio: 1 / 1; (이전 코드에서 제거했거나, 여기서는 다시 고려할 수 있음)
+       minmax와 함께 사용하면 칸의 비율이 유지되면서 유동적으로 변함 */
+}
+
+.day:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+  transform: translateY(-2px);
+}
+
+/* 비활성 (이전/다음 달) 날짜 (변경 없음) */
+.day.inactive {
+  color: #7f8c8d;
+  opacity: 0.6;
+  cursor: not-allowed;
+  background-color: transparent;
+}
+
+.day.inactive:hover {
+  background-color: transparent;
+  transform: none;
+}
+/* 스크롤바 숨기기 - Webkit (Chrome, Safari 등) */
+.calendar-days::-webkit-scrollbar {
+  display: none; /* 스크롤바를 완전히 숨김 */
+  width: 0; /* 너비를 0으로 설정하여 공간도 차지하지 않게 함 */
+  height: 0; /* 가끔 가로 스크롤도 숨겨야 할 때를 대비 */
+}
+
+/* 주말 날짜 (변경 없음) */
+
+.calendar-days .day:nth-child(7n + 1) {
+  color: #e74c3c;
+}
+.calendar-days .day:nth-child(7n) {
+  color: #f39c12;
+}
+
+/* 오늘 날짜 (변경 없음) */
+.day.today {
+  background-color: #3498db;
+  color: #ffffff;
+  font-weight: 700;
+  box-shadow: 0 0 10px rgba(52, 152, 219, 0.5);
+  border: 1px solid #2980b9;
+}
+
+/* 선택된 날짜 (변경 없음) */
+.day.selected {
+  background-color: #27ae60;
+  color: #ffffff;
+  font-weight: 700;
+  box-shadow: 0 0 10px rgba(39, 174, 96, 0.5);
+  border: 1px solid #229954;
+}
+
+/* 일정 표시 (가상 요소 활용) (점 위치 조정 가능) */
+.day.has-event {
+  position: relative;
+}
+
+.day.has-event::after {
+  content: "";
+  position: absolute;
+  bottom: 5px; /* 날짜 칸 높이에 맞춰 조정 */
+  left: 50%;
+  transform: translateX(-50%);
+  width: 6px;
+  height: 6px;
+  background-color: #f1c40f;
+  border-radius: 50%;
+  box-shadow: 0 0 5px rgba(241, 196, 15, 0.7);
+}
+/* 민철 */
+.attendance {
+  height: 600px;
+  grid-area: attendance;
+  overflow: scroll;
+  overflow-x: hidden;
+  background-color: #34495e;
+  scrollbar-color: #555 #999; /* Firefox */
+  border-radius: 12px;
+}
+.board {
+  height: 600px;
+  grid-area: board;
+  overflow: scroll;
+  overflow-x: hidden;
+  background-color: #34495e;
+  scrollbar-color: #555 #999; /* Firefox */
+  border-radius: 12px;
+}
+.header1 {
+  color: white;
+  font-size: 1.8em;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  text-align: center;
+}
+.header2 {
+  color: white;
+  font-size: 1.8em;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  text-align: center;
+}
+table {
+  width: 100%;
+}
+table,
+th,
+td,
+tr {
+  border: 1px solid white;
+  border-collapse: collapse;
+  text-align: center;
+}
+th,
+td {
+  color: white;
+  font-size: 1.2em;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  width: 100px;
+  height: 40px;
+}
+
+/* 성우 */
+.topnav {
+  border-radius: 12px;
+  display: flex;
+  justify-content: space-around;
+  background-color: #34495e;
+  gap: 10px;
+}
+
+.topmenu {
+  position: relative;
+  height: 100px;
+  min-height: 50px;
+  min-width: 40px;
+}
+.topmenubutton {
+  width: 100%;
+  height: 100%;
+  color: white;
+  font-size: 1.2em;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  background-color: transparent;
+  border: transparent;
+}
+
+.topmenubutton:hover {
+  background-color: gray;
+}
+
+.topmenudropdown {
+  display: none;
+  position: absolute;
+  min-width: 200px;
+  top: 100%;
+  left: 0;
+  z-index: 1;
+  box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+  cursor: pointer;
+}
+
+.topmenudropdown a {
+  display: block;
+  padding: 12px 16px;
+  font-size: 1.2em;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  background-color: white;
+  color: black;
+}
+
+.topmenu:hover .topmenudropdown {
+  display: block;
+}
+body {
+  background-color: #78aadb;
+}
+.btnLogo {
+  background-image: url("../images/logo.jpg");
+  background-size: 200px 100px;
+  background-repeat: no-repeat;
+  background-position: center;
+
+  margin: 0px;
+  width: 200px;
+  height: 100px;
+  border: none;
+  cursor: pointer;
+}

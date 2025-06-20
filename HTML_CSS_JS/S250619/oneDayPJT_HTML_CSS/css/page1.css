@@ -1,0 +1,409 @@
+.sw_container {
+  max-width: 1920px;
+  min-height: 517px;
+  margin: 0 auto 150px auto;
+  position: relative;
+  background: url(../images/mainpage.jpg) no-repeat center 0;
+  background-size: cover;
+  position: relative;
+}
+
+.sw_container .logo {
+  background-image: url("../images/home_logo.jpg");
+  background-size: 200px 100px;
+  background-repeat: no-repeat;
+  background-position: center;
+
+  margin: 0px;
+  width: 200px;
+  height: 100px;
+  border: none;
+  cursor: pointer;
+}
+
+.TopNav {
+  display: flex;
+  justify-content: space-between;
+  background-color: white;
+  gap: 10px;
+}
+
+.TopMenu {
+  position: relative;
+  height: 50px;
+  min-height: 50px;
+  min-width: 50px;
+}
+
+.TopMenubutton {
+  width: 100%;
+  height: 100%;
+  color: #34495e;
+  font-size: 1.2em;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  background-color: transparent;
+  border: transparent;
+}
+
+.TopMenubutton:hover {
+  background-color: gray;
+}
+
+.TopMenuDropDown {
+  display: none;
+  position: absolute;
+  min-width: 200px;
+  top: 100%;
+  left: 0;
+  z-index: 1;
+  box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+  cursor: pointer;
+}
+
+.TopMenuDropDown a {
+  background-color: white;
+  display: block;
+  padding: 12px 16px;
+  color: black;
+}
+
+.TopMenu:hover .TopMenuDropDown {
+  display: block;
+}
+
+.contact {
+  padding: 2px 10px;
+  height: 30px;
+  line-height: 30px;
+  color: #34495e;
+  border-radius: 15px;
+  cursor: pointer;
+  margin-right: 50px;
+}
+
+.contact:hover {
+  background-color: #95aab8;
+  color: white;
+}
+
+.mentBox {
+  color: white;
+  text-align: center;
+  padding-top: 120px;
+}
+
+.mentBox > div:first-child {
+  font-weight: bold;
+  font-size: 3rem;
+  margin-bottom: 20px;
+  letter-spacing: 0.6rem;
+}
+.mentBox > div:last-child {
+  letter-spacing: 0.2rem;
+}
+
+.NoticeBoxAndLoginBox {
+  position: absolute;
+  bottom: -100px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 40px;
+  z-index: 10;
+}
+
+.NoticeBoxAndLoginBox .boxTitle {
+  margin-bottom: 10px;
+  font-size: 1.1rem;
+  font-weight: bold;
+}
+
+.NoticeBox {
+  width: 35%;
+  height: 200px;
+  flex: 0 0 35%;
+  padding: 20px;
+  border: 1px solid #ccc;
+  box-sizing: border-box;
+  background-color: rgba(255, 255, 255, 0.9);
+}
+
+.NoticeBox ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.NoticeBox li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  white-space: nowrap;
+  overflow: hidden;
+  margin-bottom: 4px;
+}
+
+.NoticeBox li a {
+  flex: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.NoticeDate {
+  flex-shrink: 0;
+  margin-left: 10px;
+  font-size: 0.9em;
+  color: gray;
+}
+
+.productBox {
+  width: 30%;
+  flex: 0 0 30%;
+  height: 200px;
+  flex-shrink: 0;
+  padding: 20px;
+  border: 1px solid black;
+  /* border-radius: 8px; */
+  background-color: rgba(255, 255, 255, 0.9);
+  box-sizing: border-box;
+}
+
+.LoginBox {
+  width: 25%;
+  flex: 0 0 25%;
+  height: 200px;
+  flex-shrink: 0;
+  padding: 20px;
+  border: 1px solid black;
+  border-radius: 8px;
+  background-color: whitesmoke;
+  box-sizing: border-box;
+}
+
+.LoginGroup {
+  display: flex;
+  align-items: center; /* 버튼을 수직 가운데 정렬 */
+  justify-content: flex-start;
+  gap: 20px;
+  position: relative;
+}
+
+.LoginTextBoxGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.LoginButtonGrid {
+  display: flex;
+  align-items: center; /* 버튼 수직 정렬 */
+  height: 100%;
+}
+
+.LoginTextBox {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.LoginTextBox label {
+  width: 30px;
+  text-align: right;
+}
+
+.LoginTextBox input {
+  padding: 6px;
+  width: 100px;
+}
+
+.LoginButtona {
+  position: absolute;
+  top: 0%;
+  right: 0;
+  padding: 25px 0px;
+  display: inline-block;
+  background-color: whitesmoke;
+  text-align: center;
+  text-decoration: none;
+  border-radius: 5px;
+  font-size: 15px;
+  cursor: pointer;
+  border: 1px solid black;
+}
+a {
+  color: inherit;
+  background-color: inherit;
+  text-decoration: none;
+}
+.LoginButtona:hover {
+  background-color: gray;
+  color: black;
+}
+.LoginBox .links {
+  margin-top: 10px;
+  text-align: center;
+}
+
+@media (max-width: 768px) {
+  .NoticeBox {
+    width: 100%;
+  }
+  .LoginBox {
+    margin: 0 auto; /* 중앙 정렬 */
+  }
+}
+
+/* =================================== 한선경 ================================= */
+
+.ss_container .mainImg {
+  background: url(../images/mainpage.jpg);
+  background-size: cover;
+  background-repeat: no-repeat;
+  margin-bottom: 0;
+  min-height: 500px;
+}
+
+/* ================== 자동차 부분 ================= */
+.ss_container .carImg {
+  background-color: rgba(0, 0, 0, 0.9);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 400px;
+  position: relative;
+}
+
+.ss_container .carImg .carText {
+  position: absolute;
+  top: 30px;
+  left: 50%;
+  transform: translateX(-50%);
+  color: white;
+  z-index: 2;
+  border-bottom: 3px solid white;
+  margin-bottom: 100px;
+}
+
+.ss_container .carImg > img {
+  margin-top: 150px;
+  height: 50%;
+}
+
+.ss_container .carImg .carDot {
+  cursor: pointer;
+  background-color: #ffffff1a;
+  border: 2px solid #fff;
+  border-radius: 200px;
+  justify-content: center;
+  align-items: center;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  position: relative;
+  color: white;
+  left: -500px;
+  top: -20px;
+}
+
+.ss_container .carImg .carDot .hoverImg {
+  display: none;
+  position: absolute;
+  transform: translate(100px, 100px);
+  background: #000;
+  border: 1px solid #fff;
+  padding: 5px;
+}
+
+.ss_container .carImg .carDot .hoverImg img {
+  width: 150px;
+  height: auto;
+  display: block;
+}
+
+.ss_container .carImg .carDot:hover .hoverImg {
+  display: block;
+}
+
+/* =================== 목표 부분 =================== */
+
+.ss_container .objective {
+  margin-top: 0;
+  min-height: 700px;
+  background: linear-gradient(rgba(0, 0, 0, 0.8), rgba(255, 255, 255, 0.2)),
+    url(../images/배경.JPG);
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  padding: 20px 0px;
+}
+
+.ss_container .objective .obTitle {
+  margin: 0px auto;
+  text-align: center;
+  width: 300px;
+  padding: 50px 0px 10px 0px;
+  color: white;
+  border-bottom: 3px solid white;
+  margin-bottom: 100px;
+}
+
+.ss_container .obItem {
+  display: flex;
+  justify-content: space-evenly;
+  gap: 30px;
+}
+
+.ss_container .item {
+  width: 300px;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  color: white;
+}
+
+.ss_container .item p {
+  width: 200px;
+  margin: auto;
+  text-align: justify;
+}
+
+.ss_container .icon {
+  margin: auto;
+}
+
+.ss_container .bcircle {
+  border: 3px solid #fff;
+  border-radius: 200rem;
+  justify-content: center;
+  align-items: center;
+  width: 220px;
+  height: 220px;
+  display: flex;
+}
+
+.ss_container .dcircle {
+  border: 3px dashed #fff;
+  border-radius: 200rem;
+  justify-content: center;
+  align-items: center;
+  width: 170px;
+  height: 170px;
+  display: flex;
+}
+
+@media screen and (max-width: 1000px) {
+  .ss_container .obItem {
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 40px 60px;
+  }
+
+  .ss_container .item {
+    width: 40%;
+    min-width: 250px;
+  }
+}
