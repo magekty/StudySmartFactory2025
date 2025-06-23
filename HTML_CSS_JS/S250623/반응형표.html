@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      .container {
+        display: flex;
+        border: 1px solid gray;
+      }
+      .column {
+        flex: 0 0 16.66%;
+        box-sizing: border-box;
+        border: 1px solid #ddd;
+        align-content: center;
+        text-align: center;
+        background-color: #f9f9f9;
+      }
+      @media (max-width: 700px) {
+        .column:nth-child(2),
+        .column:nth-child(4) {
+          display: none;
+        }
+        .column {
+          flex: 1;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="column">1번</div>
+      <div class="column">2번(모바일에서는 사라질 컬럼)</div>
+      <div class="column">3번</div>
+      <div class="column">4번(모바일에서는 사라질 컬럼)</div>
+      <div class="column">5번</div>
+      <div class="column">6번</div>
+    </div>
+  </body>
+</html>

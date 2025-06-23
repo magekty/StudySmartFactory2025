@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script>
+      function change_heading2() {
+        let heading = document.querySelector("#heading2");
+        heading.style.color = "blue";
+      }
+    </script>
+    <script src="./js위치.js"></script>
+  </head>
+  <body>
+    <h1 id="heading">자바스크립트</h1>
+    <p id="text">텍스트를 클릭 하세요</p>
+    <h1 id="heading2" onclick="change_heading2()">두번째 h1</h1>
+    <h1 id="heading3" onclick="change_heading3()">세번째 h1</h1>
+    <script>
+      let heading = document.querySelector("#heading");
+      heading.onclick = function () {
+        heading.style.color = "red";
+      };
+    </script>
+  </body>
+</html>
