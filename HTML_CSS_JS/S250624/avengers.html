@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <img id="avengers" style="" src="./images/avengers.png" alt="" />
+    <p id="who">누구?</p>
+    <!-- 아이언 274 1, 459 138 헐크 346 144, 420 240 캡틴 389 268, 494 397 -->
+    <script>
+      let container = document.getElementById("avengers");
+      document.getElementById("avengers").onmousemove = (event) => {
+        let memberName = "";
+        let x = event.pageX;
+        let y = event.pageY;
+        if (
+          event.pageX >= 274 &&
+          event.pageX <= 459 &&
+          event.pageY >= 1 &&
+          event.pageY <= 138
+        ) {
+          document.getElementById(
+            "who"
+          ).innerText = `x좌표: ${x}, y좌표: ${y}, 멤버 이름: 아이언맨`;
+        } else if (
+          event.pageX >= 346 &&
+          event.pageX <= 420 &&
+          event.pageY >= 144 &&
+          event.pageY <= 240
+        ) {
+          document.getElementById(
+            "who"
+          ).innerText = `x좌표: ${x}, y좌표: ${y}, 멤버 이름: 헐크`;
+        } else if (
+          event.pageX >= 389 &&
+          event.pageX <= 494 &&
+          event.pageY >= 268 &&
+          event.pageY <= 397
+        ) {
+          document.getElementById(
+            "who"
+          ).innerText = `x좌표: ${x}, y좌표: ${y}, 멤버 이름: 캡틴`;
+        }
+      };
+      container.onclick = (event) => {
+        if (
+          event.pageX >= 274 &&
+          event.pageX <= 459 &&
+          event.pageY >= 1 &&
+          event.pageY <= 138
+        ) {
+          window.location.href =
+            "https://www.google.com/search?q=%EC%95%84%EC%9D%B4%EC%96%B8%EB%A7%A8&oq=%EC%95%84%EC%9D%B4%EC%96%B8%EB%A7%A8&gs_lcrp=EgZjaHJvbWUyBggAEEUYOdIBCDI1NDVqMGo3qAIAsAIA&sourceid=chrome&ie=UTF-8";
+        } else if (
+          event.pageX >= 346 &&
+          event.pageX <= 420 &&
+          event.pageY >= 144 &&
+          event.pageY <= 240
+        ) {
+          window.location.href =
+            "https://www.google.com/search?q=%ED%97%90%ED%81%AC&sca_esv=aee75a51e6bdb282&sxsrf=AE3TifPRuNeq7v8Ziqlb762f3dNlUhDM1A%3A1750735037462&ei=vRhaaPr3G7DT1e8PyK7RYA&ved=0ahUKEwi6yoOgjImOAxWwafUHHUhXFAwQ4dUDCBA&uact=5&oq=%ED%97%90%ED%81%AC&gs_lp=Egxnd3Mtd2l6LXNlcnAiBu2XkO2BrDINEC4YgAQYQxjUAhiKBTIKEAAYgAQYQxiKBTIKEC4YgAQYQxiKBTINEC4YgAQYQxjUAhiKBTIKEC4YgAQYQxiKBTIFEAAYgAQyBRAuGIAEMgoQABiABBhDGIoFMgUQLhiABDIFEAAYgARI6xBQsAtY3g9wAXgBkAEBmAHBAaABsAWqAQMwLjW4AQPIAQD4AQGYAgSgAo0DwgIKEAAYsAMY1gQYR8ICBBAjGCfCAhEQLhiABBixAxjRAxiDARjHAcICCxAAGIAEGLEDGIMBwgIEEAAYA8ICCxAuGIAEGLEDGIMBwgILEC4YgAQYsQMY1AKYAwCIBgGQBgqSBwMxLjOgB4ltsgcDMC4zuAeHA8IHAzItNMgHEw&sclient=gws-wiz-serp";
+        } else if (
+          event.pageX >= 389 &&
+          event.pageX <= 494 &&
+          event.pageY >= 268 &&
+          event.pageY <= 397
+        ) {
+          window.location.href =
+            "https://www.google.com/search?q=%EC%BA%A1%ED%8B%B4%EC%95%84%EB%A9%94%EB%A6%AC%EC%B9%B4&sca_esv=aee75a51e6bdb282&sxsrf=AE3TifMuyUy6-Yh4ko6bXafOtqYBEL7kRg%3A1750735406386&ei=LhpaaPusF-ypvr0P1IG52Ao&gs_ssp=eJwBIADf_woIL20vMDI1ZHAwAUoS7Lqh7Yu07JWE66mU66as7Lm0xZ4QDA&oq=%EC%BA%A1%ED%8B%B4&gs_lp=Egxnd3Mtd2l6LXNlcnAiBuy6oe2LtCoCCAAyDRAuGIAEGEMY1AIYigUyDRAuGIAEGEMY1AIYigUyChAuGIAEGEMYigUyBRAuGIAEMgoQABiABBhDGIoFMgoQLhiABBhDGIoFMgUQABiABDIKEAAYgAQYQxiKBTIKEAAYgAQYQxiKBTIFEAAYgARIhBJQkwZY8wtwAXgBkAEAmAGIAaAB4AWqAQMwLja4AQPIAQD4AQGYAgWgApAEwgIKEAAYsAMY1gQYR8ICBBAjGCfCAhEQLhiABBixAxjRAxiDARjHAcICBBAAGAPCAgQQLhgDwgILEAAYgAQYsQMYgwHCAggQLhiABBjUAsICCBAAGIAEGLEDwgIIEC4YgAQYsQPCAgsQLhiABBixAxjUApgDAIgGAZAGCpIHAzEuNKAH3GWyBwMwLjS4B4oEwgcDMi01yAcV&sclient=gws-wiz-serp";
+        }
+      };
+    </script>
+  </body>
+</html>

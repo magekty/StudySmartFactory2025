@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div class="container">
+      <img
+        style="width: 300px; height: 300px"
+        src="../S250619/images/photo-1.jpg"
+        id="cat"
+        alt=""
+      />
+    </div>
+    <script>
+      let cat = document.getElementById("cat");
+      let picNum = 1;
+      cat.onclick = () => {
+        picNum++;
+        if (picNum >= 7) picNum = 1;
+        cat.src = `../S250619/images/photo-${picNum}.jpg`;
+      };
+    </script>
+  </body>
+</html>

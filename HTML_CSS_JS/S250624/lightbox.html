@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <!--  -->
+    <style>
+      .container {
+        width: 800px;
+        /* display: flex;
+        justify-content: space-around; */
+      }
+      ul {
+        list-style: none;
+      }
+      li {
+        display: inline;
+      }
+      .row {
+        width: 400px;
+        margin: auto;
+      }
+      #lightbox {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgb(0, 0, 0, 0.9);
+        justify-content: center;
+        align-items: center;
+      }
+      #lightbox img {
+        width: 50%;
+        height: 50%;
+        border: 5px solid white;
+      }
+    </style>
+    <!--  -->
+  </head>
+  <body>
+    <div class="container">
+      <div class="row">
+        <ul>
+          <li>
+            <img
+              src="../S250624/images/photo-1-thumb.jpg"
+              alt=""
+              data-src="../S250619/images/photo-1.jpg"
+              class="pic"
+            />
+          </li>
+          <li>
+            <img
+              src="../S250624/images/photo-2-thumb.jpg"
+              alt=""
+              data-src="../S250619/images/photo-2.jpg"
+              class="pic"
+            />
+          </li>
+          <li>
+            <img
+              src="../S250624/images/photo-3-thumb.jpg"
+              alt=""
+              data-src="../S250619/images/photo-3.jpg"
+              class="pic"
+            />
+          </li>
+          <li>
+            <img
+              src="../S250624/images/photo-4-thumb.jpg"
+              alt=""
+              data-src="../S250619/images/photo-4.jpg"
+              class="pic"
+            />
+          </li>
+          <li>
+            <img
+              src="../S250624/images/photo-5-thumb.jpg"
+              alt=""
+              data-src="../S250619/images/photo-5.jpg"
+              class="pic"
+            />
+          </li>
+          <li>
+            <img
+              src="../S250624/images/photo-6-thumb.jpg"
+              alt=""
+              data-src="../S250619/images/photo-6.jpg"
+              class="pic"
+            />
+          </li>
+        </ul>
+      </div>
+      <div id="lightbox">
+        <img src="../S250619/images/photo-1.jpg" alt="" id="lightboxImage" />
+      </div>
+    </div>
+    <!--  -->
+    <script>
+      let pics = document.getElementsByClassName("pic");
+      let lightboxImage = document.getElementById("lightboxImage");
+      let lightbox = document.getElementById("lightbox");
+      for (let i = 0; i < pics.length; i++) {
+        pics[i].addEventListener("click", showLightbox);
+      }
+      function showLightbox() {
+        let imageBig = this.getAttribute("data-src");
+        lightboxImage.setAttribute("src", imageBig);
+        // let bigLocation = this.dataset.src;
+        // lightboxImage.src = bigLocation;
+        lightbox.style.display = "flex";
+      }
+      lightbox.onclick = () => {
+        lightbox.style.display = "none";
+      };
+    </script>
+    <!--  -->
+  </body>
+</html>

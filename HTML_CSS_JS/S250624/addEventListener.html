@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <h1>button hover image</h1>
+    <p id="textOut">이거 눌렀네</p>
+    <img src="../S250617/imges/딸기.jpg" id="myImgBtn" />
+    <script>
+      const myClickHandler = () => {
+        let txt = document.querySelector("#textOut");
+        txt.innerHTML = "딸기";
+      };
+      let btn = document.querySelector("#myImgBtn");
+      btn.addEventListener("click", myClickHandler);
+    </script>
+  </body>
+</html>
