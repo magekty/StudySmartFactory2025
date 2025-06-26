@@ -1,0 +1,18 @@
+typescript 설치
+npm install -g typescript
+npm install -g ts-node
+tsc --init // 초기 tsconfig.json 파일 생성
+ts-node 파일명 // ts파일 실행
+tsc 파일명 //ts -> js로 컨버트
+
+nodejs 설치
+
+create-react-app vs vite
+
+1. cra-js
+npx create-react-app my-app-cra-js // 생성
+cd my-app-cra-js // 폴더 이동
+npm start // 현재 경로에서 실행
+
+2. cra-ts
+npx create-react-app my-app-cra-ts --template typescript // 생성
