@@ -1,0 +1,16 @@
+.editor-wrapper {
+  display: flex;
+  gap: 10px;
+}
+.editor-wrapper input {
+  border: 1px solid rgb(224, 224, 224);
+  flex: 1;
+  padding: 10px;
+}
+.editor-wrapper button {
+  background-color: rgb(52, 180, 180);
+  border-radius: 5px;
+  border: none;
+  padding: 0 20px;
+  color: white;
+}

@@ -1,0 +1,18 @@
+.TodoItem {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding: 20px;
+}
+.TodoItem .title-col {
+  flex: 1;
+}
+.TodoItem .date-col {
+  font-size: 12px;
+  color: rgb(173, 173, 173);
+}
+.TodoItem .btn-col button {
+  border: none;
+  border-radius: 5px;
+  color: gray;
+}

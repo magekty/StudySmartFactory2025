@@ -39,3 +39,5 @@ console.log("user4 - rest" + rest);
 type User = { name5: string; age: number; admin: boolean };
 const user: User = { name5: "김부산", age: 25, admin: true };
 const { name5, ...rest5 }: { name5: string } & Omit<User, "name5"> = user;
+console.log(name5);
+console.log(rest5);
