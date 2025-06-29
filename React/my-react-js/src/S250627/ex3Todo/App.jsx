@@ -37,7 +37,7 @@ function App() {
       createdDate: new Date().getTime(),
     };
     setTodo([...todo, newItem]);
-    idRef.current += 1;
+    idRef.current++;
   };
   const onUpdate = (targetId) => {
     setTodo(

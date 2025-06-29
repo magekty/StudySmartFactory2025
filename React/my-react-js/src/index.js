@@ -2,7 +2,8 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import "./index.css";
 // import App from './App';
-import App from "./S250627/ex4useEffect/App";
+import App from "./S250627/ex3Todo/App";
+// import App from "./S250627/ex4useEffect/App";
 import reportWebVitals from "./reportWebVitals";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
