@@ -2,8 +2,14 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import "./index.css";
 // import App from './App';
-import App from "./S250627/ex3Todo/App";
+// import App from "./S250627/ex3Todo/App";
 // import App from "./S250627/ex4useEffect/App";
+// import App from "./S250630/ex5LifeCycle/App";
+// import App from "./S250630/ex6Reduser/App";
+// import App from "./S250630/ex7PropsDrillingBasic/App";
+// import App from "./S250630/ex9PropsDrillingRedux/App";
+// import App from "./S250630/ex10Route1/App";
+import App from "./S250630/ex11Diary(CustomHook)/App";
 import reportWebVitals from "./reportWebVitals";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
