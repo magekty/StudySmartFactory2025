@@ -1,5 +1,9 @@
 import { useEffect, useReducer, createContext, useRef } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
+import Home from "./pages/Home";
+import Diary from "./pages/Diary";
+import New from "./pages/New";
+import Edit from "./pages/Edit";
 
 const mockData = [
   {
@@ -37,13 +41,8 @@ const reducer = (state, action) => {
       return state;
   }
 };
-const Home = () => {};
-const New = () => {};
-const Diary = () => {};
-const Edit = () => {};
-const DiaryStateContext = createContext();
-const DiaryDispatchContext = createContext();
-
+export const DiaryStateContext = createContext();
+export const DiaryDispatchContext = createContext();
 const App = () => {
   const idRef = useRef(4);
   const [data, dispatch] = useReducer(reducer, []);
@@ -89,7 +88,6 @@ const App = () => {
               <Route path="/new" element={<New />} />
               <Route path="/diary/:id" element={<Diary />} />
               <Route path="/edit/:id" element={<Edit />} />
-              {/* <Route path="/delete/:id" element={<Delete/>}/> */}
             </Routes>
           </div>
         </BrowserRouter>
