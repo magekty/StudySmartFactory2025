@@ -1,8 +1,8 @@
 import { emotionList } from "../Util";
 
-/* const Viewer = ({ content, emotionId }) => {
+const Viewer = ({ content, emotionId }) => {
   const emotionItem = emotionList.find((item) => item.id === emotionId);
-  console.log(emotionItem);
+  // console.log("Viewer props:", { content, emotionId });
   return (
     <div className="Viewer">
       <section>
@@ -26,10 +26,11 @@ import { emotionList } from "../Util";
     </div>
   );
 };
-export default Viewer; */
+export default Viewer;
 
-const Viewer = ({ content, emotionId }) => {
+/* const Viewer = ({ content, emotionId }) => {
   const emotionItem = emotionList.find((item) => item.id === emotionId);
+  console.log(emotionId);
   return (
     <div className="Viewer">
       <section>
@@ -54,3 +55,4 @@ const Viewer = ({ content, emotionId }) => {
   );
 };
 export default Viewer;
+ */

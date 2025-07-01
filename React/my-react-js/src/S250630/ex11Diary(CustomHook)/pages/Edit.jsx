@@ -6,7 +6,7 @@ import Editor from "../componenets/Editor";
 import { useContext } from "react";
 import { DiaryDispatchContext } from "../App";
 
-/* const Edit = () => {
+const Edit = () => {
   const { id } = useParams();
   const data = useDiary(id);
   const { onDelete, onUpdate } = useContext(DiaryDispatchContext);
@@ -34,15 +34,15 @@ import { DiaryDispatchContext } from "../App";
         leftChild={<Button text={"< 뒤로 가기"} onClick={goBack} />}
         rightChild={<Button text={"삭제 하기"} onClick={onClickDelete} />}
       />
-      <Editor initDate={data} onSubmit={onSubmit} />
+      <Editor initData={data} onSubmit={onSubmit} />
     </div>
   );
 };
 
 export default Edit;
- */
 
-const Edit = () => {
+
+/* const Edit = () => {
   const { id } = useParams();
   const data = useDiary(id);
 
@@ -76,4 +76,4 @@ const Edit = () => {
     </div>
   );
 };
-export default Edit;
+export default Edit; */
