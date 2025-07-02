@@ -10,13 +10,13 @@ const mockData = [
     id: 1,
     date: new Date("2025-07-01").getTime(),
     content: "오늘은 새 반장이 선출된 날",
-    emotionId: 1,
+    emotionId: 5,
   },
   {
     id: 2,
     date: new Date("2025-07-04").getTime(),
     content: "react oneday proj날",
-    emotionId: 1,
+    emotionId: 3,
   },
   {
     id: 3,

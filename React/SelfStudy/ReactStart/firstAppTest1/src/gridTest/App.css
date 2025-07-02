@@ -1,0 +1,119 @@
+/* src/App.css */
+html,
+body {
+  width: 100%;
+  height: 100%; /* 뷰포트 전체 높이를 차지하도록 */
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box; /* 패딩과 보더가 너비/높이에 포함되도록 */
+}
+
+body {
+  font-family: Arial, sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start; /* 대시보드 상단 정렬 유지 */
+  min-height: 100vh; /* 최소 뷰포트 높이 */
+  background-color: #f0f2f5;
+  padding: 20px; /* body 주변 여백 */
+  box-sizing: border-box;
+}
+
+.grid-container {
+  display: grid;
+  /* JS에서 grid-template-columns를 동적으로 설정합니다. */
+  /* grid-auto-rows는 JS에서 설정하는 minmax(50px, auto)와 일치시킵니다. */
+  grid-auto-rows: minmax(
+    50px,
+    auto
+  ); /* 각 행의 최소 높이, 콘텐츠에 따라 늘어남 */
+  gap: 15px; /* 그리드 셀 사이의 간격 */
+  width: 100%; /* 부모(body)의 100% 너비를 차지 */
+  max-width: 1900px; /* 컨테이너의 최대 너비 */
+
+  /* 핵심 변경: grid-auto-flow: dense; */
+  /* 아이템의 순서를 최대한 유지하며 빈 공간을 채우도록 합니다. */
+  grid-auto-flow: dense;
+
+  background-color: #ffffff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition:
+    grid-template-columns 0.3s ease-in-out,
+    gap 0.3s ease-in-out;
+}
+
+.grid-item {
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 5px;
+  font-size: 1.2em;
+  font-weight: bold;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  min-height: 50px; /* 각 아이템의 최소 높이 */
+  /* transition: transform 0.3s ease, background-color 0.3s ease; */
+  /* Grid 배치에 따른 자연스러운 애니메이션을 위해 transform은 제거 가능 */
+  transition: background-color 0.3s ease;
+}
+
+/* * 각 item-NxM 클래스는 CSS Grid의 `span` 속성을 사용하여
+ * 해당 아이템이 차지하는 열과 행의 개수를 명시합니다.
+ * 이 부분은 JS가 계산하는 열 개수와 무관하게 작동합니다.
+ */
+.item-1x1 {
+  background-color: #2196f3; /* 파란색 */
+  grid-column: span 1;
+  grid-row: span 1;
+}
+.item-2x1 {
+  background-color: #ff9800; /* 주황색 */
+  grid-column: span 2;
+  grid-row: span 1;
+}
+.item-1x2 {
+  background-color: #9c27b0; /* 보라색 */
+  grid-column: span 1;
+  grid-row: span 2;
+}
+.item-2x2 {
+  background-color: #e91e63; /* 분홍색 */
+  grid-column: span 2;
+  grid-row: span 2;
+}
+.item-3x1 {
+  background-color: #00bcd4; /* 청록색 */
+  grid-column: span 3;
+  grid-row: span 1;
+}
+.item-1x3 {
+  background-color: #8bc34a; /* 연두색 */
+  grid-column: span 1;
+  grid-row: span 3;
+}
+
+/* 반응형 디자인을 위한 미디어 쿼리 */
+/* JS가 grid-template-columns를 계산하므로, 여기서는 gap과 padding만 조정 */
+@media (max-width: 768px) {
+  .grid-container {
+    gap: 10px;
+    padding: 15px;
+  }
+  .grid-item {
+    font-size: 1em;
+    min-height: 40px;
+  }
+}
+
+@media (max-width: 480px) {
+  .grid-container {
+    gap: 8px;
+    padding: 10px;
+  }
+  .grid-item {
+    font-size: 0.9em;
+    min-height: 30px;
+  }
+}

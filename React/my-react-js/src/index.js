@@ -9,7 +9,10 @@ import "./index.css";
 // import App from "./S250630/ex7PropsDrillingBasic/App";
 // import App from "./S250630/ex9PropsDrillingRedux/App";
 // import App from "./S250630/ex10Route1/App";
-import App from "./S250630/ex11Diary(CustomHook)/App";
+// import App from "./S250630/ex11Diary(CustomHook)/App";
+// import App from "./S250702/ex12Comp_Button/App";
+// import App from "./S250702/ex13Comp_IconButton/App";
+import App from "./S250702/ex14Comp_LoadingButton/App";
 import reportWebVitals from "./reportWebVitals";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));

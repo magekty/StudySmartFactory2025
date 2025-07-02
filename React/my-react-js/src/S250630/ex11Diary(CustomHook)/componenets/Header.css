@@ -1,0 +1,14 @@
+.Header {
+  display: flex;
+}
+.Header .header-left {
+  width: 25%;
+  justify-content: start;
+}
+.Header .header-title {
+  width: 50%;
+}
+.Header .header-right {
+  width: 25%;
+  justify-content: end;
+}

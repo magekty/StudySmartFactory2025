@@ -1,0 +1,15 @@
+.DiaryList .menu-wrapper {
+  display: flex;
+}
+.DiaryList .left-col {
+}
+.DiaryList .right-col {
+}
+.DiaryList .left-col select {
+}
+.DiaryList .menu-wrapper .right-col {
+  flex-grow: 1;
+}
+.DiaryList .menu-wrapper .right-col button {
+  width: 100%;
+}
