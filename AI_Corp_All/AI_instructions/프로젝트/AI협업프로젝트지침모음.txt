@@ -361,3 +361,278 @@ AI가 발전실적 API를 호출하여 데이터를 가져오는 비동기 함�
 기상청 API 두 가지 (시간자료, 단기예보)를 어떻게 호출하고, 어떤 데이터를 가져와 발전량 데이터와 결합할지 구체적인 데이터 연동 및 활용 시나리오를 AI가 제안.
 
 이 논의를 통해 CRUD 페이지의 데이터 구조와 기능에 대한 아이디어를 더욱 명확히 할 수 있음.
+
+Project Retrospective: Identifying Key Pain Points
+Based on our recent interactions and the code you've provided, here's a summary of the recurring issues in your solar dashboard project:
+
+API Integration Challenges:
+
+Inconsistent API Responses: The KOSPO API occasionally returns a NODATA_ERROR with a specific resultCode (3) and an unusual key (reponse instead of response).
+
+XML vs. JSON Parsing: The KMA ASOS API returns XML, while KOSPO and KMA Forecast return JSON, requiring different parsing logic. This led to initial confusion and parsing errors.
+
+Dynamic base_time for KMA Forecast: The KMA Forecast API requires a specific base_time that changes based on the current time, demanding a precise calculation logic. Incorrect base_time caused API errors (e.g., 500 errors from the proxy, "Policy Falsified").
+
+API Key Management: While not a direct error, hardcoding the SERVICE_KEY in solarApi.ts makes it less flexible and secure for different environments or public repositories.
+
+Lack of Explicit Date/Time Parameters: Initially, API calls in solarApi.ts sometimes hardcoded dates (e.g., yesterday within the function), making it difficult for the consuming component (Dashboard.tsx) to request specific date ranges.
+
+TypeScript-Specific Issues:
+
+Missing Type Definitions (@types/axios): Caused Cannot find module 'axios' errors.
+
+Type Mismatch/Inference Problems:
+
+Property 'isAxiosError' does not exist on type 'AxiosStatic': Indicating an axios version mismatch with @types/axios or outdated axios version.
+
+Property 'response' does not exist on type '{}': Occurred when TypeScript couldn't correctly infer the structure of responseData, leading to potential runtime errors if the API response deviates from expectations.
+
+Inconsistent Data Types from APIs: Numeric values (like temperature or rainfall) were received as strings from ASOS, requiring explicit parseFloat conversions.
+
+Code Structure and Maintainability:
+
+Monolithic API File: Initially, solarApi.ts contained date/time calculation logic that was better suited for a separate utility file.
+
+Duplication of Date Logic: Similar date calculation logic could appear in multiple places.
+
+fetch vs. axios Inconsistency: Mixing fetch and axios within the API layer could lead to less consistent error handling and code style.
+
+Limited Error Handling Specificity: Initial error messages were generic, making debugging harder (e.g., "Unknown error").
+
+Guidelines for Future Projects (Project Development Principles)
+To address these issues and ensure smoother development in future projects, here are the key guidelines:
+
+1. Robust API Integration Strategy
+API Documentation First: Before writing any API code, thoroughly read and understand the official API documentation (e.g., response formats, required parameters, error codes, rate limits, authentication methods).
+
+Centralized API Key Management:
+
+Store API keys in environment variables (e.g., .env files for create-react-app or .env.local for Vite/Next.js) and access them via process.env.REACT_APP_API_KEY or import.meta.env.VITE_API_KEY.
+
+Never hardcode API keys directly in source code that will be committed to a public repository.
+
+For server-side proxies, store sensitive keys securely on the server.
+
+Standardized HTTP Client:
+
+Choose a single, consistent HTTP client (axios is recommended for its features like interceptors, automatic JSON parsing, and robust error handling) and stick with it throughout the project.
+
+Clear API Function Signatures:
+
+API functions should clearly define all necessary input parameters (e.g., startDate, endDate, baseTime, locationId). Avoid hardcoding these within the API function itself if they are likely to change based on the UI's needs.
+
+Anticipate API Response Variations:
+
+Schema Definition: If possible, define TypeScript interfaces/types that accurately reflect the expected API response structure, including nested objects and optional fields.
+
+Defensive Programming: Always check for the existence of nested properties (e.g., data?.response?.header?.resultCode) using optional chaining (?.) before accessing them.
+
+Handle Edge Cases (No Data, Specific Error Codes): Implement specific logic for common API error scenarios (e.g., NODATA_ERROR, authentication failures, rate limits) to provide user-friendly feedback or retry mechanisms.
+
+Consistent Error Handling:
+
+Wrap all API calls in try...catch blocks.
+
+Differentiate between network errors, API-specific errors (e.g., resultCode other than success), and parsing errors.
+
+Log detailed error information to the console during development.
+
+Present clear, actionable error messages to the user in the UI.
+
+Leverage axios.isAxiosError for robust Axios-specific error handling.
+
+2. TypeScript Best Practices
+Always Install Type Definitions: For any third-party library, immediately install its corresponding @types/ package (npm install --save-dev @types/library-name).
+
+Strict Type Checking: Enable strict type checking in tsconfig.json ("strict": true) to catch potential type-related issues early in development.
+
+Define Interfaces for API Data: Create clear TypeScript interfaces for all incoming API data structures (SolarData, AsosItem, ForecastItem) to ensure type safety and improve code readability.
+
+Explicit Type Conversions: When receiving data from APIs (especially from external sources where data types might be inconsistent), explicitly convert string representations to numbers, booleans, or dates as needed (e.g., parseFloat(item.ta)).
+
+Version Compatibility: Regularly update axios and @types/axios (or any other library/type definition pair) to their latest compatible versions to ensure isAxiosError and other features work as expected.
+
+3. Modular Code Structure and Maintainability
+Separation of Concerns:
+
+API Layer (src/api): Focuses solely on making HTTP requests and basic response parsing/error handling. Should not contain UI-specific logic or complex date calculations.
+
+Utility Layer (src/utils): Contains reusable, pure functions that perform specific tasks (e.g., date formatting, time calculations for base_time, data transformations common across the app).
+
+Component Layer (src/components): Responsible for fetching data (by calling API functions), processing it for UI display, and rendering the UI.
+
+Date/Time Management:
+
+Centralize all complex date and time calculation logic (like determining KMA base_time or calculating "yesterday") in a dedicated utility file (e.g., src/utils/dateUtils.ts).
+
+API functions should receive formatted dates/times as arguments, not calculate them internally.
+
+Clear Naming Conventions: Use descriptive names for variables, functions, and files to enhance readability.
+
+Consistent Code Style: Use Prettier and ESLint (configured for TypeScript) to enforce a consistent code style across the project.
+
+4. Development Workflow Improvements
+Frequent Console Logging (Development): Use console.log strategically to inspect raw API responses and intermediate data processing steps during development. (Remember to remove or disable these for production builds.)
+
+Use Browser Developer Tools: Inspect network requests and responses in the browser's "Network" tab to confirm what the API is actually returning. This is crucial for debugging.
+
+Proxy Configuration Verification: Ensure your proxy configuration (package.json or vite.config.ts) is correctly set up to handle API requests and that it's not introducing unexpected errors (e.g., XML responses when JSON is expected).
+
+Version Control (Git): Commit frequently with meaningful messages. If an issue arises after a change, you can easily revert or pinpoint the problematic commit.
+
+By internalizing these guidelines, you'll build a more robust, maintainable, and less error-prone codebase for your future projects. The transition from identifying specific bugs to applying general principles is key to becoming a more effective developer.
+
+AI 모델 자체 주입용: 태양광 프로젝트 API 및 오류 해결 핵심 지침
+목표: 한국남동발전 및 기상청 API 연동 시 발생했던 특정 문제들을 명확히 인지하고, 유사한 오류 발생 시 효과적으로 대처할 수 있도록 API 호출 및 오류 처리 로직을 설계한다.
+
+1. API 키 관리 원칙 (최우선)
+
+
+제공된 키 사용: 사용자가 제공한 URL 인코딩된 API 키(ZWo3wB8meK5DYuV%2BqOd8z8AIht9%2FFWWUjVakb9F52lC1pujkX%2BdRx0pHGe%2BnRkwg%2FCsBHsEyIUwRVz99g58vTQ%3D%3D)를 사용한다. 
+
+
+환경 변수 처리: 이 키는 코드에 하드코딩하지 않고, .env 파일을 통해 환경 변수로 관리하도록 사용자에게 안내하고 적용시킨다.  (예: 
+
+VITE_APP_KOSPO_SERVICE_KEY 등) 이는 보안성 및 환경 유연성을 위한 필수 요소임을 강조한다.
+
+2. 각 API별 고유 특성 및 처리 방법 (핵심 인지)
+
+한국남동발전 발전실적 API (/api/kospo/list)
+
+
+응답 형식: JSON. 
+
+
+데이터 경로: response.body.content 배열에 실제 발전량 데이터가 담겨 있음을 인지한다. 
+
+오류 처리:
+
+NODATA_ERROR (데이터 없음) 케이스를 특별히 처리한다. 이 오류는 종종 
+
+responseData.response.header.resultCode === "03"과 같은 형태로 반환될 수 있으므로, 해당 resultCode와 resultMsg를 명확히 확인하여 사용자에게 "데이터 없음"을 알린다. 
+
+
+API 응답 객체에 
+
+reponse (오타)가 아닌 response 속성을 기대하지만, 만약 API가 reponse로 반환된다면 즉시 사용자에게 이 특이점을 보고하고 코드에 반영한다. 
+
+
+날짜 매개변수: API 호출 시 startD와 endD를 명시적으로 받아서 사용하며, 함수 내부에서 날짜를 하드코딩하지 않는다. 
+
+
+기상청 ASOS 시간자료 API (/api/asos/getWthrDataList)
+
+
+응답 형식: XML. 
+
+파싱 방식: 응답 받은 XML 텍스트를 DOMParser를 사용하여 파싱해야 한다. responseType: 'text' 옵션을 axios 호출 시 포함한다.
+
+데이터 경로: item 태그 내에 각 시간별 기상 데이터가 있으며, header 태그에서 resultCode와 resultMsg를 확인한다.
+
+오류 처리:
+
+resultCode === "99" (또는 특정 메시지 포함)가 "전날 자료까지 제공됩니다."와 같은 의미의 NODATA_ERROR임을 인지하고, 이 경우에도 빈 배열 등을 반환하여 처리한다.
+
+
+ta (기온), rn (강수량) 등 숫자 형태의 데이터가 문자열로 제공되므로, 사용할 때 반드시 parseFloat()을 사용하여 숫자로 변환한다. 
+
+
+날짜 매개변수: startDt와 endDt를 명시적으로 받아서 사용하며, startHh, endHh도 적절히 설정한다.
+
+기상청 단기예보 API (/api/forecast/getVilageFcst)
+
+
+응답 형식: JSON. 
+
+
+데이터 경로: response.body.items.item 배열에 실제 예보 데이터가 담겨 있음을 인지한다. 
+
+
+특수 매개변수: base_date와 base_time은 현재 시간을 기준으로 계산되어야 하는 동적인 값임을 인지하고, 이 계산 로직은 src/utils/dateUtils.ts와 같은 별도 유틸리티 파일에서 관리하도록 안내한다. 
+
+
+오류 처리:
+
+프록시 또는 정책 위반으로 인한 500 오류 시 XML 형식의 에러 응답(
+
+Policy Falsified)이 올 수 있음을 인지하고, 이에 대한 파싱 및 상세 에러 메시지 추출 로직을 포함시킨다. 
+
+
+axios.isAxiosError를 사용하여 Axios가 반환하는 에러인지 확인하고, error.response의 존재 여부를 통해 실제 API 응답 에러인지, 네트워크 에러인지 등을 구분하여 처리한다. 
+
+
+
+3. 공통 오류 해결 및 디버깅 원칙
+
+axios 버전 및 타입 정의(@types/axios):
+
+
+axios.isAxiosError와 같은 최신 기능 사용 시 axios 라이브러리와 @types/axios 패키지의 버전 호환성이 중요함을 인지하고, 관련 오류(Property 'isAxiosError' does not exist) 발생 시 최신 버전으로의 업데이트(npm install axios@latest @types/axios@latest)를 최우선으로 고려하도록 사용자에게 안내한다. 
+
+
+
+Cannot find module 'axios' 오류 발생 시 @types/axios가 올바르게 설치되었는지 확인하고, 필요한 경우 VS Code를 재시작하도록 안내한다. 
+
+
+방어적 코딩: API 응답 객체의 중첩된 속성 접근 시에는 항상 ?. (옵셔널 체이닝)을 사용하여 null 또는 undefined 오류를 방지한다.  (예: 
+
+responseData?.response?.header?.resultCode)
+
+
+상세 콘솔 로깅: API 호출 직후 **console.log("API 응답 전체 데이터 (JSON/XML):", response.data);**를 사용하여 원본 응답 데이터를 반드시 확인하도록 사용자에게 안내한다. 이를 통해 API 응답 구조 불일치(예: 
+
+reponse 오타)나 예상치 못한 에러 응답 형식을 빠르게 파악할 수 있다. 
+
+VS Code 및 환경 재시작: npm install 후에도 타입 오류나 모듈을 찾지 못하는 오류가 지속될 경우, VS Code를 완전히 종료했다가 다시 시작하여 TypeScript 언어 서비스가 새로 설치된 모듈과 타입을 인식하도록 안내한다.
+
+4. 코드 구조 및 협업 지침 (재강조)
+
+관심사의 분리:
+
+src/api 폴더는 API 호출 및 원시 응답 파싱만 담당한다. UI 로직이나 복잡한 데이터 변환은 이곳에 포함하지 않는다. 
+
+
+src/utils 폴더는 날짜 계산, 데이터 형식 변환 등 순수 유틸리티 함수를 담당한다. 
+
+
+src/components는 데이터를 가져와 UI에 표시하는 역할을 한다. 
+
+
+점진적 개발: 한 번에 많은 코드를 제공하기보다, 기능 단위로 작게 나누어 제공하고 각 단계마다 사용자가 테스트하며 진행 상황을 확인하도록 한다. 
+
+
+상세한 오류 피드백: 오류 발생 시 사용자에게 **전체 오류 메시지, 발생한 코드 라인, 그리고 오류가 발생한 상황(어떤 기능 실행 중인지 등)**을 상세하게 공유하도록 요청한다. 
+
+[AI 주입용] API 개발 협업을 위한 핵심 원칙 (최종 정립)
+서문: 이 지침은 과거 프로젝트에서 발생한 API 연동 실패의 근본 원인, 즉 **'개발 중 발생하는 과도한 API 호출로 인한 서버의 일시적 차단(Rate Limiting)'**을 방지하기 위해 수립되었다. AI(나)는 이 지침을 최우선으로 준수하며, 모든 추측을 배제하고 체계적인 절차에 따라 개발을 주도할 책임이 있다.
+제 1원칙: API는 '소중한 외부 자원'이다.
+API 호출은 공짜가 아니다: 모든 API 서버는 일일/분당 요청 횟수 제한(Rate Limit) 정책을 가지고 있다. 이 한도를 초과하면 서버는 우리 IP나 API 키를 일시적 또는 영구적으로 차단한다.
+개발 환경은 API의 적이다: React 18의 Strict Mode는 개발 중 useEffect를 의도적으로 두 번씩 실행시킨다. 이는 우리가 인지하는 것보다 2배 많은 요청을 서버에 보내며, 차단을 유발하는 주된 원인이 된다. 잦은 저장과 자동 새로고침 역시 요청 횟수를 기하급수적으로 늘린다.
+제 2원칙: "먼저 모킹(Mocking), 연동은 마지막에"
+실제 API를 직접 호출하며 개발하는 방식을 전면 금지한다. 아래의 **'데이터 모킹 우선 워크플로우'**를 반드시 따른다.
+1단계: 단 한 번의 성공적인 호출 및 데이터 저장
+Postman, curl 또는 브라우저 직접 호출 등 외부 도구를 사용하여 목표 API를 단 한 번만 성공적으로 호출한다.
+성공적으로 받은 JSON 또는 XML 응답 데이터 전체를 복사한다.
+프로젝트의 public/mock 폴더에 kospo-data.json, kma-data.xml과 같이 직관적인 이름의 파일로 저장한다.
+2단계: 모의 데이터(Mock Data)를 이용한 개발
+개발의 95%는 저장된 모의 데이터 파일을 axios.get('/mock/kospo-data.json')과 같이 호출하여 진행한다.
+이를 통해 UI 개발, 데이터 가공, 차트 렌더링 등 모든 기능을 API 서버에 부담을 주지 않고 안정적으로 구현한다.
+3단계: 실제 API 연동
+모든 기능 개발이 완료된 후, 마지막 단계에서 API 호출 경로를 모의 데이터에서 실제 API 엔드포인트로 단 한 번만 변경하여 최종 연동 테스트를 진행한다.
+제 3원칙: 체계적인 디버깅 프로토콜
+API 오류 발생 시, 아래의 순서에 따라 문제를 진단하며 절대 단계를 건너뛰지 않는다.
+Level 1 (내부 확인): 코드에서 생성된 최종 URL 확인
+axios 요청 직전에, console.log를 사용하여 실제로 요청될 전체 URL과 파라미터를 출력한다.
+이 URL이 API 명세서와 글자 하나까지 일치하는지 확인한다.
+Level 2 (외부 검증): 외부 도구로 동일 URL 테스트
+Level 1에서 출력된 URL을 그대로 복사하여 Postman이나 브라우저 주소창에서 직접 호출한다.
+판단 기준:
+외부 도구에서 성공, 코드에서 실패 시: 문제는 '요청 환경' (CORS, Referer, 프록시 문제)이다.
+외부 도구에서도 실패 시: 문제는 'URL 자체' (잘못된 파라미터, 엔드포인트, 만료된 키)이다.
+Level 3 (최후 진단): 요청 과부하 차단 의심
+위 모든 과정이 정상으로 보임에도 API가 비정상 응답(Timeout, 위장 에러 등)을 보낼 경우, **'Rate Limiting으로 인한 일시적 차단'**을 최우선 원인으로 간주한다.
+이 경우, 해결책은 (a) 일정 시간 대기 또는 (b) 새로운 API 키 발급 뿐임을 인지한다.
+AI(나)의 역할 및 책임
+모킹 우선 제안: API 연동 작업 시작 시, 나는 반드시 **'데이터 모킹 우선 워크플로우'**를 먼저 제안하고 해당 구조를 설계해야 한다.
+체계적 디버깅 수행: 오류 발생 시, 나는 **'디버깅 프로토콜'**의 3단계를 순서대로 사용자에게 안내하며, 절대 성급한 결론을 내리지 않는다.
+요청 횟수 경고: 사용자의 코드가 불필요하게 많은 API 요청을 유발할 가능성이 있을 경우(예: map 안에서 API 호출), 나는 즉시 위험성을 경고하고 대안을 제시해야 한다.
