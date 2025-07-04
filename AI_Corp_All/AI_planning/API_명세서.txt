@@ -1,0 +1,226 @@
+////////////////////////////////////한국남동발전㈜_시간대별 태양광 발전실적 현황
+데이터포맷	JSON
+End Point	https://apis.data.go.kr/B551893/solar-power-by-hour
+Curl
+curl -X 'GET' \
+  'https://apis.data.go.kr/B551893/solar-power-by-hour/list?serviceKey=ZWo3wB8meK5DYuV%2BqOd8z8AIht9%2FFWWUjVakb9F52lC1pujkX%2BdRx0pHGe%2BnRkwg%2FCsBHsEyIUwRVz99g58vTQ%3D%3D&startD=2025-07-04&endD=2025-07-04' \
+  -H 'accept: */*'
+Request URL
+https://apis.data.go.kr/B551893/solar-power-by-hour/list?serviceKey=ZWo3wB8meK5DYuV%2BqOd8z8AIht9%2FFWWUjVakb9F52lC1pujkX%2BdRx0pHGe%2BnRkwg%2FCsBHsEyIUwRVz99g58vTQ%3D%3D&startD=2025-07-04&endD=2025-07-04
+Response headers
+ content-length: 1353 
+ content-type: application/json 
+반환 구조 및 파라미터
+{
+  "header": {
+    "resultCode": "string",
+    "resultMsg": "string"
+  },
+  "body": {
+    "totalElements": 0,
+    "size": 0,
+    "number": 0,
+    "numberOfElements": 0,
+    "content": [
+      {
+        "qhorGen22": 0,
+        "qhorGen23": 0,
+        "qhorGen24": 0,
+        "dgenYmd": "string",
+        "ippt": "string",
+        "hogi": "string",
+        "ipptNam": "string",
+        "qhorGen01": 0,
+        "qhorGen02": 0,
+        "qhorGen03": 0,
+        "qhorGen04": 0,
+        "qhorGen05": 0,
+        "qhorGen06": 0,
+        "qhorGen07": 0,
+        "qhorGen08": 0,
+        "qhorGen09": 0,
+        "qhorGen10": 0,
+        "qhorGen11": 0,
+        "qhorGen12": 0,
+        "qhorGen13": 0,
+        "qhorGen14": 0,
+        "qhorGen15": 0,
+        "qhorGen16": 0,
+        "qhorGen17": 0,
+        "qhorGen18": 0,
+        "qhorGen19": 0,
+        "qhorGen20": 0,
+        "qhorGen21": 0,
+        "qsum": 0,
+        "qAvg": 0,
+        "qvodMaxS": 0,
+        "qvodMinS": 0,
+        "qvodMax": 0,
+        "qvodMin": 0,
+        "eaidml": "string",
+        "eaiflag": "string",
+        "eaimsg": "string"
+      }
+    ],
+    "totalPages": 0,
+    "first": true,
+    "last": true,
+    "sort": [
+      {
+        "direction": "string",
+        "property": "string",
+        "ignoreCase": true,
+        "nullHandling": "string",
+        "ascending": true,
+        "descending": true
+      }
+    ]
+  }
+}
+
+기상청 생활지수 API (자외선·열지수 등)
+Endpoint
+
+bash
+복사
+편집
+https://apis.data.go.kr/1360000/LivingWthrIdxService/getUVIdx
+API명: 기상청_생활기상지수 조회서비스(3.0) 
+apihub.kma.go.kr
++13
+data.go.kr
++13
+data.go.kr
++13
+
+필수 요청 Query Params
+
+ini
+복사
+편집
+serviceKey={API_KEY}
+dataType=JSON
+areaNo=농림/행정구역번호 (예: 1100000000 서울)
+영문혹은Encoded
+
+응답 예시 주요 필드 (JSON)
+
+json
+복사
+편집
+{
+  "response": {
+    "body": {
+      "items": [
+        {
+          "informCode": "...",
+          "informData": "20250704",
+          "informCause": "...",
+          "uVI": "7.5",
+          "watchDanger": "낮음"
+        }
+      ]
+    }
+  }
+}
+용도
+
+uVI → 피부 건강 알림
+
+watchDanger, informCause → 일사병 경고 판단
+
+2. 환경공단 대기질 API (미세먼지 농도)
+Endpoint 예시
+
+bash
+복사
+편집
+http://apis.data.go.kr/B552584/ArpltnInforInqireSvc/getMsrstnAcctoRltmMesureDnsty
+...또는 각 기능별 endpoint (예: 기준: getMinuDustFrcstDspth) 
+whalewell.tistory.com
++2
+data.go.kr
++2
+yogyui.tistory.com
++2
+
+요청 Query Params
+
+ini
+복사
+편집
+serviceKey={API_KEY}
+returnType=JSON
+numOfRows=1
+pageNo=1
+stationName=측정소명 (예: 종로구)
+dataTerm=DAILY (주간) / HOUR (시간단위)
+응답 주요 필드
+
+json
+복사
+편집
+{
+  "response": {
+    "body": {
+      "items": [
+        {
+          "stationName": "종로구",
+          "pm10Value": "45",
+          "pm25Value": "30",
+          "dataTime": "2025-07-04 15:00"
+        }
+      ]
+    }
+  }
+}
+용도
+
+pm10Value, pm25Value로 환기 및 외출 경고 판단
+
+3. 기상청 단기예보 API (기온·강수 확률 등)
+Endpoint
+
+bash
+복사
+편집
+https://apis.data.go.kr/1360000/VilageFcstInfoService_2.0/getVilageFcst
+yogyui.tistory.com
++1
+data.go.kr
++1
+
+필수 요청 Params
+
+ini
+복사
+편집
+serviceKey={API_KEY}
+dataType=JSON
+base_date=YYYYMMDD (발표일)
+base_time=HHMM (예: 0200, 0500...3시간 단위 제출)
+nx={격자 X 좌표}
+ny={격자 Y 좌표}
+응답 주요 필드
+
+json
+복사
+편집
+{
+  "response": {
+    "body": {
+      "items": [
+        { "category": "T1H", "fcstDate": "20250704", "fcstTime": "1500", "fcstValue": "28" },
+        { "category": "REH", ... },
+        { "category": "POP", "fcstValue": "20" },
+        { "category": "WSD", "fcstValue": "1.5" }
+      ]
+    }
+  }
+}
+용도
+
+T1H: 온도, POP: 강수확률, WSD: 풍속 → 산책 지수 판단
+
+고온 + uVI → 일사병 경고
+
