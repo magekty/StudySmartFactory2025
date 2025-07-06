@@ -8,13 +8,36 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Dongle:wght@400;700&family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <style>
+      :root {
+        --scrollbar-thumb-bg: #9ca3af; /* gray-400 */
+        --scrollbar-thumb-hover-bg: #6b7280; /* gray-500 */
+        --scrollbar-track-bg: #e5e7eb; /* gray-200 */
+      }
+      .custom-scrollbar::-webkit-scrollbar {
+        width: 8px;
+      }
+      .custom-scrollbar::-webkit-scrollbar-track {
+        background: var(--scrollbar-track-bg);
+        border-radius: 10px;
+      }
+      .custom-scrollbar::-webkit-scrollbar-thumb {
+        background-color: var(--scrollbar-thumb-bg);
+        border-radius: 10px;
+        border: 2px solid var(--scrollbar-track-bg);
+      }
+       .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+        background-color: var(--scrollbar-thumb-hover-bg);
+      }
+    </style>
     <script>
       tailwind.config = {
         theme: {
           extend: {
             fontFamily: {
               sans: ['"Noto Sans KR"', 'sans-serif'],
+              dongle: ['"Dongle"', 'cursive'],
             },
           },
         },
@@ -33,7 +56,7 @@
 </script>
 <link rel="stylesheet" href="/index.css">
 </head>
-  <body class="bg-slate-50 font-sans">
+  <body class="bg-slate-100 font-sans">
     <div id="root"></div>
     <script type="module" src="/index.tsx"></script>
   </body>

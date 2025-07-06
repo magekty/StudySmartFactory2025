@@ -1,15 +1,16 @@
-
-import React, { useMemo, useState, useCallback } from 'react';
+import { useMemo, useState, useCallback } from 'react';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 import { DiaryEntry } from '../types';
 import { EMOTIONS } from '../constants';
 import { generateWeeklySummary } from '../services/geminiService';
+import { useTheme } from '../contexts/ThemeContext';
 
 interface StatsPanelProps {
   entries: DiaryEntry[];
 }
 
 export default function StatsPanel({ entries }: StatsPanelProps) {
+  const theme = useTheme();
   const [summary, setSummary] = useState('');
 
   const weeklyChartData = useMemo(() => {
@@ -66,10 +67,10 @@ export default function StatsPanel({ entries }: StatsPanelProps) {
                 <Tooltip
                     contentStyle={{ backgroundColor: 'rgba(255, 255, 255, 0.8)', borderRadius: '0.5rem', borderColor: '#cbd5e1' }}
                     labelStyle={{ color: '#1e293b', fontWeight: 'bold' }}
-                    formatter={(value, name) => [EMOTIONS.find(e => e.value === value)?.name, '감정']}
+                    formatter={(value) => [EMOTIONS.find(e => e.value === value)?.name, '감정']}
                 />
                 <Legend />
-                <Line type="monotone" dataKey="감정" stroke="#38bdf8" strokeWidth={2} activeDot={{ r: 8 }} />
+                <Line type="monotone" dataKey="감정" stroke={theme.chart} strokeWidth={2} activeDot={{ r: 8, fill: theme.chart }} />
               </LineChart>
             </ResponsiveContainer>
           </div>
@@ -81,7 +82,7 @@ export default function StatsPanel({ entries }: StatsPanelProps) {
         <h3 className="text-xl font-semibold text-slate-800 mb-4">주간 감정 요약</h3>
         <button
           onClick={handleGenerateSummary}
-          className="w-full bg-emerald-500 text-white font-bold py-2 px-4 rounded-lg shadow-md hover:bg-emerald-600 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-emerald-500"
+          className={`w-full bg-emerald-500 text-white font-bold py-2 px-4 rounded-lg shadow-md transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 ${theme.bg} ${theme.hoverBg} ${theme.ring}`}
         >
           {'주간 요약 생성하기'}
         </button>

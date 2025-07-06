@@ -1,5 +1,5 @@
-
 import React, { useRef, useState } from 'react';
+import { useTheme } from '../contexts/ThemeContext';
 
 interface ImageUploaderProps {
   onImageUpload: (dataUrl: string) => void;
@@ -7,6 +7,7 @@ interface ImageUploaderProps {
 }
 
 export default function ImageUploader({ onImageUpload, label }: ImageUploaderProps) {
+  const theme = useTheme();
   const [feedback, setFeedback] = useState<string>('');
   const fileInputRef = useRef<HTMLInputElement>(null);
 
@@ -47,7 +48,7 @@ export default function ImageUploader({ onImageUpload, label }: ImageUploaderPro
       />
       <button
         onClick={handleClick}
-        className="w-full bg-white border border-slate-300 text-slate-700 font-medium py-2 px-4 rounded-lg hover:bg-slate-50 transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-sky-500"
+        className={`w-full bg-white border border-slate-300 text-slate-700 font-medium py-2 px-4 rounded-lg hover:bg-slate-50 transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 ${theme.ring}`}
       >
         {label}
       </button>

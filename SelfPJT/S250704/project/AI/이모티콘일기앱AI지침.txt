@@ -1,0 +1,81 @@
+AI-Driven Project Execution Guideline
+1. Project Overview
+Goal: To build a fundamentally simple but highly usable “emotion-based visual diary” app where AI leads the development process.
+
+Scope: The project will not use external APIs except for OpenMoji CDN for emoji icons and user-uploaded images. All data is stored locally.
+
+Development Responsibility: AI will handle the majority of development tasks; the human will act as supervisor and reviewer.
+
+2. Key Specifications (Core Requirements)
+Item	Details
+Background Image	- User can upload background images.
+- Support static images (JPG, PNG) and animated GIFs.
+Emojis & Icons	- Use OpenMoji CDN for emoji icons.
+- Emojis/icons can be placed and resized on the diary.
+Emotion Recording	- One main emotion recorded per day.
+- Combine background image + emojis/icons.
+- Data stored by date only (no time resolution).
+Feedback Features	- Weekly emotion trend graph (line chart).
+- Weekly emotion summary text.
+Responsive Design	- Fully responsive UI supporting mobile, tablet, and desktop screen sizes.
+Routing	- Single page application (SPA): diary writing and feedback combined on one page.
+Storage	- Use LocalStorage for data persistence.
+- No server or cloud storage involved.
+External API Usage	- No external API used except OpenMoji CDN for emojis.
+Development Stack	- React with Vite build tool.
+- Tailwind CSS for styling.
+- Chart.js or Recharts for charts.
+State Management	- Use React’s useState and custom hooks for data handling.
+Image Handling	- Use FileReader API for image preview and resizing functionality.
+
+3. Component Structure (Suggested)
+<App />: Root component containing main app logic.
+
+<DiaryEditor />: Canvas-like area for diary creation (background + drag & resize icons).
+
+<EmotionPicker />: Component to select main daily emotion from OpenMoji emoji set.
+
+<ImageUploader />: Upload background or additional images with preview.
+
+<IconDragger />: Handle drag, resize, and positioning of icons/emojis on diary.
+
+<StatsPanel />: Displays weekly emotion trend charts and summary.
+
+<StorageService />: Custom hook or utility for saving/loading diary data from LocalStorage.
+
+4. Setup & Configuration Notes
+Use standard React + Vite setup with Tailwind CSS integration.
+
+Configure ESLint and Prettier for code quality and consistency.
+
+Keep all environment variables locally; no external API keys needed.
+
+Include index.html meta tags for charset, viewport, and basic SEO.
+
+Use CDN for OpenMoji emojis; no installation required.
+
+5. Development Roadmap (AI-driven)
+Initialize project: Create React + Vite base with Tailwind CSS.
+
+Implement DiaryEditor: Canvas with background image and icon placement.
+
+Add EmotionPicker: Integrate OpenMoji emoji picker.
+
+Build ImageUploader: File upload + preview + resize.
+
+Implement IconDragger: Dragging and resizing functionality for emoji/icons.
+
+StorageService: LocalStorage save/load hook for diary data.
+
+StatsPanel: Weekly emotion trend visualization and text summary.
+
+Responsive design: Verify mobile, tablet, desktop layouts.
+
+Testing & Debugging: Validate all features and fix bugs.
+
+Final Review & Documentation: Write README with setup, usage, and tech stack details.
+
+6. Roles and Collaboration Model
+AI: Lead all coding and technical implementation, propose solutions, handle edge cases.
+
+Human: Review UI/UX decisions, provide feedback, approve deliverables, guide AI on priorities.
