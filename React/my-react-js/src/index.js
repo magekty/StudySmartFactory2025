@@ -12,7 +12,12 @@ import "./index.css";
 // import App from "./S250630/ex11Diary(CustomHook)/App";
 // import App from "./S250702/ex12Comp_Button/App";
 // import App from "./S250702/ex13Comp_IconButton/App";
-import App from "./S250702/ex14Comp_LoadingButton/App";
+// import App from "./S250702/ex14Comp_LoadingButton/App";
+// import App from "./S250707/ex30Comp_Chartjs/App";
+// import App from "./S250707/ex31Comp_ChartDashboard/App";
+// import App from "./S250707/ex32Comp_ML_iris_분류/App";
+import App from "./S250707/ex33Comp_ML_선형회귀/App";
+
 import reportWebVitals from "./reportWebVitals";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
