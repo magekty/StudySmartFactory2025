@@ -1,0 +1,17 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>thymeleaf 조건문 예제</title>
+</head>
+<body>
+<!--model.addAttribute("isAdmin", true);-->
+<!--model.addAttribute("username", "김태영");-->
+
+<p th:if="${isAdmin}">관리자님이시군요</p>
+<p th:unless="${isAdmin}">일반 사원이시군요</p>
+<p th:text="|사용자 이름: ${username}|"></p>
+
+</body>
+</html>

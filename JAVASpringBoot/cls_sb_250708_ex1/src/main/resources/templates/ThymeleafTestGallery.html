@@ -1,0 +1,28 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="UTF-8">
+	<meta content="width=device-width, initial-scale=1" name="viewport">
+	<title>thymeleaf - gallery</title>
+	<style>
+		.gallery{
+			display: flex;
+			flex-wrap: wrap; /* flex-wrap은 단일 라인에 모든 항목을 유지하려고 시도 */
+		}
+		.gallery img { /* <-- 이 부분이 수정되었습니다. img{} 중복 제거 */
+			width: 200px;
+			height: auto; /* 이미지의 원본 비율을 유지하면서 높이를 자동 조절 */
+			margin: 10px;
+			border: 2px solid #ccc;
+		}
+	</style>
+</head>
+<body>
+<h1>이미지 갤러리</h1>
+<div class="gallery">
+	<img th:alt="${image}"
+	     th:each="image : ${images}"
+	     th:src="@{'/gallery/' + ${image}}"/>
+</div>
+</body>
+</html>

@@ -1,0 +1,25 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="UTF-8">
+	<meta content="width=device-width, initial-scale=1" name="viewport">
+	<title>thymeleaf - gallery</title>
+	<style>
+		.gallery{
+		display:flex; flex-wrap:wrap;
+		}
+        .gallery img {
+            width: 200px;
+            height: auto;
+            margin: 10px;
+            border: 2px solid #ccc;
+        }
+	</style>
+</head>
+<body>
+<h1>이미지 갤러리</h1>
+<div class="gallery">
+	<img th:each="image: ${images}" th:src="@{'/gallery/' + ${image}}">
+</div>
+</body>
+</html>

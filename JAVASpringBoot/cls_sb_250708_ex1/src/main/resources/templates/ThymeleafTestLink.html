@@ -1,0 +1,18 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Thymeleaf Link</title>
+</head>
+<body>
+
+<h1>기본 링크</h1>
+<a href="/home">홈으로 이동하자</a>
+<a th:href="@{/home}">홈으로 가자(th:href)</a>
+<a th:href="@{/user/{id}(id=${userId})}">사용자별 페이지</a>
+<a th:href="@{/search(query=${query})}">검색 페이지</a>
+<!--model.addAttribute("userId",1);-->
+<!--model.addAttribute("query","springboot");-->
+</body>
+</html>
