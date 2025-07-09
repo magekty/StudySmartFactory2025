@@ -1,0 +1,33 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="UTF-8">
+	<meta content="width=device-width, initial-scale=1" name="viewport">
+	<title>회원가입</title>
+	<style>
+	</style>
+</head>
+<body>
+<h1>회원 가입</h1>
+<p style="color:red" th:if="${error}" th:text="${error}"></p>
+<form method="post" th:action="@{/signup}" th:object="${loginUser}">
+	<label>
+		아이디:
+		<input required th:field="*{username}" type="text"/>
+	</label>
+	<label>
+		비밀번호:
+		<input required th:field="*{password}" type="password"/>
+	</label>
+	<label>
+		성별:
+		<input th:field="*{gender}" type="radio" value="male"/>남자
+		<input th:field="*{gender}" type="radio" value="female"/>여자
+	</label>
+	<label>
+		<input th:field="*{agree}" type="checkbox"/>약관에 동의 합니다.
+	</label>
+	<button type="submit">회원가입 신청</button>
+</form>
+</body>
+</html>

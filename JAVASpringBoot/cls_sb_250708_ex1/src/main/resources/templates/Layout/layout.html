@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="UTF-8">
+	<title layout:title-pattern="$CONTENT_TITLE - MySite">Title</title>
+</head>
+<body>
+<!--header-->
+<header>
+	<h1>공통 헤더</h1>
+	<nav>
+		<a th:href="@{/layout/home}">홈</a>
+		<a th:href="@{/layout/about}">소개</a>
+	</nav>
+</header>
+<hr/>
+<!--main-->
+<section layout:fragment="content">여기에 본문 삽입 자리</section>
+<hr/>
+<!--footer-->
+<footer><p>공통 푸터</p></footer>
+</body>
+</html>

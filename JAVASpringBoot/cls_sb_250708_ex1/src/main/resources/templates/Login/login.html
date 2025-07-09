@@ -1,0 +1,26 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="UTF-8">
+	<meta content="width=device-width, initial-scale=1" name="viewport">
+	<title>로그인</title>
+	<style>
+	</style>
+</head>
+<body>
+<h1>로그인하세요</h1>
+<p style="color:red;" th:if="${error}" th:text="${error}">
+</p>
+<form method="post" th:action="@{login}">
+	<label>
+		아이디:
+		<input name="username" required type="text"/>
+	</label>
+	<label>
+		비밀번호:
+		<input name="password" required type="password"/>
+	</label>
+	<button type="submit">로그인</button>
+</form>
+</body>
+</html>

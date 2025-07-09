@@ -1,0 +1,17 @@
+.list-item{
+    display: flex;
+    justify-content: space-between;
+    padding:10px;
+    border: 1px solid rgb(226, 226, 226);
+}
+
+.list-avatar img{
+    width:50px; height: 50px;
+}
+
+.list-icon{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width:50px; height: 50px;
+}

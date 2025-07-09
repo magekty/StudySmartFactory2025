@@ -3,27 +3,49 @@ package com.example.cls_sb_250708_ex1.thymeleafTest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 public class ThymeleafTestLogin {
     // 회원 가입 /get - signup (server-user)
     @GetMapping("/signup")
     public String signupform(Model model) {
-        model.addAttribute("user", new LoginUser());
-        return "ThymeleafTestSignup";
+        model.addAttribute("loginUser", new LoginUser());
+        return "Login/signup";
     }
 
-/*    // 회원 가입 내용 전송 /post (user->server)
+
+    // 회원 가입 내용 전송 /post (user->server)
     @PostMapping("/signup")
-    public String signupSubmit(@ModelAttribute LoginUser user) {
-        // 여기에서 user 객체를 사용하여 회원 가입 처리 로직을 구현합니다.
-        // 예를 들어, 데이터베이스에 저장하거나 다른 서비스 호출
-        System.out.println("회원가입 정보:");
-        System.out.println("Username: " + user.getUsername());
-        System.out.println("Password: " + user.getPassword());
-        System.out.println("Gender: " + user.getGender());
-        System.out.println("Agree to terms: " + user.getAgree());
-        return "ThymeleafTestLoginResult"; // 가입 완료 페이지로 리다이렉트 또는 포워드
-    }*/
+    public String signupSubmit(@ModelAttribute LoginUser user, Model model) {
+        if (!user.getAgree()) {
+            model.addAttribute("error", "약관에 동의하세요");
+            return "Login/signup";
+        }
+        model.addAttribute("user", user);
+        return "Login/welcome";
+    }
+
+    @GetMapping("/login")
+    public String loginForm() {
+        return "Login/login";
+    }
+
+    @PostMapping("/login")
+    public String loginSubmit(@RequestParam String username,
+                              @RequestParam String password,
+                              Model model) {
+        // 나중에는 ID:user1, PW:1234를 DB(MySQL)연동해서 검증
+        if ("user1".equals(username) && "1234".equals(password)) {
+            model.addAttribute("username", username);
+            return "Login/welcome";
+        } else {
+            model.addAttribute("error", "로그인 정보를 잘못 입력했네요");
+            return "Login/login";
+        }
+    }
+
 
 }

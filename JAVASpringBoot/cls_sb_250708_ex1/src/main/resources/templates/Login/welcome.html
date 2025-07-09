@@ -1,0 +1,20 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="UTF-8">
+	<meta content="width=device-width, initial-scale=1" name="viewport">
+	<title>welcome</title>
+	<style>
+	</style>
+</head>
+<body>
+<h1>환영합니다.</h1>
+<p th:if="${user != null}">
+	<strong th:text="${user.username}"></strong> 님, 가입을 환영합니다.<br>
+	성별:<span th:text="${user.gender}"></span>
+</p>
+<p th:if="${username != null}">
+	<strong th:text="${username}"></strong> 님, 로그인 되셨어요
+</p>
+</body>
+</html>

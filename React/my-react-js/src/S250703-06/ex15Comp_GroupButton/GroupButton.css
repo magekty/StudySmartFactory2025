@@ -1,0 +1,14 @@
+.group-button{
+    background-color: rgb(184, 184, 184);
+    border: none;
+    padding: 10px; color:white;
+}
+.group-button:first-child{
+    border-radius: 4px 0 0 4px;
+}
+.group-button:last-child{
+    border-radius: 0 4px 4px 0;
+}
+.group-button:hover{
+    background-color: rgb(109, 109, 109);
+}

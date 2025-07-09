@@ -1,0 +1,36 @@
+.carousel{
+    position: relative;
+    max-width: 600px;
+    margin: 2rem auto;
+    height: 400px; /*수업 외 수정 부분*/
+}
+
+.carousel-slide{
+    display:flex; 
+}
+
+.carousel-item{
+    opacity:0;
+    min-width: 100%;
+    position:absolute;
+    top:0; left:0;
+}
+.carousel-item img{
+    width:100%;
+    /* display: block; */
+    height: auto; /*수업 외 수정 부분*/
+}
+.carousel-item.active{
+    opacity:1
+}
+.carousel-btn{
+    position: absolute;
+    
+    top:50%;
+    transform: translateY(-50%);
+    background-color: rgb(218, 218, 218);
+    border: none; color: white; font-size: 2rem;
+    z-index: 10; /*수업 외 수정 부분*/
+}
+.carousel-btn.left{left:10px;}
+.carousel-btn.right{right:10px;}

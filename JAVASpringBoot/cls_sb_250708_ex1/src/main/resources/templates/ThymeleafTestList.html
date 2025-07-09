@@ -1,25 +1,18 @@
-<!doctype html>
+<!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
 	<meta charset="UTF-8">
-	<meta content="width=device-width, initial-scale=1" name="viewport">
-	<title>thymeleaf - gallery</title>
-	<style>
-		.gallery{
-		display:flex; flex-wrap:wrap;
-		}
-        .gallery img {
-            width: 200px;
-            height: auto;
-            margin: 10px;
-            border: 2px solid #ccc;
-        }
-	</style>
+	<title>Thymeleaf link</title>
 </head>
 <body>
-<h1>이미지 갤러리</h1>
-<div class="gallery">
-	<img th:each="image: ${images}" th:src="@{'/gallery/' + ${image}}">
-</div>
+<h1>기본 링크</h1>
+<a href="/home">홈으로 이동하자</a>
+<a th:href="@{/home}">홈으로 가자(th:href)</a>
+<a th:href="@{/user/{id}(id=${userId})}">사용자별 페이지</a>
+<a th:href="@{/search(query=${query})}">검색 페이지</a>
+<!--model.addAttribute("userId", 1);-->
+<!--model.addAttribute("query", "springboot");-->
+<!--return "ThymeleatTestLink";-->
+
 </body>
 </html>

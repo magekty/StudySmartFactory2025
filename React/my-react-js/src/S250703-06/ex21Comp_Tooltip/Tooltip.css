@@ -1,0 +1,16 @@
+.tooltip-container{
+    position: relative;
+}
+.tooltip-text{
+    visibility: hidden;
+    position:absolute;
+}
+.tooltip-container:hover .tooltip-text{
+    visibility: visible;
+}
+.tooltip-top{
+    bottom:125%; left:50%;
+}
+.tooltip-right{
+    top:50%; left:60%;
+}

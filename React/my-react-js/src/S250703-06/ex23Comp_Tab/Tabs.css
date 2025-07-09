@@ -1,0 +1,17 @@
+.tabs{
+    width:100%;
+    max-width:600px;
+    margin: 10px auto;
+}
+.tab-headers{
+    border-bottom:  2px solid #ddd;
+}
+.tab-header{
+    background: none;
+    border: none;
+    border-bottom: 2px solid transparent;
+    padding: 10px 20px;
+}
+.tab-header:hover{background: rgb(235, 235, 235)}
+.tab-header.active{color :rgb(0, 153, 255); 
+border-bottom: rgb(0, 153, 255);}

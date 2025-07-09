@@ -1,0 +1,15 @@
+.input-text{
+    display: flex;
+    flex-direction: column;
+}
+.input-field{
+    border: 1px solid gray;
+    outline:none;
+}
+.input-field:focus {
+    border-color: #007bff;
+  }
+.input-error{
+    border-color: red;
+}
+.input-error-message{color: red;}

@@ -16,7 +16,24 @@ import "./index.css";
 // import App from "./S250707/ex30Comp_Chartjs/App";
 // import App from "./S250707/ex31Comp_ChartDashboard/App";
 // import App from "./S250707/ex32Comp_ML_iris_분류/App";
-import App from "./S250707/ex33Comp_ML_선형회귀/App";
+// import App from "./S250707/ex33Comp_ML_선형회귀/App";
+
+// import App from "./S250703-06/ex15Comp_GroupButton/App";
+// import App from "./S250703-06/ex16Comp_InputText/App";
+import App from "./S250703-06/ex17Comp_SelectInput/App";
+// import App from "./S250703-06/ex18Comp_CheckboxInput/App";
+// import App from "./S250703-06/ex19Comp_RadioInput/App";
+// import App from "./S250703-06/ex20Comp_Modal/App";
+// import App from "./S250703-06/ex21Comp_Tooltip/App";
+// import App from "./S250703-06/ex22Comp_ListItem/App";
+// import App from "./S250703-06/ex23Comp_Tab/App";
+// import App from "./S250703-06/ex24Accordion/App";
+// import App from "./S250703-06/ex25Comp_ProgressBar/App";
+// import App from "./S250703-06/ex26Comp_Card/App";
+// import App from "./S250703-06/ex27Comp_CardGrid/App";
+// import App from "./S250703-06/ex28_CardGridInfinite/App";
+// import App from "./S250703-06/ex29Comp_Carousel/App";
+// import App from "./S250703-06/ex29Comp_Carousel_ver2/App";
 
 import reportWebVitals from "./reportWebVitals";
 

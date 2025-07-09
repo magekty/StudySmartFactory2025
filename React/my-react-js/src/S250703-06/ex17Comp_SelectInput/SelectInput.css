@@ -1,0 +1,11 @@
+.select-input{
+    display: flex;
+    flex-direction: column;
+}
+
+.input-field{
+    outline: none;
+}
+.input-field:focus{
+    border-color: rgb(94, 164, 255);
+}

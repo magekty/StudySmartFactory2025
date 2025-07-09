@@ -1,0 +1,27 @@
+.carousel-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .carousel-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 600px;
+    height: 400px;
+    border: 2px solid gray;
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+  }
+  
+  .carousel-arrow {
+    font-size: 2em;
+    background: rgb(194, 194, 194);
+    color: rgb(71, 71, 71);
+    opacity: 0.7;
+    cursor: pointer;
+    padding: 0 10px;
+    user-select: none;
+  }
+  

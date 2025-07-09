@@ -1,4 +1,5 @@
 import { Scatter } from "react-chartjs-2";
+import { useState } from "react";
 
 import {
   Chart as ChartJS,
@@ -12,7 +13,6 @@ import {
   Legend,
   scales,
 } from "chart.js";
-import { useState } from "react";
 ChartJS.register(
   CategoryScale,
   LinearScale,
@@ -32,6 +32,7 @@ const dataPoints = [
   { x: 50, y: 49 },
   { x: 60, y: 61 },
 ];
+
 const linearRegression = (points) => {
   const n = points.length;
   const sumX = points.reduce((acc, p) => acc + p.x, 0);
@@ -43,6 +44,7 @@ const linearRegression = (points) => {
   return { slope, intercept };
 };
 const { slope, intercept } = linearRegression(dataPoints);
+
 const App = () => {
   const [investment, setInvestment] = useState("");
   const predictedProfit = investment
@@ -98,7 +100,7 @@ const App = () => {
     },
   };
   return (
-    <div className="App">
+    <div>
       <h2>투자금 vs 수익금 회귀선</h2>
       <Scatter data={chartData} options={options} />
       <div>
@@ -117,5 +119,4 @@ const App = () => {
     </div>
   );
 };
-
 export default App;

@@ -1,0 +1,25 @@
+.accordion{
+    max-width: 600px;
+    margin: auto;
+}
+
+.accordion-item{
+    border-bottom: 1px solid gray;
+}
+.accordion-header{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: rgb(224, 224, 224);
+}
+.accordion-header:hover{
+    background-color: rgb(173, 173, 173);
+}
+.accordion-content{
+max-height: 0;
+overflow: hidden;
+transition: max-height 1s ease;
+}
+.accordion-content.open{
+    max-height: 200px;
+}
