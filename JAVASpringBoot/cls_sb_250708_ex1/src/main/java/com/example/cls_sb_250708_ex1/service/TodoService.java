@@ -1,6 +1,7 @@
 package com.example.cls_sb_250708_ex1.service;
 
 import com.example.cls_sb_250708_ex1.model.Todo;
+import jakarta.validation.Valid;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;

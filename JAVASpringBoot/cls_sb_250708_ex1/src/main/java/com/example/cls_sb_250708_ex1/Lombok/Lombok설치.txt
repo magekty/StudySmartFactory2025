@@ -1,0 +1,18 @@
+Lombok: 다양한 메서드(주로 getter, setter), 생성자 자동 생성
+// build.gradle 의존성 설치 방법
+
+dependencies {
+    implementation 'org.projectlombok:lombok'
+    annotationProcessor 'org.projectlombok:lombok'
+    testCompileOnly 'org.projectlombok:lombok'
+    testAnnotationProcessor 'org.projectlombok:lombok'
+}
+
+configurations {
+    compileOnly {
+        extendsFrom annotationProcessor
+    }
+}
+
+- setting -> plugin 에서 lombok 검색 후 설치
+- setting -> annotationProcessor -> Enable annotation Processor 체크

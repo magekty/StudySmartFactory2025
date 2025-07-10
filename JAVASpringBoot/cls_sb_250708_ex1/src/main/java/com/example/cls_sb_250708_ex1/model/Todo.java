@@ -1,8 +1,15 @@
 package com.example.cls_sb_250708_ex1.model;
 
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
+
 public class Todo {
     private Long id;
+    @NotBlank(message = "title은 비워지면 안 되요")
+    @Size(max = 50, message = "최대50자까지 가능해요")
     private String title;
+
+
     private boolean done;
 
     public Todo() {

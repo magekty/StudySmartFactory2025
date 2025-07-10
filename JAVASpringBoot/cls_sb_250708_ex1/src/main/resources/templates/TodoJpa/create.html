@@ -5,13 +5,14 @@
 	<title>Create todo</title>
 </head>
 <body>
-<h1>create todo</h1>
-<form method="post" th:action="@{/todos/create}" th:object="${todo}">
+<h1>create todoJpa</h1>
+<form method="post" th:action="@{/todoJpaes/create}" th:object="${todoJpa}">
 	<label>
 		Title:
 		<input th:field="*{title}" type="text"/>
 	</label>
 	<button type="submit">Save</button>
+	<a th:href="@{/todoJpaes}">Cancel</a>
 	<br>
 	<div th:errors="*{title}" th:if="${#fields.hasErrors('title')}"></div>
 </form>

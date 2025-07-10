@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="UTF-8">
+	<title>TodoJpa list</title>
+</head>
+<body>
+<h1>Todo list</h1>
+<a href="/todoJpaes/create">+ Add Todo</a>
+<table border="1">
+	<tr>
+		<th>ID</th>
+		<th>Title</th>
+		<th>Done</th>
+		<th>Action</th>
+	</tr>
+	<tr th:each="todoJpa : ${todoJpaes}">
+		<td th:text="${todoJpa.id}"></td>
+		<td th:text="${todoJpa.title}"></td>
+		<td th:text="${todoJpa.done}"></td>
+		<td>
+			<a th:href="@{/todoJpaes/edit/{id}(id=${todoJpa.id})}">Edit</a>
+			<form method="post" th:action="@{/todoJpaes/delete/{id}(id=${todoJpa.id})}">
+				<button type="submit">Delete</button>
+			</form>
+		</td>
+	</tr>
+
+</table>
+</body>
+</html>
