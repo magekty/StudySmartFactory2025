@@ -1,7 +1,15 @@
 package com.example.cls_sb_250708_ex1.university.model;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
+@Setter // 자동 세터
+@Getter // 자동 게터
+@AllArgsConstructor // 모든 아규먼트 생성자
+@NoArgsConstructor // 기본 생성자
 @Entity
 public class Enrollment {
     @Id
