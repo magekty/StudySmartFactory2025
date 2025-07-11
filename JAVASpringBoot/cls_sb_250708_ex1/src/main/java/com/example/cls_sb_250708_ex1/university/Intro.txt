@@ -1,0 +1,10 @@
+학교 수강 신청 서비스 관련 스키마
+1:1(일대일) => 학생(Student):학생증(StudentCard)
+1:N(일대다) => 학생(Student):수강 신청(Enrollment)
+N:M(다대다) => 학생들(Student):강의들(Course) - 수강 신청 테이블 연결
+
+className : db_schema_name
+Student student
+StudentCard student_card
+Enrollment enrollment
+Course course
