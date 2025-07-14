@@ -6,7 +6,7 @@
 </head>
 <body>
 <h1>학생 목록</h1>
-<a href="/university/students/new">새 학생 추가</a>
+<a href="/univ/students/new">새 학생 추가</a>
 <table border="1">
 	<tr>
 		<th>ID</th>
@@ -19,19 +19,20 @@
 		<td th:text="${student.name}"></td>
 		<td th:text="${student.studentCard != null ? student.studentCard.cardNumber : 'No Card'}"></td>
 		<td>
-			<form method="post" th:action="@{/university/enroll}">
+			<form method="post" th:action="@{/univ/enroll}">
 				<input name="studentId" th:value="${student.id}" type="hidden"/>
 				<select name="courseId">
-					<option th:each="course : ${#lists.arrayList(1, 2, 3)}" th:text="'Course '+${course}"
-					        th:value="${course}"></option>
+					<option th:each="course : ${courses}"
+					        th:text="'Course '+${course.title}" th:value="${course.id}"></option>
 				</select>
 				<button type="submit">Enroll(수강 신청)</button>
 			</form>
-			<form>
-
+			<form method="post" th:action="@{/univ/assign-card}">
+				<input name="studentId" th:value="${student.id}" type="hidden"/>
+				<input name="cardNumber" placeholder="Card Number" type="text"/>
+				<button type="submit">Assign Card(카드 신청)</button>
 			</form>
 		</td>
-
 	</tr>
 </table>
 </body>

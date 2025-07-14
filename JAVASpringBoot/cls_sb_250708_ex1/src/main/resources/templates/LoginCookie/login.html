@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="UTF-8">
+	<title>Cookie login - login</title>
+</head>
+<body>
+<h1>Cookie login - login</h1>
+<form method="post" th:action="@{/cookie-login-test/login}">
+	<label>아이디: <input name="username" type="text"/></label>
+	<label>비번: <input name="password" type="text"/></label>
+	<button type="submit">로그인</button>
+</form>
+<p style="color:red;" th:if="${error}" th:text="${error}"></p>
+</body>
+</html>

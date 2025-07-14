@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="UTF-8">
+	<title>New Student 등록 하기</title>
+</head>
+<body>
+<h1>New Student 등록 하기</h1>
+<form method="post" th:action="@{/univ/students/new}" th:object="${student}">
+	<label>Name: <input name="name" placeholder="Name" th:field="*{name}" type="text"/></label>
+	<button type="submit">Save(학생 등록)</button>
+</form>
+</body>
+</html>

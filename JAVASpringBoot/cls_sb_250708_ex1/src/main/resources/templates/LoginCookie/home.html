@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="UTF-8">
+	<title>쿠키 로그인 홈</title>
+</head>
+<body>
+<h1>쿠키 로그인 홈</h1>
+<div th:if="${loggedIn}">
+	<p>로그인 되어 있어요</p>
+	<a href="/cookie-login-test/logout">로그 아웃</a>
+</div>
+<div th:unless="${loggedIn}">
+	<p>로그인 하세요</p>
+	<a href="/cookie-login-test/login">로그인</a>
+</div>
+</body>
+</html>

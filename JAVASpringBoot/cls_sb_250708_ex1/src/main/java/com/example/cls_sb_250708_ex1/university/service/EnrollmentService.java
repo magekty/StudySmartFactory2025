@@ -9,12 +9,18 @@ import com.example.cls_sb_250708_ex1.university.repository.StudentRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class EnrollmentService {
     private final StudentRepository studentRepository;
     private final CourseRepository courseRepository;
     private final EnrollmentRepository enrollmentRepository;
+
+    public List<Enrollment> getAll() {
+        return enrollmentRepository.findAll();
+    }
 
     public Enrollment enroll(Long studentId, Long courseId) {
         Student student = studentRepository.findById(studentId).orElseThrow();
@@ -23,6 +29,10 @@ public class EnrollmentService {
         enrollment.setStudent(student);
         enrollment.setCourse(course);
         return enrollmentRepository.save(enrollment);
+    }
+
+    public void deleteEnrollment(Long id) {
+        enrollmentRepository.deleteById(id);
     }
 
 }

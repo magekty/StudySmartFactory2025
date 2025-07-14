@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="UTF-8">
+	<title>강의 추가</title>
+</head>
+<body>
+<h1>Course 추가</h1>
+<form method="post" th:action="@{/univ/courses/new}" th:object="${course}">
+	<label>Title: <input name="title" placeholder="Title"
+	                     th:field="*{title}" type="text"/></label>
+	<button type="submit">저장</button>
+</form>
+</body>
+</html>
