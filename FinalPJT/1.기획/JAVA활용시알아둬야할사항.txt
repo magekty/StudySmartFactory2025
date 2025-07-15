@@ -1,0 +1,41 @@
+설계 시 체크사항
+✅ REST 표준 준수:
+
+GET → 조회
+
+POST → 생성
+
+PUT/PATCH → 수정
+
+DELETE → 삭제
+
+✅ Path Naming 규칙:
+
+복수명 사용: /orders, /machines
+
+하위 리소스 표현: /orders/{orderId}/steps
+
+✅ 데이터 형식:
+
+JSON 통일
+
+날짜/시간은 ISO-8601 기준
+
+예: "2025-07-14T09:00:00+09:00"
+
+✅ 예외 및 응답 코드:
+
+200 OK
+
+201 Created
+
+400 Bad Request
+
+404 Not Found
+
+500 Internal Server Error
+
+
+
+URI에는 동사 사용 금지 → 리소스 중심 설계
+❌ /getEmployee → ✅ /employees

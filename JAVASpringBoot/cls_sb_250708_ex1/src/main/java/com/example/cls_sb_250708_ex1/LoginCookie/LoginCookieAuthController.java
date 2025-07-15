@@ -40,7 +40,6 @@ public class LoginCookieAuthController {
     public String logout(HttpServletResponse response) {
         Cookie cookie = new Cookie("login", null);
         cookie.setMaxAge(0); // 쿠키는 삭제 보다 만료
-        cookie.setPath("/"); // 쿠키의 유효 경로를 루트로 설정
         response.addCookie(cookie);
         return "redirect:/cookie-login-test/";
     }
@@ -57,7 +56,6 @@ public class LoginCookieAuthController {
         if (authService.login(username, password)) {
             Cookie cookie = new Cookie("login", "true");
             cookie.setMaxAge(60 * 60); // 60초*60 => 1시간
-            cookie.setPath("/"); // 쿠키의 유효 경로를 루트로 설정
             response.addCookie(cookie);
             return "redirect:/cookie-login-test/";
         } else {
