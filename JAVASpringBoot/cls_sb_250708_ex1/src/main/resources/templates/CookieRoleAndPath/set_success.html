@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>쿠키 설정 완료</title>
+</head>
+<body>
+<h1>쿠키 설정이 잘 되었어요</h1>
+<p>개발자 도구 쿠키 창에서 일반 쿠키(site-mode)는 모든 경로에서 확인 가능</p>
+<p>admin 관련 쿠키(admin_token)는 /admin 경로에서만 확인 가능 </p>
+<p>user 관련 쿠키(user_lang)는 /user 경로에서만 확인 가능 </p>
+<a href="/CookieRoleAndPath/check">일반 페이지</a>
+<a href="/CookieRoleAndPath/admin/check">관리자 페이지</a>
+<a href="/CookieRoleAndPath/user/check">유저 페이지</a>
+</body>
+</html>

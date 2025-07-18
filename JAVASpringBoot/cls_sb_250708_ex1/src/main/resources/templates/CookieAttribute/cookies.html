@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>cookies</title>
+</head>
+<body>
+<h1>브라우저에 설정된 쿠키 목록</h1>
+<table border="1">
+    <tr><th>name</th><th>value</th></tr>
+    <tr th:each="cookie : ${cookies}">
+        <td th:text="${cookie.name}"></td>
+        <td th:text="${cookie.value}"></td>
+    </tr>
+</table>
+
+</body>
+</html>

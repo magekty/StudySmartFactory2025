@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>세션 로그인 예제 MySQL - 홈</title>
+</head>
+<body>
+<h1>세션 로그인 예제 MySQL - 홈</h1>
+<p>안녕하세요, <span th:text="${username}"></span>님 환영합니다!</p>
+
+<form th:action="@{/LoginSessionSimpleDB/logout}" method="post">
+  <button type="submit">로그아웃</button>
+</form>
+
+</body>
+</html>

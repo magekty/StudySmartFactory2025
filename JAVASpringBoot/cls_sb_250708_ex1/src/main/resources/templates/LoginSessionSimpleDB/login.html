@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>세션 로그인 예제 - 로그인</title>
+</head>
+<body>
+<h1>세션 로그인 예제 - 로그인</h1>
+
+<form method="post" th:action="@{/LoginSessionSimpleDB/login}">
+  <label>아이디: <input type="text" name="username" /></label>
+  <label>PW: <input type="password" name="password" /></label>
+    <label><input type="checkbox" name="remember-me"/>로그인 유지</label>
+  <button type="submit">로그인</button>
+</form>
+
+<p th:if="${param.error}" style="color:red">id /pw가 틀렸어요</p>
+<p th:if="${param.logout}" style="color:green">로그아웃 되었어요</p>
+<p th:if="${param.registered}" style="color:green">회원 가입 완료! 로그인하세요</p>
+<p><a th:href="@{/LoginSessionSimpleDB/register}">회원 가입</a></p>
+
+</body>
+</html>
