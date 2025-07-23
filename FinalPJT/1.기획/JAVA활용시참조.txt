@@ -23,19 +23,6 @@ JSON 통일
 
 예: "2025-07-14T09:00:00+09:00"
 
-✅ 예외 및 응답 코드:
-
-200 OK
-
-201 Created
-
-400 Bad Request
-
-404 Not Found
-
-500 Internal Server Error
-
-
-
 URI에는 동사 사용 금지 → 리소스 중심 설계
 ❌ /getEmployee → ✅ /employees
+

@@ -1,0 +1,15 @@
+기본키 - 코드기반, 브릿지테이블이 아닐시 모든 테이블에 지정 ex)테이블명+ _id BIGINT AUTO_INCREMENT PRIMARY KEY
+
+pk명을 설정시 
+id는 정수로된 분류값을 사용할시 사용 + _id
+code는 구분은 도메인 의미부여가 있을시만 사용(사람이 해석할 수 있는 분류값, 의미있는 값) + _code
+
+주의!
+Java ORM은 내부적으로 규칙을 기반으로 테이블과 컬럼명을 추론함.
+ORM은 내부적으로 규칙을 기반으로 테이블과 컬럼명을 추론함.
+
+예: userId → user_id
+
+그런데 직접 user_id 명시하면서 @Column 없이 쓰면 매핑이 어긋날 수도 있음
+
+✅ 해결: @Column(name = "user_id") 또는 @JoinColumn(name = "user_id") 명시적으로 매핑하면 문제 없음

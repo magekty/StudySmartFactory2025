@@ -1,0 +1,31 @@
+vscode_extension python, jupyter 
+
+// mini conda install after prompt setting
+conda create -n smartfactory1 python=3.12
+conda activate smartfactory1
+
+pip install numpy pandas matplotlib scikit-learn
+
+wehre python
+C:\ProgramData\miniconda3\envs\smartfactory1\python.exe
+
+
+
+// PowerBI Setting after path C:\ProgramData\miniconda3\envs\smartfactory1\
+
+
+
+
+from sklearn.datasets import load_iris
+import pandas as pd
+import numpy as np
+iris = load_iris()
+df = pd.DataFrame(iris['data'], columns=iris['feature_names'])
+df['target'] = iris['target']
+from sklearn.tree import DecisionTreeClassifier
+X = iris['data']
+y = iris['target']
+clf = DecisionTreeClassifier()
+clf.fit(X, y) 
+y = clf.predict(X)
+df['prediction'] = y
