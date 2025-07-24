@@ -4,11 +4,11 @@ vscode_extension python, jupyter
 conda create -n smartfactory1 python=3.12
 conda activate smartfactory1
 
-pip install numpy pandas matplotlib scikit-learn
+pip install numpy pandas matplotlib scikit-learn seaborn
 
 wehre python
 C:\ProgramData\miniconda3\envs\smartfactory1\python.exe
-
+C:\DevProgram\miniconda3\envs\smartfactory1
 
 
 // PowerBI Setting after path C:\ProgramData\miniconda3\envs\smartfactory1\
