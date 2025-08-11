@@ -1,0 +1,127 @@
+GlobalMed MES 에이전트 주입용 기초 지침 v1.0
+0) 맥락/목표
+프로젝트: GlobalMed MES — MESA-11 기반 스텐트 제조 스마트 MES
+비전: “핵심 공정을 효율적이고 신뢰성 있게 관리”
+시나리오(v1, Version B 강화형)
+로그인 → 메뉴 권한
+작업지시 발행
+설비 상태 RUN 1건(교대 일부 표시)
+실적 등록
+KPI(목표 vs 생산량·수율) 확인
+OEE 가동률(Availability)은 후속 확장 예정(명시)
+팀/일정: 4명, 40일, 하루 8h, 포트폴리오/PT 품질
+1) 아키텍처 원칙(ADR: 변하지 않는 룰)
+시간/저장: 모든 DATETIME은 UTC 저장, 화면에서 로컬(KST) 표시
+키/삭제: 단일 PK(서로게이트), 단일 FK(JPA 친화), ON DELETE RESTRICT(보수형), 실삭제는 비즈니스 로직
+코드: TB_CODE_GROUP/TB_CODE로 전역 일원화, 참조는 code_id
+교대/배치: XOR(설비 또는 작업장) + 부분 유니크 2개(설비/작업장 스코프별)
+신원: worker_id = TB_USER.user_id(FK) 단일 신원 원칙
+보안: JWT(Access 30분)+세션(2시간 비활성 만료) 병행, 세션 경로 CSRF 보호
+에러 포맷(표준): {code, message, details, traceId, timestamp, path, method}
+품질게이트: db_lint critical=0, major는 화이트리스트(캘린더·배치·이메일 NULL-UNIQUE)
+FE↔BE↔DB: FE→BE만 호출, FE→DB 직결 금지. 외부 시스템은 Inbox/Outbox/Integration 경유
+2) 데이터 모델(핵심 테이블만)
+기준/마스터: TB_WORKSHOP, TB_WORKCENTER, TB_PROCESS, TB_ITEM, TB_WAREHOUSE, TB_EQUIPMENT(status_code_id)
+계획/지시: TB_PRODUCTION_PLAN, TB_WORK_ORDER(설비×시간 인덱스, 수량/시간 CHECK)
+실행/상태: TB_PRODUCTION_PERFORMANCE(설비×시간/WO×시간 인덱스, 수량/시간 CHECK, worker FK), TB_EQUIPMENT_STATUS_LOG(시간 CHECK)
+교대: TB_SHIFT, TB_SHIFT_CALENDAR(XOR+부분 UK×2, 시간 CHECK), TB_SHIFT_ASSIGNMENT(XOR+부분 UK×2, 시간 CHECK)
+품질(라이트): TB_INSPECTION, TB_INSPECTION_RESULT, TB_DEFECT, TB_NON_CONFORMANCE
+KPI/감사: TB_KPI_TARGET(일×설비×공정×품목 UK, 퍼센트/생산성 CHECK), TB_AUDIT_LOG
+RBAC/코드: TB_USER, TB_ROLE, TB_USER_ROLE, TB_MENU, TB_ROLE_MENU, TB_CODE_GROUP, TB_CODE
+3) 상태 전이/검증(핵심 규칙)
+작업지시 전이(State Machine)
+From	To	허용
+P	R	예
+R	C	예
+C	R/P	아니오
+위반 시: 400 WO_STATUS_INVALID
+검증 공통
+실적: produced≥0, defect≥0, defect≤produced, end≥start(UTC)
+상태 로그: end≥start(또는 end NULL)
+KPI: target_oee/target_yield ∈ [0,100], target_productivity≥0
+교대: XOR(설비/equipment_id 또는 작업장/workcenter_id 한쪽만 값)
+4) API 계약(요약: v1 필수 10개)
+경로	메서드	목적	권한
+/auth/login	POST	로그인	공개
+/menus/my	GET	내 메뉴 트리	로그인
+/work-orders	POST	지시 생성(P)	ROLE_OP+
+/work-orders	GET	지시 목록	ROLE_OP+
+/work-orders/{id}	GET	지시 상세	ROLE_OP+
+/work-orders/{id}/status	PUT	P→R, R→C	ROLE_OP+
+/equip-status	POST	RUN 등록	ROLE_OP+
+/performances	POST	실적 등록	ROLE_OP+
+/performances	GET	실적 목록	ROLE_OP+
+/kpi/actuals	GET	목표 vs 실적	ROLE_OP/QA/ADMIN
+요청/응답: JSON, 시간은 ISO8601 UTC("2025-08-10T09:00:00Z")
+KPI 카드: 목표/생산량/수율 3종, 색상 규칙(초록: ≥목표, 노랑: -5% 이내, 빨강: -5% 초과 미달)
+5) 에러 코드 사전(표준)
+코드	HTTP	설명
+AUTH_REQUIRED	401	인증 필요
+FORBIDDEN	403	권한 부족
+VALIDATION_ERROR	400	필드 규칙 위반
+DUPLICATE_KEY	409	고유키 충돌
+WO_STATUS_INVALID	400	지시 전이 위반
+CODE_INACTIVE	400	비활성 코드 참조
+TIME_ORDER_INVALID	400	시간 역전
+SERVER_ERROR	500	내부 오류
+6) 성능/SLA(개발DB 기준)
+항목	SLA
+실적(설비×기간)	P95 < 300ms
+KPI(최근 7일)	P95 < 500ms
+설계 포인트: (equipment_id,start_time)·(work_order_id,start_time) 인덱스, KPI 복합 UK range 활용
+측정: JMeter 50/100VU 1분, EXPLAIN 캡처
+7) 시드/리셋/스모크(운영 지침)
+초기화: wipe_all.sql(외래키 꺼지지 않게 TRUNCATE 순서 포함)
+개발 시드: dev_seed_plus_ordered.sql(코드/RBAC/메뉴/교대/마스터/지시/상태/실적/KPI/품질 포함, 멱등)
+스모크: DB 스모크 T01~T16(트랜잭션+ROLLBACK), 의도된 실패/성공 확인
+계정/권한: admin/op/qa/viewer 계정, ROLE_MENU 플래그로 가시성·권한 검증
+데모 리셋: 관리자 전용 리셋 버튼 또는 SQL 실행(시연 전 1분 복원)
+8) 보안/운영
+JWT(30m)+세션(120m) 병행, 세션 CSRF 보호, 쿠키 HttpOnly/Secure/SameSite=Lax
+비밀번호: BCrypt 10~12 라운드
+시크릿: .env(.gitignore), 배포는 OS Secret/Vault
+로깅/감사: traceId, 표준 에러 포맷, 지시/상태/실적 감사 이벤트
+9) 프론트 가드/폼 검증
+메뉴는 /menus/my로만 렌더(권한 없는 메뉴/버튼 숨김)
+버튼 수준 권한: allow_read/write/exec 플래그
+폼: defect≤produced, end≥start(서버와 동일 룰), 전송은 UTC·표시는 KST
+10) 외부 연동(자리표시: v1.1)
+ERP: TB_INT_INBOX(멱등), TB_ERP_PROD_ORDER(스테이징), TB_ERP_WO_LINK, TB_INT_OUTBOX(발행)
+HMI(C#): /hmi/status → TB_EQUIPMENT_STATUS_LOG, /hmi/telemetry → TB_EQP_TELEMETRY
+BI: Power BI는 DB 뷰/테이블 읽기(읽기 전용)
+11) 에이전트 작업 지침(행동 강령)
+반드시 지켜라
+모든 시간은 UTC로 다루고, 응답/저장 시 UTC, 화면만 로컬화
+FE→BE→DB 경로만 사용(FE→DB 직접 호출 금지)
+상태 전이 표·검증 규칙·에러 포맷을 절대 일관
+code_id를 우선 사용(문자 코드는 입력 시 resolve)
+실패 검증은 “코드 문자열”까지 확인(예: WO_STATUS_INVALID)
+권장 절차
+새 기능 티켓은 DoR(목표/입력/검증/권한/에러/성능) 체크
+완료 시 DoD(테스트/리뷰/문서/성능/린트) 통과
+린트(db_lint.py) nightly, 보고서 md 보관
+모르는 점이 생기면 이렇게 물어라(Clarify)
+필요한 ID/코드(예: equipmentId, workOrderId, code_id)
+시간 구간(UTC from/to)
+권한(ROLE/메뉴 플래그)
+성공 기준(SLA/반올림/색상 임계)
+12) 환경/변수(.env 예시)
+키	값 예시
+DB_URL	mysql+mysqlconnector://mes_user:mes_pwd@localhost:3306/globalmed?charset=utf8mb4
+JWT_SECRET	강한 랜덤 시크릿
+JWT_ACCESS_TTL_MIN	30
+SESSION_SECRET	강한 랜덤 시크릿
+SESSION_TTL_MIN	120
+CORS_ALLOWED_ORIGINS	http://localhost:3000
+TZ	UTC
+13) 샘플 키(시드 기준)
+도메인	샘플 키
+EQUIPMENT	E-0001, E-0002
+PROCESS	P-0001, P-0002
+ITEM	I-0001
+WORK_ORDER	WO-0001(Released), WO-0002(Planned), WO-0003(Completed)
+14) 금지/주의(Do/Don’t)
+Don’t: FE가 DB를 직접 건드리거나, 로컬 시간으로 저장하는 행위
+Don’t: C→R/P 같은 상태 역행, 검증 없는 실적/상태 기록
+Do: 트랜잭션으로 PERF→WO 누적 원자성 보장, 표준 에러 포맷 유지
+Do: 스모크/린트/리셋을 시연 전 항상 실행

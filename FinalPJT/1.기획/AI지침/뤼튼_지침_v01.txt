@@ -1,0 +1,56 @@
+내가 “항상” 기억해야 하는 불변 원칙(항구 메모)
+환경/원칙
+DB는 MySQL 8.0+, 모든 DATETIME은 UTC 저장(표시는 앱에서).
+JPA 친화: 모든 테이블 단일 PK(서로게이트), 모든 참조는 단일 FK.
+FK 삭제 정책은 보수형: 기본 ON DELETE RESTRICT. (일부 로그·선택 FK만 SET NULL)
+실삭제는 비즈니스 로직로 처리(소프트삭제 컬럼 보유) — 형의 운영 철학 유지.
+코드 일원화
+TB_CODE_GROUP/TB_CODE 사용, PK=code_id, UK=(group_code, code).
+업무 컬럼은 code_id FK로 연결(문자 코드는 입력 시점에 resolve).
+교대/달력/배치 모델
+TB_SHIFT_CALENDAR, TB_SHIFT_ASSIGNMENT는 “한 로우 = 한 스코프(XOR: 설비 또는 작업장)”.
+중복 방지는 “부분 유니크 2개(설비용/작업장용)”로 구현.
+작업자 신원
+worker_id는 TB_USER.user_id와 강결합(FK). “단일 신원 원칙(사람=USER)” 유지.
+핵심 타임라인 인덱스
+설비×기간 조회: (equipment_id, start_time) — 실적/상태 로그 모두.
+작업지시×시간: (work_order_id, start_time).
+무결성 CHECK
+시간 역전 금지(end ≥ start), 수량 음수 금지, 퍼센트(0~100) 범위 등 핵심 테이블에 필수 CHECK 존재.
+RBAC/메뉴
+USER/ROLE/USER_ROLE + MENU/ROLE_MENU(읽기/쓰기/실행)로 화면/행동 제어.
+TB_MENU 자기참조 금지 CHECK는 제거(엔진 제약) → 앱 레벨 가드로 통제.
+지금까지 대화 중 “앞으로도” 기억해야 할 것(장기 메모 후보)
+프로젝트 제약/목표
+40일, 8시간/일, 팀(주니어 3 + 미들 1), 목적은 포트폴리오/프레젠테이션 품질.
+스코프 결정
+OEE 최소 경로: EQUIPMENT_STATUS_LOG + PRODUCTION_PERFORMANCE + 교대 캘린더.
+품질 라이트: INSPECTION → RESULT/DEFECT → NON_CONFORMANCE 1:1.
+KPI: 일×설비×공정×품목 타깃(UK) 확정.
+정책/예외
+TB_MENU self-parent는 DB CHECK 제거(3818 회피) → 앱 검증 혹은 트리거 선택.
+“NULL 포함 유니크” 경고는 설계 의도:
+캘린더/배치(부분 유니크, XOR로 안전)
+TB_USER.email은 NULL 허용 + UNIQUE(정책적 예외)
+린트에서 화이트리스트 처리.
+시드/입력 규칙
+상태/유형 등은 항상 문자열 코드 → code_id로 resolve 후 INSERT.
+KPI/Shift/Code/Role/Menu 기본 시드는 배포 스크립트로 통일.
+자동화/품질 게이트
+db_lint.py: FK 인덱스/타입, 필수 인덱스/체크, CHECK↔FK 충돌, 구간 겹침, 고아 worker, 비활성 코드, EXPLAIN 수집.
+대소문자 정규화·화이트리스트(XOR/Email) 반영 완료.
+v1 스키마 스냅샷(핵심 묶음)
+마스터: ITEM, PROCESS, WORKSHOP, WORKCENTER, WAREHOUSE, EQUIPMENT(status_code_id)
+계획/지시: PRODUCTION_PLAN(CHECK 다수), WORK_ORDER(설비×시간 인덱스, 수량/시간 CHECK)
+BOM/LOT: BOM(라인 UK+수량>0), MATERIAL_LOT(수량≥0, 품목×창고 인덱스)
+실행/상태: PRODUCTION_PERFORMANCE(설비×시간/WO×시간 인덱스, 수량/시간 CHECK, worker FK), EQUIPMENT_STATUS_LOG(설비×시간 인덱스, 시간 CHECK)
+교대: SHIFT, SHIFT_CALENDAR(XOR + 부분 UK×2 + 시간 CHECK), SHIFT_ASSIGNMENT(XOR + 부분 UK×2 + 시간 CHECK + worker FK)
+품질: INSPECTION(유형/시간 인덱스, worker FK), INSPECTION_RESULT(검사×품목 UK), DEFECT(검사×유형 UK, 수량≥0), NON_CONFORMANCE(defect 1:1, worker FK)
+KPI/감사: KPI_TARGET(일×설비×공정×품목 UK, 퍼센트/생산성 CHECK), AUDIT_LOG(user SET NULL)
+권한/메뉴: ROLE, USER, USER_ROLE(UK, 보수형), MENU(트리 인덱스, 앱 가드), ROLE_MENU(읽기/쓰기/실행 플래그)
+리스크/주의 포인트(운영 중 계속 주시)
+엔진/모드: MySQL 8.0.17+ (CHECK 유효), STRICT 모드 전제.
+TB_MENU self-parent: DB에서 막지 않으니 앱 레벨로 확실히 차단.
+시간 구간 겹침: 상태 로그·배치에 “겹침” 발생 여부는 린트에서 지속 검사.
+상태/코드 활성: use_yn='Y'만 참조되도록 린트 유지.
+성능: KPI 일/설비 범위 조회가 많아지면 TB_KPI_TARGET(kpi_date) 단일 인덱스는 선택 적용.
