@@ -6,7 +6,6 @@ MESA-11 기반 스텐트 제조 스마트 MES. v1 시나리오(로그인→지�
 
 - 00_Overview
   - docs/00_Overview/OnePager.md — 프로젝트 한 장 요약(목표/범위/일정/성공기준)
-  - docs/00_Overview/SuccessCriteria.md — 성공 기준(DoD) 상세 표
 - 10_Architecture
   - docs/10_Architecture/ADRs.md — 아키텍처 결정 기록(UTC, RESTRICT, code_id 등 불변 원칙)
   - docs/10_Architecture/Security_RBAC.md — 역할/권한/메뉴 가드 설계 요약
@@ -18,6 +17,7 @@ MESA-11 기반 스텐트 제조 스마트 MES. v1 시나리오(로그인→지�
   - docs/30_API/API_List.md — API 엔드포인트 목록(요청/응답 요약)
   - docs/30_API/ErrorSpec.md — 표준 에러 포맷/샘플(코드·메시지·traceId 등)
   - docs/30_API/Swagger.yaml — Swagger(OpenAPI) 정의 파일(문서/테스트용)
+  - docs/30_API/API_Test9.md — API 뼈대 개발 테스트
 - 40_UIUX
   - docs/40_UIUX/UserFlows.md — 화면/사용자 흐름(로그인→지시→RUN→실적→KPI)
   - docs/40_UIUX/Wireframes_Notes.md — 와이어프레임 설명(필드/컴포넌트 메모)
@@ -87,7 +87,7 @@ Set-ExecutionPolicy RemoteSigned
 - PR 체크리스트
   - db_lint critical=0
   - 스모크 통과(T01~T16 중 바뀐 영역)
-  - API 에러 포맷 표준 준수
+  - API 에러 포맷 표준 준수 
   - 성능 기준 영향 시 노트 첨부
 
 ## 라이선스/문의
